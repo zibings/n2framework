@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>N2F 2.0</Name>
+    <ProjectGuid>{9e7e51d0-d71b-47b5-a649-c963c63513fc}</ProjectGuid>
+    <RootNamespace>N2F 2.0</RootNamespace>
+    <OutputType>Library</OutputType>
+    <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IncludeDebugInformation>false</IncludeDebugInformation>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="N2f.php" />
+    <Compile Include="N2f\Core\AutoLoader.cls.php" />
+    <Compile Include="N2f\Core\BaseClasses\Extension.base.php" />
+    <Compile Include="N2f\Core\BaseClasses\index.php" />
+    <Compile Include="N2f\Core\Config.cls.php" />
+    <Compile Include="N2f\Core\Dispatches\Cli.dispatch.php" />
+    <Compile Include="N2f\Core\Dispatches\Config.dispatch.php" />
+    <Compile Include="N2f\Core\Dispatches\Extension.dispatch.php" />
+    <Compile Include="N2f\Core\Dispatches\Generate.dispatch.php" />
+    <Compile Include="N2f\Core\Dispatches\index.php" />
+    <Compile Include="N2f\Core\Dispatches\Log.dispatch.php" />
+    <Compile Include="N2f\Core\Dispatches\LogOutput.dispatch.php" />
+    <Compile Include="N2f\Core\Dispatches\Shutdown.dispatch.php" />
+    <Compile Include="N2f\Core\Dispatches\Web.dispatch.php" />
+    <Compile Include="N2f\Core\Helpers\ChainHelper.cls.php" />
+    <Compile Include="N2f\Core\Helpers\ConsoleHelper.cls.php" />
+    <Compile Include="N2f\Core\Dispatches\Json.dispatch.php" />
+    <Compile Include="N2f\Core\Extension.cls.php" />
+    <Compile Include="N2f\Core\Helpers\FileHelper.cls.php" />
+    <Compile Include="N2f\Core\BaseClasses\Dispatch.base.php" />
+    <Compile Include="N2f\Core\BaseClasses\Node.base.php" />
+    <Compile Include="N2f\Core\Helpers\index.php" />
+    <Compile Include="N2f\Core\Helpers\JsonHelper.cls.php" />
+    <Compile Include="N2f\Core\Helpers\ParameterHelper.cls.php" />
+    <Compile Include="N2f\Core\Nodes\CoreGenerate.node.php" />
+    <Compile Include="N2f\Core\Nodes\ExtensionConfig.node.php" />
+    <Compile Include="N2f\Extensions\SampleExtension\SampleExtension.ext.php" />
+    <Compile Include="N2f\Includes\Enums.inc.php" />
+    <Compile Include="N2f\Core\Helpers\RequestHelper.cls.php" />
+    <Compile Include="N2f\Core\Helpers\VersionHelper.cls.php" />
+    <Compile Include="N2f\Core\index.php" />
+    <Compile Include="N2f\Core\Logger.cls.php" />
+    <Compile Include="N2f\Core\N2f.cls.php" />
+    <Compile Include="N2f\Core\Nodes\CoreConfig.node.php" />
+    <Compile Include="N2f\Core\Helpers\ReturnHelper.cls.php" />
+    <Compile Include="N2f\Core\Nodes\index.php" />
+    <Compile Include="N2f\Core\Nodes\LoggerProcessor.node.php" />
+    <Compile Include="N2f\Core\Templates\index.php" />
+    <Compile Include="N2f\Core\Templates\Extension\index.php" />
+    <Compile Include="N2f\Core\Templates\Extension\Extension.ext.php" />
+    <Compile Include="N2f\Extensions\index.php" />
+    <Compile Include="N2f\Extensions\SampleExtension\index.php" />
+    <Compile Include="N2f\Includes\Constants.inc.php" />
+    <Compile Include="N2f\Includes\Core.inc.php" />
+    <Compile Include="N2f\Includes\Functions.inc.php" />
+    <Compile Include="N2f\Includes\index.php" />
+    <Compile Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="composer.json" />
+    <Content Include="n2f-cli" />
+    <Content Include="n2f-cli.bat" />
+    <Content Include="N2f\Core\Templates\SampleConfig.cfg" />
+    <Content Include="N2f\Extensions\SampleExtension\SampleExtension.cfg" />
+    <Content Include="N2f\Includes\N2f.cfg" />
+    <Content Include="README.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="N2f\" />
+    <Folder Include="N2f\Core\" />
+    <Folder Include="N2f\Core\BaseClasses\" />
+    <Folder Include="N2f\Core\Dispatches\" />
+    <Folder Include="N2f\Core\Helpers\" />
+    <Folder Include="N2f\Core\Nodes\" />
+    <Folder Include="N2f\Core\Templates\" />
+    <Folder Include="N2f\Core\Templates\Extension\" />
+    <Folder Include="N2f\Extensions\" />
+    <Folder Include="N2f\Extensions\SampleExtension\" />
+    <Folder Include="N2f\Includes\" />
+  </ItemGroup>
+</Project>

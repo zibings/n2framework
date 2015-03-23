@@ -1,0 +1,21 @@
+{
+	"name": "Zibings/N2f",
+	"description": "N2 Framework",
+	"version": "2.0",
+	"homepage": "http://www.n2framework.com",
+	"autoload": {
+		"psr-0": {},
+		"psr-4": {}
+	},
+	"require": {},
+	"config": {
+		"process-timeout": 300,
+		"vendor-dir": "N2f/ThirdParty",
+		"cache-dir": "N2fCache",
+		"cache-files-dir": "N2fCache/files",
+		"cache-repo-dir": "N2fCache/repo",
+		"cache-vcs-dir": "N2fCache/vcs",
+		"cache-files-ttl": 15552000,
+		"cache-files-maxsize": "20MiB"
+	}
+}
