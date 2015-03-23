@@ -15,16 +15,44 @@
 	 * @package N2F
 	 */
 	class ChainHelper {
+		/**
+		 * Collection of nodes linked into chain.
+		 * 
+		 * @var array
+		 */
 		protected $_Nodes = array();
+		/**
+		 * Dispatch to use during traversal.
+		 * 
+		 * @var \N2f\DispatchBase
+		 */
 		protected $_Dispatch;
+		/**
+		 * Whether or not multiple nodes may be linked
+		 * to the chain. An event only allows one node.
+		 * 
+		 * @var bool
+		 */
 		private $_IsEvent = false;
 
+		/**
+		 * Creates a new ChainHelper instance.
+		 * 
+		 * @param bool $IsEvent True if chain is an event, default is false.
+		 * @return void
+		 */
 		public function __construct($IsEvent = false) {
 			$this->_IsEvent = $IsEvent;
 
-			return $this;
+			return;
 		}
 
+		/**
+		 * Returns the collection of node information
+		 * for all nodes linked into chain.
+		 * 
+		 * @return array Array of linked node keys and versions.
+		 */
 		public function GetNodeList() {
 			$ret = array();
 
@@ -37,6 +65,12 @@
 			return $ret;
 		}
 
+		/**
+		 * Links a new NodeBase node into chain.
+		 * 
+		 * @param \N2f\NodeBase $Node Node to link into chain.
+		 * @return \N2f\ChainHelper The current ChainHelper instance.
+		 */
 		public function LinkNode(NodeBase $Node) {
 			if (!$Node->IsValid()) {
 				return $this;
@@ -51,10 +85,21 @@
 			return $this;
 		}
 
+		/**
+		 * Starts traversal of the chain if there are linked
+		 * nodes, the dispatch is valid, and the dispatch is
+		 * not consumed.
+		 * 
+		 * @param \N2f\DispatchBase $Dispatch The dispatch to send along the chain.
+		 * @param mixed $Sender Optional sender object, ChainHelper instance used if not provided.
+		 * @return void
+		 */
 		public function Traverse(DispatchBase &$Dispatch, $Sender = null) {
 			if (count($this->_Nodes) < 1 || !$Dispatch->IsValid() || $Dispatch->IsConsumed()) {
 				return;
 			}
+
+			$this->_Dispatch = $Dispatch;
 
 			if ($Sender === null) {
 				$Sender = $this;
