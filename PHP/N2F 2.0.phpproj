@@ -61,7 +61,6 @@
     <Compile Include="N2f\Includes\Core.inc.php" />
     <Compile Include="N2f\Includes\Functions.inc.php" />
     <Compile Include="N2f\Includes\index.php" />
-    <Compile Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="composer.json" />
@@ -70,7 +69,6 @@
     <Content Include="N2f\Core\Templates\SampleConfig.cfg" />
     <Content Include="N2f\Extensions\SampleExtension\SampleExtension.cfg" />
     <Content Include="N2f\Includes\N2f.cfg" />
-    <Content Include="README.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="N2f\" />
