@@ -1,5 +1,11 @@
 <?php
 
+	/**
+	 * Determines if executing environment is
+	 * recognized as Windows based.
+	 * 
+	 * @return bool True if PHP_OS starts with 'WIN', false otherwise.
+	 */
 	function env_is_windows() {
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			return true;
@@ -8,6 +14,11 @@
 		return false;
 	}
 
+	/**
+	 * Creates a unique identifier.
+	 * 
+	 * @return string Unique identifier.
+	 */
 	function env_get_guid() {
 		if (function_exists('com_create_guid')) {
 			return com_create_guid();
@@ -26,6 +37,11 @@
 		}
 	}
 
+	/**
+	 * Returns the list of supported locales.
+	 * 
+	 * @return string[] List of supported locales.
+	 */
 	function env_get_locales() {
 		return array(
 			'af-ZA', 'am-ET', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'arn-CL', 'ar-OM', 'ar-QA', 'ar-SA', 'ar-SY', 'ar-TN',
@@ -44,6 +60,17 @@
 		);
 	}
 
+	/**
+	 * Parses a collection of arguments into an organized
+	 * collection.  Pairs of arguments are put together
+	 * while toggle elements (ie, -enable) are given a
+	 * value of true.  Case sensitivity can be optionally
+	 * disabled.
+	 * 
+	 * @param array $args Array of arguments to parse.
+	 * @param bool $caseInsensitive Optional argument to disable case sensitivity in resulting array.
+	 * @return array Array of organized argument values.
+	 */
 	function env_parse_params(array $args, $caseInsensitive = false) {
 		$len = count($args);
 		$assoc = array();
