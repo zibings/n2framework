@@ -15,6 +15,7 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="index.php" />
     <Compile Include="N2f.php" />
     <Compile Include="N2f\Core\AutoLoader.cls.php" />
     <Compile Include="N2f\Core\BaseClasses\Extension.base.php" />
