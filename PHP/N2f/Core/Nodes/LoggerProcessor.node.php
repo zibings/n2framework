@@ -15,12 +15,24 @@
 	 * @package N2F
 	 */
 	class LoggerProcessor extends NodeBase {
+		/**
+		 * Creates a new LoggerProcessor instance.
+		 * 
+		 * @return void
+		 */
 		public function __construct() {
 			$this->SetKey('N2f-LoggerProcessor')->SetVersion('1.0');
 
-			return $this;
+			return;
 		}
 
+		/**
+		 * Processes a LogOutputDispatch from a sender.
+		 * 
+		 * @param mixed $Sender Sender value.
+		 * @param \N2f\DispatchBase $Dispatch The DispatchBase instance for the chain, must be a LogOutputDispatch.
+		 * @return void
+		 */
 		public function Process($Sender, DispatchBase &$Dispatch) {
 			if (!($Dispatch instanceof LogOutputDispatch) || $Dispatch->GetLogLevel() & N2F_LOG_NONE) {
 				return;
@@ -153,6 +165,14 @@
 			return;
 		}
 
+		/**
+		 * Creates a block of console output based on a
+		 * collection of logs.
+		 * 
+		 * @param string $Id String value of group ID.
+		 * @param array $Logs Array of logs to output.
+		 * @return void
+		 */
 		protected function GenerateConsoleBlock($Id, array $Logs) {
 			$Ch = new ConsoleHelper();
 
@@ -173,6 +193,14 @@
 			return;
 		}
 
+		/**
+		 * Creates a block of HTML output based on a
+		 * collection of logs.
+		 * 
+		 * @param string $Id String value of group ID.
+		 * @param array $Logs Array of logs to output.
+		 * @return void
+		 */
 		protected function GenerateHtmlBlock($Id, array $Logs) {
 			if (count($Logs) < 1) {
 				echo("<div>[{$Id}] There were no {$Id} logs recorded.</div>");
