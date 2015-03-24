@@ -276,7 +276,7 @@
 				$RefCls = new \ReflectionClass($Name);
 
 				if ($RefCls->isSubclassOf('N2f\ExtensionBase')) {
-					$Cls = $RefCls->newInstance(null);
+					$Cls = $RefCls->newInstanceArgs();
 					$Cls->Initialize($this);
 				}
 			} catch (\ReflectionException $Exception) {
@@ -362,6 +362,8 @@
 						if ($Ret->IsGud()) {
 							$this->CallReceiverClass($Name);
 							$this->_Extensions[$Name] = $tmp;
+						} else {
+							$Ret->SetMessage("Extension '{$Name}' wasn't loaded.");
 						}
 					}
 				} else {
