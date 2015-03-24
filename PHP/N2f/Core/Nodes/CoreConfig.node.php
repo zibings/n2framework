@@ -14,12 +14,24 @@
 	 * @package N2F
 	 */
 	class CoreConfig extends NodeBase {
+		/**
+		 * Creates a new CoreConfig instance.
+		 * 
+		 * @return void
+		 */
 		public function __construct() {
 			$this->SetKey('N2f-CoreConfig')->SetVersion('1.0');
 
 			return;
 		}
 
+		/**
+		 * Processes a CliDispatch from a sender.
+		 * 
+		 * @param mixed $Sender Sender value.
+		 * @param \N2f\DispatchBase $Dispatch The DispatchBase instance for the chain, must be a CliDispatch.
+		 * @return void
+		 */
 		public function Process($Sender, DispatchBase &$Dispatch) {
 			if (!($Dispatch instanceof CliDispatch)) {
 				return;
@@ -210,10 +222,23 @@
 			return;
 		}
 
+		/**
+		 * Method to generate a new hash using the
+		 * built-in env_get_guid function and a sha1
+		 * value.
+		 * 
+		 * @return string String value of generated hash.
+		 */
 		protected function GenerateHash() {
 			return sha1(\env_get_guid());
 		}
 
+		/**
+		 * Determines if the given timezone is valid.
+		 * 
+		 * @param string $Timezone Timezone to validate.
+		 * @return bool True if included in system list, false otherwise.
+		 */
 		protected function ValidateTimezone($Timezone) {
 			$zones = \DateTimeZone::listAbbreviations();
 
@@ -228,6 +253,12 @@
 			return false;
 		}
 
+		/**
+		 * Determines if the given locale is valid.
+		 * 
+		 * @param string $Locale String value of locale abbreviation to validate.
+		 * @return bool True if included in locale list, false otherwise.
+		 */
 		protected function ValidateLocale($Locale) {
 			foreach (array_values(\env_get_locales()) as $loc) {
 				if (strtolower($loc) == strtolower($Locale)) {					
