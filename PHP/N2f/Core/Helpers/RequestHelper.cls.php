@@ -14,9 +14,27 @@
 	 * @package N2F
 	 */
 	class RequestHelper {
+		/**
+		 * Static instance of input string.
+		 * 
+		 * @var string
+		 */
 		private static $_InputString = '';
+		/**
+		 * Static instance of whether or not request
+		 * is JSON.
+		 * 
+		 * @var bool
+		 */
 		private static $_IsJson = null;
 
+		/**
+		 * Retrieves and checks certain pieces of
+		 * a request to determine if the request
+		 * is JSON.
+		 * 
+		 * @return bool
+		 */
 		public function IsJson() {
 			if (RequestHelper::$_IsJson !== null) {
 				return RequestHelper::$_IsJson;
@@ -56,7 +74,7 @@
 		 * input information.
 		 * 
 		 * @param mixed $Type Optional type of input to return (returns REQUEST if not specified).
-		 * @return \N2f\ParameterHelper
+		 * @return \N2f\ParameterHelper The current ParameterHelper instance.
 		 */
 		public function GetInput($Type = null) {
 			if ($Type === null && $this->IsJson()) {
@@ -78,7 +96,7 @@
 		 * environment information.
 		 * 
 		 * @param \N2f\EnvironmentInfo $EnvInfo Optional type of environment info to return (returns SERVER if not specified).
-		 * @return \N2f\ParameterHelper
+		 * @return \N2f\ParameterHelper The current ParameterHelper instance.
 		 */
 		public function GetEnv($EnvInfo = null) {
 			switch ($EnvInfo) {
@@ -94,6 +112,11 @@
 			}
 		}
 
+		/**
+		 * Internal method to read the input string.
+		 * 
+		 * @return void
+		 */
 		protected static function ReadInput() {
 			if (!empty(RequestHelper::$_InputString)) {
 				return;
