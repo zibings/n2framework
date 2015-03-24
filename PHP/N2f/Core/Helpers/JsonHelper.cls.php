@@ -15,28 +15,43 @@
 	 * @package N2F
 	 */
 	class JsonHelper {
-		private $_IsAssoc;
-		private $_Data;
-
+		/**
+		 * Creates a new JsonHelper instance.
+		 * 
+		 * @return void
+		 */
 		public function __construct() {
-			$this->_IsAssoc = false;
-
-			return $this;
+			return;
 		}
 
+		/**
+		 * Method to decode a JSON string.
+		 * 
+		 * @param string $Data JSON string to decode.
+		 * @return mixed Decoded object or array.
+		 */
 		public function Decode($Data) {
-			$this->_Data = json_decode($Data);
-
-			return $this->_Data;
+			return json_decode($Data);
 		}
 
+		/**
+		 * Method to decode a JSON string into
+		 * an array.
+		 * 
+		 * @param string $Data JSON string to decode.
+		 * @return array Decoded array.
+		 */
 		public function DecodeAssoc($Data) {
-			$this->_Data = json_decode($Data, true);
-			$this->_IsAssoc = true;
-
-			return $this->_Data;
+			return json_decode($Data, true);
 		}
 
+		/**
+		 * Encodes data into a JSON string.
+		 * 
+		 * @param mixed $Data Data to encode.
+		 * @param bool $Prettify Whether or not to produce formatted output.
+		 * @return string JSON string version of $Data.
+		 */
 		public function Encode($Data = null, $Prettify = false) {
 			$Json = ($Data === null) ? $this->_Data : $Data;
 
@@ -86,7 +101,7 @@
 						$ind++;
 					}
 	
-					for ($j = 0; $j < $pos; $j++) {
+					for ($j = 0; $j < $ind; $j++) {
 						$result .= $indStr;
 					}
 				}
@@ -97,22 +112,15 @@
 			return $result;
 		}
 
+		/**
+		 * Encodes data into a JSON string with
+		 * formatted output.
+		 * 
+		 * @param mixed $Data Data to encode.
+		 * @return string JSON string version of $Data.
+		 */
 		public function EncodePretty($Data = null) {
 			return $this->Encode($Data, true);
-		}
-
-		public function GetData() {
-			return $this->_Data;
-		}
-
-		public function SetData($Data) {
-			if (is_string($Data)) {
-				return $this;
-			}
-
-			$this->_Data = $Data;
-
-			return $this;
 		}
 	}
 
