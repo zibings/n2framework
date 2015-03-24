@@ -14,11 +14,36 @@
 	 * @package N2F
 	 */
 	class ConsoleHelper {
+		/**
+		 * Collection of arguments.
+		 * 
+		 * @var array
+		 */
 		private $argInfo = array();
+		/**
+		 * Whether or not executing environment
+		 * is Windows based.
+		 * 
+		 * @var bool
+		 */
 		private $isWindows = false;
+		/**
+		 * Allows overriding instances to think
+		 * they were called from CLI PHP.
+		 * 
+		 * @var bool
+		 */
 		private $forceCli = false;
 
-		public function __construct($argc = null, $argv = null, $columns = 80, $forceCli = false) {
+		/**
+		 * Creates a new ConsoleHelper instance.
+		 * 
+		 * @param int $argc Number of arguments.
+		 * @param array $argv Argument collection.
+		 * @param bool $forceCli Force instance to emulate CLI mode.
+		 * @return void
+		 */
+		public function __construct($argc = null, array $argv = null, $forceCli = false) {
 			if ($argc === null || $argv === null) {
 				$this->argInfo = null;
 			} else {
@@ -39,10 +64,41 @@
 			return;
 		}
 
+		/**
+		 * Compares an argument by key optionally
+		 * without case sensitivity. May return
+		 * inaccurate results against toggle type
+		 * arguments.
+		 * 
+		 * @param string $key String value of key in argument list.
+		 * @param string $value Value to compare against.
+		 * @param bool $caseInsensitive Enable case-insensitive comparison.
+		 * @return bool True if the values are the same, false otherwise.
+		 */
+		public function CompareArg($key, $value, $caseInsensitive = false) {
+			return ($caseInsensitive) ? strtolower($this->argInfo['arga'][$key]) == strtolower($value) : $this->argInfo['arga'] == $value;
+		}
+
+		/**
+		 * Compares an argument at the given index
+		 * optionally without case sensitivity.
+		 * Returns false if index is out of bounds.
+		 * 
+		 * @param int $index Integer value for argument offset.
+		 * @param string $value String value to compare against.
+		 * @param bool $caseInsensitive Enable case-insensitive comparison.
+		 * @return bool True if the values are the same, false otherwise.
+		 */
 		public function CompareArgAt($index, $value, $caseInsensitive = false) {
 			return ($this->argInfo['argc'] > $index && (($caseInsensitive) ? strtolower($this->argInfo['argv'][$index]) == strtolower($value) : $this->argInfo['argv'][$index] == $value));
 		}
 
+		/**
+		 * Retrieves $characters from STDIN.
+		 * 
+		 * @param int $characters Number of characters to read from STDIN.
+		 * @return string|null Trimmed string up to $characters long, or null if $characters is less than 1.
+		 */
 		public function Get($characters = 1) {
 			if ($characters < 1) {
 				return null;
@@ -51,32 +107,91 @@
 			return trim(fread(STDIN, $characters));
 		}
 
+		/**
+		 * Retrieves an entire line from STDIN.
+		 * 
+		 * @return string Trimmed string from STDIN.
+		 */
 		public function GetLine() {
 			return trim(fgets(STDIN));
 		}
 
-		public function HasArg($key) {
-			return $this->argInfo['argc'] > 0 && array_key_exists($key, $this->argInfo['arga']);
+		/**
+		 * Checks if the given key exists in the argument list,
+		 * optionally without case sensitivity.
+		 * 
+		 * @param string $key Key name to check in argument list.
+		 * @param bool $caseInsensitive Enable case-insensitive comparison.
+		 * @return bool True if key is found in argument list, false if not.
+		 */
+		public function HasArg($key, $caseInsensitive = false) {
+			if ($this->argInfo['argc'] < 1) {
+				return false;
+			}
+
+			if ($caseInsensitive) {
+				foreach (array_keys($this->argInfo['arga']) as $k) {
+					if (strtolower($k) == strtolower($key)) {
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			return array_key_exists($key, $this->argInfo['arga']);
 		}
 
+		/**
+		 * Returns whether or not PHP invocation is via CLI
+		 * or invocation is emulating CLI.
+		 * 
+		 * @return bool True if called from CLI or emulating CLI, false otherwise.
+		 */
 		public function IsCLI() {
 			return $this->forceCli || php_sapi_name() == 'cli';
 		}
 
+		/**
+		 * Returns the number of arguments.
+		 * 
+		 * @return int Number of arguments supplied to the instance.
+		 */
 		public function NumArgs() {
 			return $this->argInfo['argc'];
 		}
 
+		/**
+		 * Returns the argument collection, either
+		 * as-received by the instance or as an
+		 * associative array.
+		 * 
+		 * @param bool $AsAssociative Enables returning list as an associative array.
+		 * @return array Associative or regular array of argument list.
+		 */
 		public function Parameters($AsAssociative = false) {
 			return ($AsAssociative) ? $this->argInfo['arga'] : $this->argInfo['argv'];
 		}
 
+		/**
+		 * Outputs the buffer to STDIN.
+		 * 
+		 * @param string $buf Buffer to output.
+		 * @return void
+		 */
 		public function Put($buf) {
 			echo($buf);
 
 			return;
 		}
 
+		/**
+		 * Outputs the buffer followed by a newline
+		 * to STDIN.
+		 * 
+		 * @param string $buf Buffer to output.
+		 * @return void
+		 */
 		public function PutLine($buf = null) {
 			if ($buf !== null) {
 				echo($buf);
