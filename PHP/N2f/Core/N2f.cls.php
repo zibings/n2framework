@@ -131,6 +131,12 @@
 			return new N2f($Config);
 		}
 
+		/**
+		 * Creates a new N2f instance.
+		 * 
+		 * @param array $Config Optional configuration value in the form of an array.
+		 * @return void
+		 */
 		protected function __construct($Config = null) {
 			if ($Config !== null && is_array($Config) && count($Config) > 0) {
 				if (array_key_exists('Config', $Config)) {
@@ -172,6 +178,12 @@
 			return;
 		}
 
+		/**
+		 * Method to show results from dipatches being processed.
+		 * 
+		 * @param \N2f\DispatchBase $Dispatch DispatchBase to pull results out of.
+		 * @return void
+		 */
 		protected function DisplayDispatchResults(DispatchBase &$Dispatch) {
 			if ($Dispatch->IsValid()) {
 				if ($Dispatch->NumResults() > 0) {
@@ -249,6 +261,12 @@
 			return $this->_Rh;
 		}
 
+		/**
+		 * Method to create an instance of a receiver class.
+		 * 
+		 * @param string $Name Name of class to instantiate.
+		 * @return void
+		 */
 		protected function CallReceiverClass($Name) {
 			if (!class_exists($Name)) {
 				return;
@@ -258,7 +276,7 @@
 				$RefCls = new \ReflectionClass($Name);
 
 				if ($RefCls->isSubclassOf('N2f\ExtensionBase')) {
-					$Cls = $RefCls->newInstance();
+					$Cls = $RefCls->newInstance(null);
 					$Cls->Initialize($this);
 				}
 			} catch (\ReflectionException $Exception) {
@@ -432,6 +450,11 @@
 			return $this;
 		}
 
+		/**
+		 * Triggers the traversal of the ConfigChain.
+		 * 
+		 * @return void
+		 */
 		protected function PerformConfigure() {
 			$Disp = new ConfigDispatch();
 			$Disp->Initialize(array('relDir' => $this->_Fh->GetRelDir(), 'ConsoleHelper' => $this->_Ch));
@@ -442,6 +465,11 @@
 			return;
 		}
 
+		/**
+		 * Triggers the traversal of the ExecuteChain.
+		 * 
+		 * @return void
+		 */
 		protected function PerformExecute() {
 			$Disp = null;
 
@@ -465,6 +493,11 @@
 			return;
 		}
 		
+		/**
+		 * Triggers the traversal of the ExtensionChain.
+		 * 
+		 * @return void
+		 */
 		protected function PerformExtension() {
 			$Disp = new ExtensionDispatch();
 			$Disp->Initialize(array('ConsoleHelper' => $this->_Ch, 'FileHelper' => $this->_Fh));
@@ -475,6 +508,11 @@
 			return;
 		}
 
+		/**
+		 * Triggers the traversal of the GenerationChain.
+		 * 
+		 * @return void
+		 */
 		protected function PerformGeneration() {
 			$Disp = new GenerateDispatch();
 			$Disp->Initialize(array('ConsoleHelper' => $this->_Ch, 'FileHelper' => $this->_Fh));
@@ -485,6 +523,11 @@
 			return;
 		}
 
+		/**
+		 * Triggers traversal of the ShutdownChain.
+		 * 
+		 * @return void
+		 */
 		public function PerformShutdown() {
 			$Disp = new ShutdownDispatch();
 			$Disp->Initialize(null);
