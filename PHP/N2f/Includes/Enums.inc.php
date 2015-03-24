@@ -2,9 +2,22 @@
 
 	namespace N2f;
 
+	/**
+	 * Abstract class to represent Enum base type.
+	 */
 	abstract class Enum {
+		/**
+		 * Cached collection of class constants.
+		 * 
+		 * @var array
+		 */
 		private static $constCache = null;
 
+		/**
+		 * Retrieves the list of constants for the class.
+		 * 
+		 * @return array
+		 */
 		public static function getConstList() {
 			if (self::$constCache === null) {
 				self::$constCache = array();
