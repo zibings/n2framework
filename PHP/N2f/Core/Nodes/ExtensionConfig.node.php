@@ -14,12 +14,24 @@
 	 * @package N2F
 	 */
 	class ExtensionConfig extends NodeBase {
+		/**
+		 * Creates a new ExtensionConfig instance.
+		 * 
+		 * @return void
+		 */
 		public function __construct() {
 			$this->SetKey('n2f-extensioncofig')->SetVersion('1.0');
 
 			return;
 		}
 
+		/**
+		 * Processes an ExtensionDispatch from a sender.
+		 * 
+		 * @param mixed $Sender Sender value.
+		 * @param \N2f\DispatchBase $Dispatch The DispatchBase instance for the chain, must be an ExtensionDispatch.
+		 * @return void
+		 */
 		public function Process($Sender, DispatchBase &$Dispatch) {
 			if (!($Dispatch instanceof ExtensionDispatch)) {
 				return;
@@ -118,6 +130,13 @@
 			return;
 		}
 
+		/**
+		 * Determines if a value exists in an array.
+		 * 
+		 * @param mixed $Value Value to check for in array.
+		 * @param array $Array Array to check for value.
+		 * @return bool True if value found, false otherwise.
+		 */
 		protected function ArrayValueExists($Value, array $Array) {
 			if (count($Array) < 1) {
 				return false;
