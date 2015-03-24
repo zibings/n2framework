@@ -44,6 +44,11 @@
 			$relDir = (array_key_exists('relDir', $Env)) ? $Env['relDir'] : N2F_REL_DIR;
 
 			$Ch = new ConsoleHelper();
+
+			if (!$Ch->IsNaturalCLI()) {
+				return;
+			}
+
 			$Fh = new FileHelper($relDir);
 			$Jh = new JsonHelper();
 			$D = array(

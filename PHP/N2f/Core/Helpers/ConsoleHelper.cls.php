@@ -153,6 +153,16 @@
 		}
 
 		/**
+		 * Returns whether or not PHP invocation is via CLI
+		 * and ignores forced CLI mode.
+		 * 
+		 * @return bool True if called from CLI, false otherwise.
+		 */
+		public function IsNaturalCLI() {
+			return php_sapi_name() == 'cli';
+		}
+
+		/**
 		 * Returns the number of arguments.
 		 * 
 		 * @return int Number of arguments supplied to the instance.
