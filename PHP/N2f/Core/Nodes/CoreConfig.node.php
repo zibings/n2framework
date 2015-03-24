@@ -70,6 +70,8 @@
 			}
 
 			if (count($Argv) > 2) {
+				$Ch->PutLine();
+
 				foreach ($Argv as $Key => $Val) {
 					switch (strtolower($Key)) {
 						case 'timezone':
