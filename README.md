@@ -11,3 +11,9 @@ One feature currently missing from the PHP version is the ability to have depend
 
 ## Requirements
 The system will run on PHP 5.3 and up without any requirements for non-default extensions.
+
+## Documentation
+We're working on building out our documentation:
+
+* [Documentation](https://github.com/n2framework/n2framework/wiki)
+* [phpDocs](http://n2framework.com/phpDoc/v2.0.1/)

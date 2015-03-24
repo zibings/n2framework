@@ -4,10 +4,10 @@
 	"version": "2.0",
 	"homepage": "http://www.n2framework.com",
 	"autoload": {
-		"psr-0": {},
-		"psr-4": {}
+		"psr-0": { },
+		"psr-4": { }
 	},
-	"require": {},
+	"require": { },
 	"config": {
 		"process-timeout": 300,
 		"vendor-dir": "N2f/ThirdParty",
