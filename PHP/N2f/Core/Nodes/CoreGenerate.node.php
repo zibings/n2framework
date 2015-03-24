@@ -14,12 +14,24 @@
 	 * @package N2F
 	 */
 	class CoreGenerate extends NodeBase {
+		/**
+		 * Creates a new CoreGenerate instance.
+		 * 
+		 * @return void
+		 */
 		public function __construct() {
 			$this->SetKey('N2f-CoreGenerate')->SetVersion('1.0');
 
 			return;
 		}
 
+		/**
+		 * Processes a GenerateDispatch from a sender.
+		 * 
+		 * @param mixed $Sender Sender value.
+		 * @param \N2f\DispatchBase $Dispatch The DispatchBase instance for the chain, must be a GenerateDispatch.
+		 * @return void
+		 */
 		public function Process($Sender, DispatchBase &$Dispatch) {
 			if (!($Dispatch instanceof GenerateDispatch)) {
 				return;
@@ -144,6 +156,12 @@
 			return;
 		}
 
+		/**
+		 * Escapes a string for use in a PHP variable.
+		 * 
+		 * @param string $Str String value to escape quotes within.
+		 * @return string Escaped string.
+		 */
 		protected function EscapePhpString($Str) {
 			return str_replace(array('"', "'"), array('\"', "\'"), $Str);
 		}
