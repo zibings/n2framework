@@ -16,10 +16,35 @@
 	* @package N2F
 	*/
 	class Logger {
+		/**
+		 * Local instance of LoggerConfig.
+		 * 
+		 * @var \N2f\LoggerConfig
+		 */
 		private $_Config;
+		/**
+		 * ChainHelper instance for sending out log dispatches.
+		 * 
+		 * @var \N2f\ChainHelper
+		 */
 		private $_LogChain;
+		/**
+		 * ChainHelper instance for sending out log output dispatches.
+		 * 
+		 * @var \N2f\ChainHelper
+		 */
 		private $_OutputChain;
+		/**
+		 * LoggerProcesser instance for handling log dispatches.
+		 * 
+		 * @var \N2f\LoggerProcessor
+		 */
 		private $_LogProcNode;
+		/**
+		 * Collection of various log level buckets.
+		 * 
+		 * @var array
+		 */
 		private $_Logs = array(
 			'Debug' => array(),
 			'Info' => array(),
@@ -31,6 +56,14 @@
 			'Emergency' => array()
 		);
 
+		/**
+		 * Creates a new Logger instance.
+		 * 
+		 * @param mixed $Config Optional array or LoggerConfig instance with configuration settings.
+		 * @param ChainHelper $LogChain Optional ChainHelper instance to handle log dispatches.
+		 * @param ChainHelper $OutputChain Optional ChainHelper instance to handle log output dispatches.
+		 * @return void
+		 */
 		public function __construct($Config = null, ChainHelper &$LogChain = null, ChainHelper &$OutputChain = null) {
 			if ($Config !== null) {
 				if (is_array($Config)) {
@@ -59,33 +92,85 @@
 			$this->_LogProcNode = new LoggerProcessor();
 			$this->LinkOutputNode($this->_LogProcNode);
 
-			return $this;
+			return;
 		}
 
+		/**
+		 * Adds an ALERT level log entry with optional
+		 * context for keyword replacements.
+		 * 
+		 * @param string $Message String value of log message.
+		 * @param array $Context Optional array value for context variables.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
 		public function Alert($Message, array $Context = array()) {
 			return $this->Log(N2F_LOG_ALERT, $Message, $Context);
 		}
 
+		/**
+		 * Adds a CRITICAL level log entry with optional
+		 * context for keyword replacements.
+		 * 
+		 * @param string $Message String value of log message.
+		 * @param array $Context Optional array value for context variables.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
 		public function Critical($Message, array $Context = array()) {
 			return $this->Log(N2F_LOG_CRITICAL, $Message, $Context);
 		}
 
+		/**
+		 * Adds a DEBUG level log entry with optional
+		 * context for keyword replacements.
+		 * 
+		 * @param string $Message String value of log message.
+		 * @param array $Context Optional array value for context variables.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
 		public function Debug($Message, array $Context = array()) {
 			return $this->Log(N2F_LOG_DEBUG, $Message, $Context);
 		}
 
+		/**
+		 * Adds an EMERGENCY level log entry with optional
+		 * context for keyword replacements.
+		 * 
+		 * @param string $Message String value of log message.
+		 * @param array $Context Optional array value for context variables.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
 		public function Emergency($Message, array $Context = array()) {
 			return $this->Log(N2F_LOG_EMERGENCY, $Message, $Context);
 		}
 
+		/**
+		 * Adds an ERROR level log entry with optional
+		 * context for keyword replacements.
+		 * 
+		 * @param string $Message String value of log message.
+		 * @param array $Context Optional array value for context variables.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
 		public function Error($Message, array $Context = array()) {
 			return $this->Log(N2F_LOG_ERROR, $Message, $Context);
 		}
 
+		/**
+		 * Returns the current log level for the instance.
+		 * 
+		 * @return int The current log level flag.
+		 */
 		public function GetLogLevel() {
 			return $this->_Config->LogLevel;
 		}
 
+		/**
+		 * Returns a collection of log entries based
+		 * on the provided level.
+		 * 
+		 * @param int $Level Flag for log level(s) to return.
+		 * @return array|null Array of log entries or null if invalid flag.
+		 */
 		public function GetLogs($Level = null) {
 			if ($Level === null) {
 				return $this->_Logs;
@@ -132,10 +217,25 @@
 			return null;
 		}
 
+		/**
+		 * Adds an INFO level log entry with optional
+		 * context for keyword replacements.
+		 * 
+		 * @param string $Message String value of log message.
+		 * @param array $Context Optional array value for context variables.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
 		public function Info($Message, array $Context = array()) {
 			return $this->Log(N2F_LOG_INFO, $Message, $Context);
 		}
 
+		/**
+		 * Check if a log level flag is included
+		 * in the current setting.
+		 * 
+		 * @param int $Level Flag to check against current level(s).
+		 * @return int Whether or not the flags are enabled.
+		 */
 		public function IsLevelLogged($Level) {
 			if (!is_int($Level)) {
 				$Level = $this->LevelFromString($Level);
@@ -144,6 +244,14 @@
 			return $this->_Config->LogLevel & $Level;
 		}
 
+		/**
+		 * Converts a string representation of log levels
+		 * (such as 'N2F_LOG_DEBUG | N2F_LOG_INFO') into
+		 * the appropriate integer flag.
+		 * 
+		 * @param string $Level String representation of level flag.
+		 * @return int $Level converted to the integer flag.
+		 */
 		protected function LevelFromString($Level) {
 			if ($Level === null || empty($Level)) {
 				return N2F_LOG_NONE;
@@ -201,18 +309,41 @@
 			return $Ret;
 		}
 
+		/**
+		 * Links a NodeBase into the chain for
+		 * processing log dispatches.
+		 * 
+		 * @param \N2f\NodeBase $Node NodeBase to add to chain.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
 		public function LinkLogNode(NodeBase $Node) {
 			$this->_LogChain->LinkNode($Node);
 
 			return $this;
 		}
 
+		/**
+		 * Links a NodeBase into the chain for
+		 * processing log output dispatches.
+		 * 
+		 * @param \N2f\NodeBase $Node NodeBase to add to chain.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
 		public function LinkOutputNode(NodeBase $Node) {
 			$this->_OutputChain->LinkNode($Node);
 
 			return $this;
 		}
 
+		/**
+		 * Adds a log entry with optional context
+		 * for keyword replacements.
+		 * 
+		 * @param int $Level Integer level flag of log entry.
+		 * @param string $Message String value of log message.
+		 * @param array $Context Optional array for context variables.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
 		protected function Log($Level, $Message, array $Context = array()) {
 			if (!is_int($Level)) {
 				$Level = $this->LevelFromString($Level);
@@ -225,7 +356,7 @@
 					$Replace['{'.$key.'}'] = $val;
 				}
 
-				$Message = strstr($Message, $Replace);
+				$Message = str_replace(array_keys($Replace), array_values($Replace), $Message);
 			}
 
 			if ($this->ValidSingleLevel($Level)) {
@@ -277,10 +408,26 @@
 			return $this;
 		}
 
+		/**
+		 * Adds a NOTICE level log entry with optional
+		 * context for keyword replacements.
+		 * 
+		 * @param string $Message String value of log message.
+		 * @param array $Context Optional array for context variables.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
 		public function Notice($Message, array $Context = array()) {
 			return $this->Log(N2F_LOG_NOTICE, $Message, $Context);
 		}
 
+		/**
+		 * Traverses the ChainHelper linked to log
+		 * output dispatches. If no nodes have been
+		 * linked to chain, it will attach the N2f
+		 * default LoggerProcessor node.
+		 * 
+		 * @return void
+		 */
 		public function Output() {
 			$Dispatch = new LogOutputDispatch();
 			$Dispatch->Initialize(array(
@@ -300,10 +447,25 @@
 			return;
 		}
 
-		public function Warning($Message, $Number = null) {
-			return $this->Log(N2F_LOG_WARNING, $Message, $Number);
+		/**
+		 * Adds a WARNING level log entry with optional
+		 * context for keyword replacements.
+		 * 
+		 * @param string $Message String value of log message.
+		 * @param array $Context Optional array for context variables.
+		 * @return \N2f\Logger The current Logger instance.
+		 */
+		public function Warning($Message, array $Context = null) {
+			return $this->Log(N2F_LOG_WARNING, $Message, $Context);
 		}
 
+		/**
+		 * Determines whether or not a level (string or integer)
+		 * is valid.
+		 * 
+		 * @param mixed $Level String or integer value of log level.
+		 * @return bool True if level is one or more valid levels.
+		 */
 		public static function ValidLevel($Level) {
 			if (is_int($Level)) {
 				if ($Level > N2F_LOG_ALL || $Level < 0) {
@@ -346,6 +508,13 @@
 			return true;
 		}
 
+		/**
+		 * Determines whether or not a single level
+		 * (string or integer) is valid.
+		 * 
+		 * @param mixed $Level String or integer value of a single log level.
+		 * @return bool True if level is valid.
+		 */
 		public static function ValidSingleLevel($Level) {
 			if (is_int($Level)) {
 				switch ($Level) {
