@@ -14,7 +14,7 @@
 	// This is the one exception to running without config....to set up (or change) config
 	if ($Ch->IsCLI() && $Ch->CompareArgAt(1, 'config') && ($Ch->NumArgs() == 2 || !$Ch->HasArg('ext'))) {
 		$Ch->PutLine();
-		$Ch->PutLine("You are requesting to configure your installation.  Bully on you!");
+		$Ch->PutLine("You are requesting to configure your installation.  Bully for you!");
 
 		$Disp = new N2f\CliDispatch();
 		$Disp->Initialize(array('relDir' => $Fh->GetRelDir(), 'ConsoleHelper' => $Ch));
