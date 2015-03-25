@@ -1,6 +1,12 @@
 # N2F v2
 This (currently) experimental version of N2F is aimed at decoupling as much functionality as possible from the core without defeating the purpose of having a pre-built system.
 
+## Documentation
+We're working on building out our documentation:
+
+* [Documentation](https://github.com/n2framework/n2framework/wiki)
+* [phpDocs](http://n2framework.com/phpDoc/v2.0.1/)
+
 ## Design
 The core of N2F is built to facilitate the creation of chains and nodes.  Chains link together one or more nodes and provide them with information to process in the form of dispatches.
 
@@ -12,8 +18,5 @@ One feature currently missing from the PHP version is the ability to have depend
 ## Requirements
 The system will run on PHP 5.3 and up without any requirements for non-default extensions.
 
-## Documentation
-We're working on building out our documentation:
-
-* [Documentation](https://github.com/n2framework/n2framework/wiki)
-* [phpDocs](http://n2framework.com/phpDoc/v2.0.1/)
+## Discussion
+Want to chat with us?  Join us on [IRC](http://zibings.com/irc.html)
