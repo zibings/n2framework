@@ -128,7 +128,9 @@
 		 * @return \N2f\N2f
 		 */
 		public static function &createInstance($Config = null) {
-			return new N2f($Config);
+			$ret = new N2f($Config);
+
+			return $ret;
 		}
 
 		/**

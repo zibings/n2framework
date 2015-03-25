@@ -89,7 +89,7 @@
 					break;
 				case 'create':
 					$n2f = N2f::createInstance(array(
-						'FileHelper' => $this->_Fh,
+						'FileHelper' => $Fh,
 						'ConsoleHelper' => new ConsoleHelper(6, array(
 							'n2f-cli',
 							'generate',
@@ -102,23 +102,27 @@
 
 					$n2f->Process();
 
-					if (!array_key_exists('extensions', $Cfg)) {
-						$Cfg['extensions'] = array($Extension);
-					} else {
-						$found = false;
+					if ($Dispatch->GetConsoleHelper()->HasArg('enable', true)) {
+						if (!array_key_exists('extensions', $Cfg)) {
+							$Cfg['extensions'] = array($Extension);
+						} else {
+							$found = false;
 
-						foreach (array_values($Cfg['extensions']) as $Ext) {
-							if ($Ext == $Extension) {
-								$found = true;
+							foreach (array_values($Cfg['extensions']) as $Ext) {
+								if ($Ext == $Extension) {
+									$found = true;
+								}
+							}
+
+							if ($found === false) {
+								$Cfg['extensions'][] = $Extension;
 							}
 						}
 
-						if ($found === false) {
-							$Cfg['extensions'][] = $Extension;
-						}
+						$Dispatch->SetResult("Successfully created and configured the {$Extension} extension for use with the system.");
+					} else {
+						$Dispatch->SetResult("Successfully created the {$Extension} extension for use with the system.");
 					}
-
-					$Dispatch->SetResult("Successfully created and configured the {$Extension} extension for use with the system.");
 
 					break;
 				default:
