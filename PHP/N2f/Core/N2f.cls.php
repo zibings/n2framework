@@ -552,7 +552,7 @@
 					$this->PerformConfigure();
 				} else if ($this->_Ch->CompareArgAt(1, 'generate') && $this->_Ch->NumArgs() > 1) {
 					$this->PerformGeneration();
-				} else if ($this->_Ch->CompareArgAt(1, 'extension') && $this->_Ch->NumArgs() == 4) {
+				} else if ($this->_Ch->CompareArgAt(1, 'extension') && $this->_Ch->NumArgs() >= 4) {
 					$this->PerformExtension();
 				} else {
 					$this->PerformExecute();
