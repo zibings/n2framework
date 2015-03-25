@@ -60,7 +60,8 @@
 
 			$Ch->PutLine("Extension being configured is: " . $Dispatch->GetExt());
 
-			$Dispatch->Consume();
+			// Uncomment this line to stop execution of the Config chain.
+			//$Dispatch->Consume();
 
 			return;
 		}
@@ -123,7 +124,8 @@
 				}
 			}
 
-			$Dispatch->Consume();
+			// Uncomment this line to stop execution of the Execute chain.
+			//$Dispatch->Consume();
 
 			return;
 		}
