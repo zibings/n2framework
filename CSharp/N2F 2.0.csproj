@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bases\DispatchBase.cs" />
+    <Compile Include="Bases\ExtensionBase.cs" />
     <Compile Include="Bases\NodeBase.cs" />
     <Compile Include="N2f.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
