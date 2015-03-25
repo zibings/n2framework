@@ -8,12 +8,17 @@ namespace N2F
 	/// </summary>
 	public abstract class DispatchBase
 	{
+		protected DateTime _CalledDateTime;
 		protected List<object> _Results;
 		protected bool _IsConsumable;
 		protected bool _IsStateful;
 		protected bool _IsConsumed;
 		protected bool _IsValid;
 
+		/// <summary>
+		/// DateTime when dispatch was marked as valid.
+		/// </summary>
+		public DateTime CalledDateTime { get { return this._CalledDateTime; } }
 		/// <summary>
 		/// Collection of results for the dispatch.
 		/// </summary>
@@ -49,6 +54,15 @@ namespace N2F
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// Returns the DateTime the dispatch was marked valid.
+		/// </summary>
+		/// <returns></returns>
+		public DateTime GetCalledDateTime()
+		{
+			return this._CalledDateTime;
 		}
 
 		/// <summary>
