@@ -28,6 +28,19 @@
 		 */
 		protected $_Dispatch;
 		/**
+		 * Whether or not to display debug information.
+		 * 
+		 * @var bool
+		 */
+		protected $_DoDebug;
+		/**
+		 * Local instance of Logger class for logging
+		 * debug information if toggled.
+		 * 
+		 * @var \N2f\Logger
+		 */
+		protected $_Logger;
+		/**
 		 * Whether or not multiple nodes may be linked
 		 * to the chain. An event only allows one node.
 		 * 
@@ -39,10 +52,14 @@
 		 * Creates a new ChainHelper instance.
 		 * 
 		 * @param bool $IsEvent True if chain is an event, default is false.
+		 * @param bool $DoDebug True if chain should provide debugging information, default is false.
+		 * @param \N2f\Logger $Logger Optional Logger instance to use for debug information, new Logger created by default.
 		 * @return void
 		 */
-		public function __construct($IsEvent = false) {
+		public function __construct($IsEvent = false, $DoDebug = false, Logger &$Logger = null) {
 			$this->_IsEvent = $IsEvent;
+			$this->_DoDebug = $DoDebug;
+			$this->_Logger = ($Logger !== null) ? $Logger : new Logger();
 
 			return;
 		}
@@ -78,8 +95,16 @@
 
 			if ($this->_IsEvent) {
 				$this->_Nodes = array($Node);
+
+				if ($this->_DoDebug) {
+					$this->_Logger->Debug("Set {$Node->GetKey()} (v{$Node->GetVersion()}) node as chain handler.");
+				}
 			} else {
 				$this->_Nodes[] = $Node;
+
+				if ($this->_DoDebug) {
+					$this->_Logger->Debug("Linked {$Node->GetKey()} (v{$Node->GetVersion()}) node to chain.");
+				}
 			}
 
 			return $this;
@@ -113,9 +138,17 @@
 				$len = count($this->_Nodes);
 
 				for ($i = 0; $i < $len; ++$i) {
+					if ($this->_DoDebug) {
+						$this->_Logger->Debug("Sending dispatch to {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node in chain.");
+					}
+
 					$this->_Nodes[$i]->Process($Sender, $Dispatch);
 
 					if ($isConsumable && $Dispatch->IsConsumed()) {
+						if ($this->_DoDebug) {
+							$this->_Logger->Debug("Chain traversal stopped by {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node.");
+						}
+
 						break;
 					}
 				}
