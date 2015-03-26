@@ -83,6 +83,32 @@
 		}
 
 		/**
+		 * Links a log dispatch node to the
+		 * internal logger.
+		 * 
+		 * @param \N2f\NodeBase $Node NodeBase to add to chain.
+		 * @return \N2f\ChainHelper The current ChainHelper instance.
+		 */
+		public function LinkLogNode(NodeBase $Node) {
+			$this->_Logger->LinkLogNode($Node);
+
+			return $this;
+		}
+
+		/**
+		 * Links a log output dispatch node to
+		 * the internal logger.
+		 * 
+		 * @param \N2f\NodeBase $Node NodeBase to add to chain.
+		 * @return \N2f\ChainHelper The current ChainHelper instance.
+		 */
+		public function LinkLogOutputNode(NodeBase $Node) {
+			$this->_Logger->LinkOutputNode($Node);
+
+			return $this;
+		}
+
+		/**
 		 * Links a new NodeBase node into chain.
 		 * 
 		 * @param \N2f\NodeBase $Node Node to link into chain.
