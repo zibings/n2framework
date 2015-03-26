@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace N2F
+namespace N2f
 {
 	/// <summary>
 	/// Abstract base for dispatches.

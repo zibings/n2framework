@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace N2F
+namespace N2f
 {
 	/// <summary>
 	/// Abstract base for nodes.

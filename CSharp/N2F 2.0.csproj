@@ -42,11 +42,11 @@
     <Compile Include="Bases\DispatchBase.cs" />
     <Compile Include="Bases\ExtensionBase.cs" />
     <Compile Include="Bases\NodeBase.cs" />
+    <Compile Include="Dispatches\CliDispatch.cs" />
     <Compile Include="N2f.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dispatches\" />
     <Folder Include="Extensions\" />
     <Folder Include="Helpers\" />
     <Folder Include="Nodes\" />
