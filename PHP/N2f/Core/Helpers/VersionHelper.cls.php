@@ -54,6 +54,7 @@
 		 * Instantiate a new version comparison object.
 		 *
 		 * @param string|float|int $version   The owning version of this object.
+		 * @return void
 		 */
 		public function __construct($version) {
 			$this->full = (string) $version;
@@ -63,6 +64,8 @@
 			$this->major = $version['major'];
 			$this->minor = $version['minor'];
 			$this->patch = $version['patch'];
+
+			return;
 		}
 
 		/**

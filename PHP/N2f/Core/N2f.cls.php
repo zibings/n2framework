@@ -292,7 +292,7 @@
 		 * Attempts to load an extension into the system.
 		 * 
 		 * @param string $Name Name of the extension to attempt loading.
-		 * @return \N2f\ReturnHelper
+		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
 		 */
 		public function LoadExtension($Name) {
 			$Ret = new ReturnHelper();
@@ -380,7 +380,7 @@
 		 * Attempts to load a group of extensions into the system.
 		 * 
 		 * @param array $List Group of extensions to attempt loading.
-		 * @return \N2f\ReturnHelper
+		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
 		 */
 		public function LoadExtensions(array $List) {
 			$Ret = new ReturnHelper();
@@ -410,7 +410,7 @@
 		 * Links a node into the Configure chain for the system.
 		 * 
 		 * @param \N2f\NodeBase $Node Node to add to Configure chain.
-		 * @return \N2f\N2f
+		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function LinkConfigNode(NodeBase $Node) {
 			$this->_ConfigChain->LinkNode($Node);
@@ -422,7 +422,7 @@
 		 * Links a node into the Execute chain for the system.
 		 * 
 		 * @param \N2f\NodeBase $Node Node to add to Execute chain.
-		 * @return \N2f\N2f
+		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function LinkExecuteNode(NodeBase $Node) {
 			$this->_ExecuteChain->LinkNode($Node);
@@ -434,7 +434,7 @@
 		 * Links a node into the Generation chain for the system.
 		 * 
 		 * @param \N2f\NodeBase $Node Node to add to Generation chain.
-		 * @return \N2f\N2f
+		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function LinkGenerationNode(NodeBase $Node) {
 			$this->_GenerationChain->LinkNode($Node);
@@ -446,7 +446,7 @@
 		 * Links a node into the Shutdown chain for the system.
 		 * 
 		 * @param \N2f\NodeBase $Node Node to add to Shutdown chain.
-		 * @return \N2f\N2f
+		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function LinkShutdownNode(NodeBase $Node) {
 			$this->_ShutdownChain->LinkNode($Node);
@@ -544,7 +544,7 @@
 		/**
 		 * Processes the current request, firing off either the Configure, Generation, or Execute chains as appropriate.
 		 * 
-		 * @return \N2f\N2f
+		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function Process() {
 			if ($this->_Ch->IsCLI()) {
@@ -568,7 +568,7 @@
 		 * Overwrites the current Config object for the instance.
 		 * 
 		 * @param \N2f\Config $Config Optional Config object to use for the instance (default created if not specified).
-		 * @return \N2f\N2f
+		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function SetConfig(Config $Config = null) {
 			if ($Config === null) {
@@ -588,7 +588,7 @@
 		 * Overwrites the current ConsoleHelper object for the instance.
 		 * 
 		 * @param \N2f\ConsoleHelper $ConsoleHelper ConsoleHelper object to use for the instance.
-		 * @return \N2f\N2f
+		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function SetConsoleHelper(ConsoleHelper $ConsoleHelper) {
 			$this->_Ch = $ConsoleHelper;
@@ -600,7 +600,7 @@
 		 * Overwrites the current FileHelper object for the instance.
 		 * 
 		 * @param \N2f\FileHelper $FileHelper FileHelper object to use for the instance.
-		 * @return \N2f\N2f
+		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function SetFileHelper(FileHelper $FileHelper) {
 			$this->_Fh = $FileHelper;
@@ -612,7 +612,7 @@
 		 * Overwrites the current JsonHelper object for the instance.
 		 * 
 		 * @param \N2f\JsonHelper $JsonHelper JsonHelper object to use for the instance.
-		 * @return \N2f\N2f
+		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function SetJsonHelper(JsonHelper $JsonHelper) {
 			$this->_Jh = $JsonHelper;
@@ -636,7 +636,7 @@
 		 * Overwrites the current RequestHelper object for the instance.
 		 * 
 		 * @param \N2f\RequestHelper $RequestHelper RequestHelper object to use for the instance.
-		 * @return \N2f\N2f
+		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function SetRequestHelper(RequestHelper $RequestHelper) {
 			$this->_Rh = $RequestHelper;

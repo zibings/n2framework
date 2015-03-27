@@ -82,21 +82,30 @@
 		 * Loads a file from the filesystem.
 		 * 
 		 * @param string $Path String value of path to include.
-		 * @return void
+		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
 		 */
 		public function Load($Path) {
-			if (empty($Path) && isset(FileHelper::$Included[$Path])) {
-				return;
+			$Ret = new ReturnHelper();
+
+			if (empty($Path)) {
+				$Ret->SetMessage("Invalid path provided.");
+			} else if (isset(FileHelper::$Included[$Path])) {
+				$Ret->SetMessage("File has already been included.");
+			} else {
+				FileHelper::$Included[$Path] = true;
+				$Path = $this->ProcessRoot($Path);
+
+				if ($this->FileExists($Path)) {
+					require_once($Path);
+
+					$Ret->IsGud();
+					$Ret->SetResult($Path);
+				} else {
+					$Ret->SetMessage("File did not exist.");
+				}
 			}
 
-			FileHelper::$Included[$Path] = true;
-			$Path = $this->ProcessRoot($Path);
-
-			if ($this->FileExists($Path)) {
-				require_once($Path);
-			}
-
-			return;
+			return $Ret;
 		}
 
 		/**
@@ -246,16 +255,27 @@
 		 * 
 		 * @param string $Path String value of file path.
 		 * @param mixed $Data Data to insert into file.
-		 * @return void
+		 * @param int $Flags Optional flags sent to file_put_contents.
+		 * @param resource $Context Optional context resource from stream_context_create().
+		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
 		 */
-		public function PutContents($Path, $Data) {
-			if (empty($Path) || $Data === null) {
-				return;
+		public function PutContents($Path, $Data, $Flags = 0, $Context = null) {
+			$Ret = new ReturnHelper();
+
+			if (empty($Path)) {
+				$Ret->SetMessage("Invalid path provided.");
+			} else if ($Data === null || empty($Data)) {
+				$Ret->SetMessage("Invalid data provided.");
+			} else {
+				if (($bytesWritten = @file_put_contents($this->ProcessRoot($Path), $Data, $Flags, $Context)) !== false) {
+					$Ret->IsGud();
+					$Ret->SetResult($bytesWritten);
+				} else {
+					$Ret->SetMessage("Failed to write to file.");
+				}
 			}
 
-			file_put_contents($this->ProcessRoot($Path), $Data);
-
-			return;
+			return $Ret;
 		}
 	}
 

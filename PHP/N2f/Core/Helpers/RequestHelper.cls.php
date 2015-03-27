@@ -115,22 +115,26 @@
 		/**
 		 * Internal method to read the input string.
 		 * 
-		 * @return void
+		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
 		 */
 		protected static function ReadInput() {
+			$Ret = new ReturnHelper();
+
 			if (!empty(RequestHelper::$_InputString)) {
-				return;
-			}
-
-			try {
-				if (empty(RequestHelper::$_InputString)) {
-					RequestHelper::$_InputString = file_get_contents("php://input");
+				$Ret->SetMessage("Trying to read input when input is already read.");
+			} else {
+				try {
+					if ((RequestHelper::$_InputString = @file_get_contents("php://input")) !== false) {
+						$Ret->IsGud();
+					} else {
+						$Ret->SetMessage("Failed to read file.");
+					}
+				} catch (Exception $e) {
+					RequestHelper::$_InputString = '';
 				}
-			} catch (Exception $e) {
-				RequestHelper::$_InputString = '';
 			}
 
-			return;
+			return $Ret;
 		}
 	}
 

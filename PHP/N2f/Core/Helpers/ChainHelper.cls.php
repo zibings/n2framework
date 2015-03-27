@@ -126,44 +126,52 @@
 		 * 
 		 * @param \N2f\DispatchBase $Dispatch The dispatch to send along the chain.
 		 * @param mixed $Sender Optional sender object, ChainHelper instance used if not provided.
-		 * @return void
+		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
 		 */
 		public function Traverse(DispatchBase &$Dispatch, $Sender = null) {
-			if (count($this->_Nodes) < 1 || !$Dispatch->IsValid() || $Dispatch->IsConsumed()) {
-				return;
-			}
+			$Ret = new ReturnHelper();
 
-			$this->_Dispatch = $Dispatch;
-
-			if ($Sender === null) {
-				$Sender = $this;
-			}
-
-			$isConsumable = $Dispatch->IsConsumable();
-
-			if ($this->_IsEvent) {
-				$this->_Nodes[0]->Process($Sender, $Dispatch);
+			if (count($this->_Nodes) < 1) {
+				$Ret->SetMessage("No nodes linked to chain.");
+			} else if (!$Dispatch->IsValid()) {
+				$Ret->SetMessage("Invalid dispatch.");
+			} else if ($Dispatch->IsConsumed()) {
+				$Ret->SetMessage("Process attempt on dispatch that is already consumed.");
 			} else {
-				$len = count($this->_Nodes);
+				$this->_Dispatch = $Dispatch;
 
-				for ($i = 0; $i < $len; ++$i) {
-					if ($this->_DoDebug) {
-						$this->_Logger->Debug("Sending dispatch to {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node in chain.");
-					}
+				if ($Sender === null) {
+					$Sender = $this;
+				}
 
-					$this->_Nodes[$i]->Process($Sender, $Dispatch);
+				$isConsumable = $Dispatch->IsConsumable();
 
-					if ($isConsumable && $Dispatch->IsConsumed()) {
+				if ($this->_IsEvent) {
+					$this->_Nodes[0]->Process($Sender, $Dispatch);
+				} else {
+					$len = count($this->_Nodes);
+
+					for ($i = 0; $i < $len; ++$i) {
 						if ($this->_DoDebug) {
-							$this->_Logger->Debug("Chain traversal stopped by {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node.");
+							$this->_Logger->Debug("Sending dispatch to {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node in chain.");
 						}
 
-						break;
+						$this->_Nodes[$i]->Process($Sender, $Dispatch);
+
+						if ($isConsumable && $Dispatch->IsConsumed()) {
+							if ($this->_DoDebug) {
+								$this->_Logger->Debug("Chain traversal stopped by {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node.");
+							}
+
+							break;
+						}
 					}
 				}
+
+				$Ret->IsGud();
 			}
 
-			return;
+			return $Ret;
 		}
 	}
 
