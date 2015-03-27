@@ -7,7 +7,7 @@
     <ProjectGuid>{4F126D1A-4DEE-48F5-B8B7-EFD98638CEA9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>N2F</RootNamespace>
+    <RootNamespace>N2f</RootNamespace>
     <AssemblyName>N2F</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -43,12 +43,12 @@
     <Compile Include="Bases\ExtensionBase.cs" />
     <Compile Include="Bases\NodeBase.cs" />
     <Compile Include="Dispatches\CliDispatch.cs" />
+    <Compile Include="Helpers\ReturnHelper.cs" />
     <Compile Include="N2f.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Nodes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
