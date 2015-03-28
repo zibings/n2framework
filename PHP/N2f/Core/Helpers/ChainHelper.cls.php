@@ -92,6 +92,25 @@
 		}
 
 		/**
+		 * Whether or not debug information is being displayed.
+		 * 
+		 * @return bool True if debugging is turned on, false otherwise.
+		 */
+		public function IsDebug() {
+			return $this->_DoDebug;
+		}
+
+		/**
+		 * Whether or not this is an event chain (only one node
+		 * can subscribe at a time).
+		 * 
+		 * @return bool True if an event chain, false otherwise.
+		 */
+		public function IsEvent() {
+			return $this->_IsEvent;
+		}
+
+		/**
 		 * Links a new NodeBase node into chain.
 		 * 
 		 * @param \N2f\NodeBase $Node Node to link into chain.
