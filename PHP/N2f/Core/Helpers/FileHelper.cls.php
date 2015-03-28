@@ -38,13 +38,20 @@
 		 * Creates a new FileHelper instance.
 		 * 
 		 * @param string $RelDir Optional relative directory, './' used otherwise.
+		 * @param array $PreLoads Optional array of files that have already been loaded.
 		 * @return void
 		 */
-		public function __construct($RelDir = null) {
+		public function __construct($RelDir = null, array $PreLoads = null) {
 			if ($RelDir !== null) {
 				$this->RelDir = $RelDir;
 			} else {
 				$this->RelDir = './';
+			}
+
+			if ($PreLoads !== null && count($PreLoads) > 0) {
+				foreach (array_values($PreLoads) as $Load) {
+					FileHelper::$Included[$Load] = true;
+				}
 			}
 
 			return;

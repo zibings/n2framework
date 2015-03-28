@@ -82,6 +82,9 @@
 				if (stripos($key, '=') !== false) {
 					$parts = explode('=', $key, 2);
 					$assoc[($caseInsensitive) ? strtolower($parts[0]) : $parts[0]] = $parts[1];
+				} else if (stripos($key, '-') !== false) {
+					$parts = explode('-', $key, 2);
+					$assoc[($caseInsensitive) ? strtolower($parts[0]) : $parts[0]] = $parts[1];
 				} else if (($i + 1) < $len) {
 					$assoc[($caseInsensitive) ? strtolower($key) : $key] = ($args[$i + 1][0] != '-') ? $args[++$i] : true;
 				} else {

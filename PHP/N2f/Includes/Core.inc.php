@@ -1,11 +1,17 @@
 <?php
 
 	if (defined('N2F_REL_DIR')) {
+		// Load the return helper
+		require_once(N2F_REL_DIR . 'N2f/Core/Helpers/ReturnHelper.cls.php');
+
 		// Load the file helper
 		require_once(N2F_REL_DIR . 'N2f/Core/Helpers/FileHelper.cls.php');
 
-		// file helper
-		$Fh = new N2f\FileHelper(N2F_REL_DIR);
+		// File helper
+		$Fh = new N2f\FileHelper(N2F_REL_DIR, array(
+			N2F_REL_DIR . 'N2f/Core/Helpers/ReturnHelper.cls.php',
+			N2F_REL_DIR . 'N2f/Core/Helpers/FileHelper.cls.php'
+		));
 
 		// Includes
 		$Fh->Load("~N2f/Includes/Constants.inc.php");
@@ -22,7 +28,6 @@
 		$Fh->Load("~N2f/Core/Helpers/ConsoleHelper.cls.php");
 		$Fh->Load("~N2f/Core/Helpers/JsonHelper.cls.php");
 		$Fh->Load("~N2f/Core/Helpers/RequestHelper.cls.php");
-		$Fh->Load("~N2f/Core/Helpers/ReturnHelper.cls.php");
 		$Fh->Load("~N2f/Core/Helpers/VersionHelper.cls.php");
 		$Fh->Load("~N2f/Core/Helpers/ParameterHelper.cls.php");
 

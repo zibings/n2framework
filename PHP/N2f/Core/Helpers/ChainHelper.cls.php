@@ -58,8 +58,11 @@
 		 */
 		public function __construct($IsEvent = false, $DoDebug = false, Logger &$Logger = null) {
 			$this->_IsEvent = $IsEvent;
-			$this->_DoDebug = $DoDebug;
-			$this->_Logger = ($Logger !== null) ? $Logger : new Logger();
+			$this->_Logger = $Logger;
+
+			if ($DoDebug && $this->_Logger !== null) {
+				$this->_DoDebug = $DoDebug;
+			}
 
 			return;
 		}
