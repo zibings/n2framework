@@ -25,11 +25,79 @@ namespace N2f
 		/// Status of execution.
 		/// </summary>
 		public ReturnStatuses Status { get { return this._Status; } }
+		/// <summary>
+		/// Whether or not the instance is BAD.
+		/// </summary>
+		public bool IsBad { get { return this._Status == ReturnStatuses.BAD; } }
+		/// <summary>
+		/// Alias of IsGud for those with stricter english requirements.
+		/// </summary>
+		public bool IsGood { get { return this.IsGud; } }
+		/// <summary>
+		/// Whether or not the instance is GUD.
+		/// </summary>
+		public bool IsGud { get { return this._Status == ReturnStatuses.GUD; } }
+
+		/// <summary>
+		/// Creates a new ReturnHelper instance, defaults to BAD status.
+		/// </summary>
+		public ReturnHelper()
+		{
+			this._Messages = new List<string>();
+			this._Results = new List<T>();
+			this._Status = ReturnStatuses.BAD;
+
+			return;
+		}
+
+		/// <summary>
+		/// Sets the instance status to BAD.
+		/// </summary>
+		public void SetBad()
+		{
+			this._Status = ReturnStatuses.BAD;
+
+			return;
+		}
+
+		/// <summary>
+		/// Alias of SetGud() for those with stricter english requirements.
+		/// </summary>
+		public void SetGood()
+		{
+			this.SetGud();
+
+			return;
+		}
+
+		/// <summary>
+		/// Sets the instance status to GUD.
+		/// </summary>
+		public void SetGud()
+		{
+			this._Status = ReturnStatuses.GUD;
+
+			return;
+		}
+
+		/// <summary>
+		/// Sets the instance status.
+		/// </summary>
+		/// <param name="Status">New status for instance.</param>
+		public void SetStatus(ReturnStatuses Status)
+		{
+			this._Status = Status;
+
+			return;
+		}
 	}
 
+	/// <summary>
+	/// ReturnHelper statuses.
+	/// </summary>
 	public enum ReturnStatuses
 	{
-		Bad = 0,
-		Gud
+		BAD = 0,
+		GUD
 	}
 }
