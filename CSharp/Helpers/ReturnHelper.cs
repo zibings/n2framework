@@ -7,7 +7,7 @@ namespace N2f
 	/// Class to enable more stateful return values.
 	/// </summary>
 	/// <typeparam name="T">Type of result to expect from return.</typeparam>
-	public class ReturnHelper<T>
+	public class ReturnHelper<T> : IDisposable
 	{
 		private List<string> _Messages;
 		private List<T> _Results;
@@ -87,6 +87,26 @@ namespace N2f
 		public void SetStatus(ReturnStatuses Status)
 		{
 			this._Status = Status;
+
+			return;
+		}
+
+		/// <summary>
+		/// Dispose method to make sure we clean things up.
+		/// </summary>
+		public void Dispose()
+		{
+			if (this._Messages != null)
+			{
+				this._Messages.Clear();
+				this._Messages = null;
+			}
+
+			if (this._Results != null)
+			{
+				this._Results.Clear();
+				this._Results = null;
+			}
 
 			return;
 		}
