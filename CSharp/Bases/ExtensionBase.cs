@@ -11,6 +11,6 @@ namespace N2f
 		/// Method to initialize an extension.
 		/// </summary>
 		/// <param name="N2f">The current executing instance.</param>
-		abstract public void Initialize(N2f.N2f N2f);
+		abstract public void Initialize(N2f N2f);
 	}
 }

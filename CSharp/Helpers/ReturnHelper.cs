@@ -9,9 +9,9 @@ namespace N2f
 	/// <typeparam name="T">Type of result to expect from return.</typeparam>
 	public class ReturnHelper<T> : IDisposable
 	{
-		private List<string> _Messages;
-		private List<T> _Results;
-		private ReturnStatuses _Status;
+		protected List<string> _Messages;
+		protected List<T> _Results;
+		protected ReturnStatuses _Status;
 
 		/// <summary>
 		/// Collection of execution messages.
@@ -25,6 +25,14 @@ namespace N2f
 		/// Status of execution.
 		/// </summary>
 		public ReturnStatuses Status { get { return this._Status; } }
+		/// <summary>
+		/// Whether or not execution provided messages.
+		/// </summary>
+		public bool HasMessages { get { return this._Messages.Count > 0; } }
+		/// <summary>
+		/// Whether or not execution yielded results.
+		/// </summary>
+		public bool HasResults { get { return this._Results.Count > 0; } }
 		/// <summary>
 		/// Whether or not the instance is BAD.
 		/// </summary>
@@ -48,6 +56,110 @@ namespace N2f
 			this._Status = ReturnStatuses.BAD;
 
 			return;
+		}
+
+		/// <summary>
+		/// Adds a message to the instance.
+		/// </summary>
+		/// <param name="Message">String value of message to add.</param>
+		/// <returns>The current <see cref="ReturnHelper{T}"/> instance.</returns>
+		public ReturnHelper<T> SetMessage(string Message)
+		{
+			if (string.IsNullOrWhiteSpace(Message))
+			{
+				return this;
+			}
+
+			this._Messages.Add(Message);
+
+			return this;
+		}
+
+		/// <summary>
+		/// Adds an array of messages to the instance.
+		/// </summary>
+		/// <param name="Messages">Array of messages to add.</param>
+		/// <returns>The current <see cref="ReturnHelper{T}"/> instance.</returns>
+		public ReturnHelper<T> SetMessages(string[] Messages)
+		{
+			if (Messages != null && Messages.Length > 0)
+			{
+				foreach (var m in Messages)
+				{
+					this.SetMessage(m);
+				}
+			}
+
+			return this;
+		}
+
+		/// <summary>
+		/// Adds a collection of messages to the instance.
+		/// </summary>
+		/// <param name="Messages">Collection of messages to add.</param>
+		/// <returns>The current <see cref="ReturnHelper{T}"/> instance.</returns>
+		public ReturnHelper<T> SetMessages(IEnumerable<string> Messages)
+		{
+			if (Messages != null)
+			{
+				foreach (var m in Messages)
+				{
+					this.SetMessage(m);
+				}
+			}
+
+			return this;
+		}
+
+		/// <summary>
+		/// Adds a result to the instance.
+		/// </summary>
+		/// <param name="Result"><typeparamref name="T"/> value of result to add.</param>
+		/// <returns>The current <see cref="ReturnHelper{T}"/> instance.</returns>
+		public ReturnHelper<T> SetResult(T Result)
+		{
+			if (Result != null)
+			{
+				this._Results.Add(Result);
+			}
+
+			return this;
+		}
+
+		/// <summary>
+		/// Adds an array of results to the instance.
+		/// </summary>
+		/// <param name="Results">Array of <typeparamref name="T"/> results to add.</param>
+		/// <returns>The current <see cref="ReturnHelper{T}"/> isntance.</returns>
+		public ReturnHelper<T> SetResults(T[] Results)
+		{
+			if (Results != null && Results.Length > 0)
+			{
+				foreach (var r in Results)
+				{
+					this.SetResult(r);
+				}
+			}
+
+			return this;
+		}
+
+		/// <summary>
+		/// Adds a collection of results to the instance.
+		/// </summary>
+		/// <param name="Results">Collection of <typeparamref name="T"/> results to add.</param>
+		/// <returns>The current <see cref="ReturnHelper{T}"/> instance.</returns>
+		public ReturnHelper<T> SetResults(IEnumerable<T> Results)
+		{
+			if (Results != null)
+			{
+				foreach (var r in Results)
+				{
+					this.SetResult(r);
+				}
+			}
+
+			return this;
 		}
 
 		/// <summary>
