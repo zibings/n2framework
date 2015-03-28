@@ -98,7 +98,7 @@
 				if ($this->FileExists($Path)) {
 					require_once($Path);
 
-					$Ret->IsGud();
+					$Ret->SetGud();
 					$Ret->SetResult($Path);
 				} else {
 					$Ret->SetMessage("File did not exist.");
@@ -268,7 +268,7 @@
 				$Ret->SetMessage("Invalid data provided.");
 			} else {
 				if (($bytesWritten = @file_put_contents($this->ProcessRoot($Path), $Data, $Flags, $Context)) !== false) {
-					$Ret->IsGud();
+					$Ret->SetGud();
 					$Ret->SetResult($bytesWritten);
 				} else {
 					$Ret->SetMessage("Failed to write to file.");

@@ -187,7 +187,7 @@
 					}
 				}
 
-				$Ret->IsGud();
+				$Ret->SetGud();
 			}
 
 			return $Ret;

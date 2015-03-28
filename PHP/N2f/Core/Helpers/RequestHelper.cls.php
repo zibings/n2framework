@@ -125,7 +125,7 @@
 			} else {
 				try {
 					if ((RequestHelper::$_InputString = @file_get_contents("php://input")) !== false) {
-						$Ret->IsGud();
+						$Ret->SetGud();
 					} else {
 						$Ret->SetMessage("Failed to read file.");
 					}
