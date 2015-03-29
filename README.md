@@ -19,4 +19,4 @@ One feature currently missing from the PHP version is the ability to have depend
 The system will run on PHP 5.3 and up without any requirements for non-default extensions.
 
 ## Discussion
-Want to chat with us?  Join us on [IRC](http://zibings.com/irc.html)
+Want to chat with us?  Join us on [IRC](http://widget01.mibbit.com/?settings=522f69525a0c38ae917e5c5a66d6bab3&server=irc.zibings.net&channel=%23N2Framework)

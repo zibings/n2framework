@@ -44,10 +44,12 @@
     <Compile Include="Bases\NodeBase.cs" />
     <Compile Include="Dispatches\CliDispatch.cs" />
     <Compile Include="Helpers\ChainHelper.cs" />
+    <Compile Include="Helpers\ConsoleHelper.cs" />
     <Compile Include="Helpers\ReturnHelper.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="N2f.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structures.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
