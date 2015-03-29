@@ -79,10 +79,10 @@
 			if ($args[$i][0] == '-' && strlen($args[$i]) > 1) {
 				$key = substr($args[$i], ($args[$i][1] == '-') ? 2 : 1);
 
-				if (stripos($key, '=') !== false) {
+				if (stripos($key, '=') !== false && strpos($key, '=') != strlen($key)) {
 					$parts = explode('=', $key, 2);
 					$assoc[($caseInsensitive) ? strtolower($parts[0]) : $parts[0]] = $parts[1];
-				} else if (stripos($key, '-') !== false) {
+				} else if (stripos($key, '-') !== false && strpos($key, '-') != strlen($key)) {
 					$parts = explode('-', $key, 2);
 					$assoc[($caseInsensitive) ? strtolower($parts[0]) : $parts[0]] = $parts[1];
 				} else if (($i + 1) < $len) {
