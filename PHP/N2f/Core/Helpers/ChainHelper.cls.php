@@ -22,12 +22,6 @@
 		 */
 		protected $_Nodes = array();
 		/**
-		 * Dispatch to use during traversal.
-		 * 
-		 * @var \N2f\DispatchBase
-		 */
-		protected $_Dispatch;
-		/**
 		 * Whether or not to display debug information.
 		 * 
 		 * @var bool
@@ -160,8 +154,6 @@
 			} else if ($Dispatch->IsConsumed()) {
 				$Ret->SetMessage("Process attempt on dispatch that is already consumed.");
 			} else {
-				$this->_Dispatch = $Dispatch;
-
 				if ($Sender === null) {
 					$Sender = $this;
 				}
