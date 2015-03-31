@@ -151,7 +151,7 @@
 				$Ret->SetMessage("No nodes linked to chain.");
 			} else if (!$Dispatch->IsValid()) {
 				$Ret->SetMessage("Invalid dispatch.");
-			} else if ($Dispatch->IsConsumed()) {
+			} else if ($Dispatch->IsConsumable() && $Dispatch->IsConsumed()) {
 				$Ret->SetMessage("Process attempt on dispatch that is already consumed.");
 			} else {
 				if ($Sender === null) {
@@ -162,6 +162,10 @@
 
 				if ($this->_IsEvent) {
 					$this->_Nodes[0]->Process($Sender, $Dispatch);
+
+					if ($this->_DoDebug) {
+						$this->_Logger->Debug("Sending dispatch to {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node for event execution.");
+					}
 				} else {
 					$len = count($this->_Nodes);
 
