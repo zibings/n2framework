@@ -162,7 +162,7 @@
 
 				if ($this->_IsEvent) {
 					if ($this->_DoDebug) {
-						$this->_Logger->Debug("Sending dispatch to {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node for event execution.");
+						$this->_Logger->Debug("Sending dispatch to {$this->_Nodes[0]->GetKey()} (v{$this->_Nodes[0]->GetVersion()}) node for event execution.");
 					}
 
 					$this->_Nodes[0]->Process($Sender, $Dispatch);
