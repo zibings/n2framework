@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Header Files\BaseClasses">
+      <UniqueIdentifier>{e81eba4c-fd37-4c6f-9d7c-47a5d1dd88a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dispatches">
+      <UniqueIdentifier>{725210ff-9dd7-4c51-96f6-d6da936f8cf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{5660fd6e-80e3-4a31-8c51-e342d0721fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Nodes">
+      <UniqueIdentifier>{5024be56-0524-4632-872e-78f0af7ab896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BaseClasses">
+      <UniqueIdentifier>{b392c995-224f-4142-8bbf-315d9db76dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dispatches">
+      <UniqueIdentifier>{33d0ed0a-e792-4c6e-87d1-3aedc6946e2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{dc2dde91-867e-4699-9d96-4a21b4aa1072}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Nodes">
+      <UniqueIdentifier>{14a89884-184f-41e7-9c82-ab0d0c1c05a4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\N2f.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseClasses\DispatchBase.hpp">
+      <Filter>Header Files\BaseClasses</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\BaseClasses\DispatchBase.cpp">
+      <Filter>Source Files\BaseClasses</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
