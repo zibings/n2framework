@@ -45,9 +45,15 @@
     <ClInclude Include="include\BaseClasses\DispatchBase.hpp">
       <Filter>Header Files\BaseClasses</Filter>
     </ClInclude>
+    <ClInclude Include="include\BaseClasses\NodeBase.hpp">
+      <Filter>Header Files\BaseClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseClasses\DispatchBase.cpp">
+      <Filter>Source Files\BaseClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BaseClasses\NodeBase.cpp">
       <Filter>Source Files\BaseClasses</Filter>
     </ClCompile>
   </ItemGroup>
