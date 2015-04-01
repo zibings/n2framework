@@ -48,6 +48,9 @@
     <ClInclude Include="include\BaseClasses\NodeBase.hpp">
       <Filter>Header Files\BaseClasses</Filter>
     </ClInclude>
+    <ClInclude Include="include\Helpers\ChainHelper.hpp">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseClasses\DispatchBase.cpp">
@@ -55,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="src\BaseClasses\NodeBase.cpp">
       <Filter>Source Files\BaseClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Helpers\ChainHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
