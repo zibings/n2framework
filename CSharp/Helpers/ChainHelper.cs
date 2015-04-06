@@ -6,11 +6,10 @@ namespace N2f
 	/// <summary>
 	/// Class to create a chain full of nodes.
 	/// </summary>
-	public class ChainHelper<T> : IDisposable where T : DispatchBase
+	public class ChainHelper : IDisposable
 	{
 		protected List<NodeBase> _Nodes;
 		protected Logger _Logger;
-		protected T _Dispatch;
 		protected bool _Debug;
 		protected bool _Event;
 
@@ -30,10 +29,6 @@ namespace N2f
 		/// Local Logger instance for debug information, if enabled.
 		/// </summary>
 		public Logger Logger { get { return this._Logger; } }
-		/// <summary>
-		/// Dispatch instance to use during traversal.
-		/// </summary>
-		public T Dispatch { get { return this._Dispatch; } }
 
 		/// <summary>
 		/// Creates a new ChainHelper instance.
@@ -56,7 +51,7 @@ namespace N2f
 		/// </summary>
 		/// <param name="Node">NodeBase instance to link to chain.</param>
 		/// <returns>The current <see cref="ChainHelper{T}"/> instance.</returns>
-		public ChainHelper<T> LinkNode(NodeBase Node)
+		public ChainHelper LinkNode(NodeBase Node)
 		{
 			if (!Node.IsValid())
 			{
@@ -97,9 +92,9 @@ namespace N2f
 		/// <param name="Dispatch"><typeparamref name="T"/> dispatch to send along chain.</param>
 		/// <param name="Sender">Optional reference to entity that started traversal, default is assigned to this <see cref="ChainHelper{T}"/> instance.</param>
 		/// <returns>A <see cref="ReturnHelper{T}"/> instance with extra state information.</returns>
-		public ReturnHelper<T> Traverse(T Dispatch, object Sender = null)
+		public ReturnHelper<DispatchBase> Traverse(DispatchBase Dispatch, object Sender = null)
 		{
-			ReturnHelper<T> Ret = new ReturnHelper<T>();
+			ReturnHelper<DispatchBase> Ret = new ReturnHelper<DispatchBase>();
 
 			if (this._Nodes.Count < 1)
 			{
@@ -115,8 +110,6 @@ namespace N2f
 			}
 			else
 			{
-				this._Dispatch = Dispatch;
-
 				if (Sender == null)
 				{
 					Sender = this;
@@ -126,7 +119,7 @@ namespace N2f
 
 				if (this._Event)
 				{
-					this._Nodes[0].Process(Sender, this._Dispatch);
+					this._Nodes[0].Process(Sender, Dispatch);
 
 					if (this._Debug)
 					{
@@ -142,9 +135,9 @@ namespace N2f
 							// TODO: Logger gets called here; Sending dispatch to {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node in chain.
 						}
 
-						N.Process(Sender, this._Dispatch);
+						N.Process(Sender, Dispatch);
 
-						if (IsConsumable && this._Dispatch.IsConsumed)
+						if (IsConsumable && Dispatch.IsConsumed)
 						{
 							if (this._Debug)
 							{
