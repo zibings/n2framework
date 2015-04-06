@@ -55,10 +55,7 @@ namespace N2f
 		{
 			if (!Node.IsValid())
 			{
-				if (this._Debug)
-				{
-					// TODO: Logger gets called here; Invalid node, could not link into chain.
-				}
+				this.Log("Invalid node, could not link into chain.");
 
 				return this;
 			}
@@ -66,20 +63,12 @@ namespace N2f
 			if (this._Event)
 			{
 				this._Nodes = new List<NodeBase>() { Node };
-
-				if (this._Debug)
-				{
-					// TODO: Logger gets called here; Set {$Node->GetKey()} (v{$Node->GetVersion()}) node as chain handler.
-				}
+				this.Log("Set " + Node.Key + " (v" + Node.Version + ") node as chain handler.");
 			}
 			else
 			{
 				this._Nodes.Add(Node);
-
-				if (this._Debug)
-				{
-					// TODO: Logger gets called here; Linked {$Node->GetKey()} (v{$Node->GetVersion()}) node to chain.
-				}
+				this.Log("Linked " + Node.Key + " (v" + Node.Version + ") node to chain.");
 			}
 
 			return this;
@@ -121,28 +110,22 @@ namespace N2f
 				{
 					this._Nodes[0].Process(Sender, Dispatch);
 
-					if (this._Debug)
-					{
-						// TODO: Logger gets called here; Sending dispatch to {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node in chain.
-					}
+					this.Log("Sending dispatch to " + this._Nodes[0].Key + " (v" + this._Nodes[0].Version + ") node in chain.");
+					Ret.SetMessage("Dispatch sent to " + this._Nodes[0].Key + " node.");
 				}
 				else
 				{
 					foreach (var N in this._Nodes)
 					{
-						if (this._Debug)
-						{
-							// TODO: Logger gets called here; Sending dispatch to {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node in chain.
-						}
+						this.Log("Sending dispatch to " + N.Key + " (v" + N.Version + ") node in chain.");
+						Ret.SetMessage("Dispatch sent to " + N.Key + " node.");
 
 						N.Process(Sender, Dispatch);
 
 						if (IsConsumable && Dispatch.IsConsumed)
 						{
-							if (this._Debug)
-							{
-								// TODO: Logger gets called here; Chain traversal stopped by {$this->_Nodes[$i]->GetKey()} (v{$this->_Nodes[$i]->GetVersion()}) node.
-							}
+							this.Log("Chain traversal stopped by " + N.Key + " (v" + N.Version + ") node.");
+							Ret.SetMessage("Dispatch consumed by " + N.Key + " node.");
 
 							break;
 						}
@@ -150,6 +133,7 @@ namespace N2f
 				}
 			}
 
+			Ret.SetResult(Dispatch);
 			Ret.SetGud();
 
 			return Ret;
@@ -164,6 +148,20 @@ namespace N2f
 			{
 				this._Nodes.Clear();
 				this._Nodes = null;
+			}
+
+			return;
+		}
+
+		/// <summary>
+		/// Internal log method to simplify logging within the instance.
+		/// </summary>
+		/// <param name="Message">String value to log.</param>
+		protected void Log(string Message)
+		{
+			if (this._Debug)
+			{
+				// TODO: Logging
 			}
 
 			return;
