@@ -360,16 +360,19 @@
 						$tmp = new Extension($Cfg['name'], $Cfg['author'], $Cfg['version']);
 
 						if (array_key_exists('require', $Cfg) && is_array($Cfg['require']) && count($Cfg['require']) > 0) {
-							// check dependencies
-							// semver examples: https://github.com/vierbergenlars/php-semver/tree/master
-
-							// 1 - check for extensions with the required name
-							// 2 - check for thirdparty things with the required name
-							// 3 - check composer?
-
 							foreach ($Cfg['require'] as $ename => $eversion) {
-								if (($Ver = $this->GetExtensionVersion($ename))) {
-									
+								if (($Ver = $this->GetExtensionVersion($ename)) != "") {
+									$this->_Vh->setVersion($eversion);
+
+									if ($this->_Vh->compare($Ver) <= 0) {
+										
+									} else {
+										$Ret->SetBad();
+										$Ret->SetMessage("Extension '{$Name}' has a version mismatch on the '{$ename}' dependency.");
+									}
+								} else {
+									$Ret->SetBad();
+									$Ret->SetMessage("Extension '{$Name}' is missing the '{$ename}' dependency.");
 								}
 							}
 						}
