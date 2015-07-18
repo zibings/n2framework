@@ -228,6 +228,25 @@
 		}
 
 		/**
+		 * Retrieve the version of an extension that is available
+		 * to the system (but not necessarily loaded).
+		 * 
+		 * @param string $Name Name of the extension to lookup.
+		 * @return string Version number of extension, if available.
+		 */
+		public function GetExtensionVersion($Name) {
+			if (!$this->ValidExtensionName($Name)) {
+				return "";
+			}
+
+			if (array_key_exists($Name, $this->_Extensions)) {
+				return $this->_Extensions[$Name]->GetVersion();
+			}
+
+			return "";
+		}
+
+		/**
 		 * Returns the current FileHelper object for the instance.
 		 * 
 		 * @return \N2f\FileHelper
@@ -297,8 +316,7 @@
 		public function LoadExtension($Name) {
 			$Ret = new ReturnHelper();
 
-			// TODO: Better validation of path name
-			if (empty($Name)) {
+			if (!$this->ValidExtensionName($Name)) {
 				$Ret->SetMessage("Extension name invalid");
 			} else if (array_key_exists($Name, $this->_Extensions)) {
 				$Ret->SetMessage("Extension '{$Name}' already loaded, no changes made.");
@@ -642,6 +660,17 @@
 			$this->_Rh = $RequestHelper;
 
 			return $this;
+		}
+
+		/**
+		 * Method to validate the name of an extension.
+		 * 
+		 * @param string $Name String value to validate as an extension name. 
+		 * @return bool True or false depending on the name's validity.
+		 */
+		public function ValidExtensionName($Name) {
+			// TODO: Better validation of path name
+			return !empty($Name);
 		}
 	}
 
