@@ -336,6 +336,15 @@
 		}
 
 		/**
+		 * Returns the current VersionHelper object for the instance.
+		 * 
+		 * @return \N2f\VersionHelper
+		 */
+		public function GetVersionHelper() {
+			return $this->_Vh;
+		}
+
+		/**
 		 * Attempts to load an extension into the system.
 		 * 
 		 * @param string $Name Name of the extension to attempt loading.
