@@ -57,6 +57,19 @@
 		 * @return void
 		 */
 		public function __construct($version) {
+			$this->setVersion($version);
+
+			return;
+		}
+
+		/**
+		 * Sets (or resets) the internal version to use
+		 * for comparison.
+		 * 
+		 * @param string|float|int $version The owning version for this object.
+		 * @return void
+		 */
+		public function setVersion($version) {
 			$this->full = (string) $version;
 
 			$version = $this->separate($this->full);

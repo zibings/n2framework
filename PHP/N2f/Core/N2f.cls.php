@@ -16,71 +16,89 @@
 	class N2f {
 		protected $_Extensions = array();
 		/**
-		 * Summary of $_GenerationChain
+		 * Local instance of a N2f\ChainHelper for building
+		 * the generation event chain.
 		 * 
 		 * @var \N2f\ChainHelper
 		 */
 		protected $_GenerationChain;
 		/**
-		 * Summary of $_ExtensionChain
+		 * Local instance of a N2f\ChainHelper for building
+		 * the extension event chain.
 		 * 
 		 * @var \N2f\ChainHelper
 		 */
 		protected $_ExtensionChain;
 		/**
-		 * Summary of $_ShutdownChain
+		 * Local instance of a N2f\ChainHelper for building
+		 * the shutdown event chain.
 		 * 
 		 * @var \N2f\ChainHelper
 		 */
 		protected $_ShutdownChain;
 		/**
-		 * Summary of $_ExecuteChain
+		 * Local instance of a N2f\ChainHelper for building
+		 * the execute event chain.
 		 * 
 		 * @var \N2f\ChainHelper
 		 */
 		protected $_ExecuteChain;
 		/**
-		 * Summary of $_ConfigChain
+		 * Local instance of a N2f\ChainHelper for building
+		 * the config event chain.
 		 * 
 		 * @var \N2f\ChainHelper
 		 */
 		protected $_ConfigChain;
 		/**
-		 * Summary of $_Config
+		 * Local instance of a N2f\Config for holding system
+		 * settings.
 		 * 
 		 * @var \N2f\Config
 		 */
 		protected $_Config;
 		/**
-		 * Summary of $_Log
+		 * Local instance of a N2f\Logger for performing
+		 * log actions.
 		 * 
 		 * @var \N2f\Logger
 		 */
 		protected $_Log;
 		/**
-		 * Summary of $_Ch
+		 * Local instance of a N2f\ConsoleHelper for interacting
+		 * with the console.
 		 * 
 		 * @var \N2f\ConsoleHelper
 		 */
 		protected $_Ch;
 		/**
-		 * Summary of $_Fh
+		 * Local instance of a N2f\FileHelper for interacting
+		 * with the filesystem.
 		 * 
 		 * @var \N2f\FileHelper
 		 */
 		protected $_Fh;
 		/**
-		 * Summary of $_Jh
+		 * Local instance of a N2f\JsonHelper for interacting
+		 * with JSON information.
 		 * 
 		 * @var \N2f\JsonHelper
 		 */
 		protected $_Jh;
 		/**
-		 * Summary of $_Rh
+		 * Local instance of a N2f\ReqestHelper for interacting
+		 * with web requests.
 		 * 
 		 * @var \N2f\RequestHelper
 		 */
 		protected $_Rh;
+		/**
+		 * Local instance of a N2f\VersionHelper for comparing
+		 * version numbers.
+		 * 
+		 * @var \N2f\VersionHelper
+		 */
+		protected $_Vh;
 
 		/**
 		 * Singleton instance of N2f class.
@@ -157,6 +175,7 @@
 				$this->_Fh = (array_key_exists('FileHelper', $Config) && $Config['FileHelper'] instanceof FileHelper) ? $Config['FileHelper'] : new FileHelper(N2F_REL_DIR);
 				$this->_Jh = (array_key_exists('JsonHelper', $Config) && $Config['JsonHelper'] instanceof JsonHelper) ? $Config['JsonHelper'] : new JsonHelper();
 				$this->_Rh = (array_key_exists('RequestHelper', $Config) && $Config['RequestHelper'] instanceof RequestHelper) ? $Config['RequestHelper'] : new RequestHelper();
+				$this->_Vh = (array_key_exists('VersionHelper', $Config) && $Config['VersionHelper'] instanceof VersionHelper) ? $Config['VersionHelper'] : new VersionHelper("0.0.0");
 			} else {
 				$this->_Config = new Config();
 				$this->_GenerationChain = new ChainHelper();
@@ -169,6 +188,7 @@
 				$this->_Fh = new FileHelper(N2F_REL_DIR);
 				$this->_Jh = new JsonHelper();
 				$this->_Rh = new RequestHelper();
+				$this->_Vh = new VersionHelper("0.0.0");
 			}
 
 			// initialize nodes for base operation, etc
@@ -241,6 +261,14 @@
 
 			if (array_key_exists($Name, $this->_Extensions)) {
 				return $this->_Extensions[$Name]->GetVersion();
+			}
+
+			if ($this->_Fh->FolderExists("~N2f/Extensions/{$Name}") && $this->_Fh->FileExists("~N2f/Extensions/{$Name}/{$Name}.cfg")) {
+				$Cfg = $this->_Jh->DecodeAssoc($this->_Fh->GetContents("~N2f/Extensions/{$Name}/{$Name}.cfg"));
+
+				if ($Cfg != null && array_key_exists('name', $Cfg) && array_key_exists('author', $Cfg) && array_key_exists('version', $Cfg)) {
+					return $Cfg['version'];
+				}
 			}
 
 			return "";
@@ -338,6 +366,12 @@
 							// 1 - check for extensions with the required name
 							// 2 - check for thirdparty things with the required name
 							// 3 - check composer?
+
+							foreach ($Cfg['require'] as $ename => $eversion) {
+								if (($Ver = $this->GetExtensionVersion($ename))) {
+									
+								}
+							}
 						}
 
 						if ($Ret->IsGud()) {
