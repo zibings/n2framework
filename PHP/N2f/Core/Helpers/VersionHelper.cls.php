@@ -141,7 +141,9 @@
 		public function compare($version) {
 			$version = $this->separate($version);
 
-			if ($this->major > $version['major']) {
+			if ($this->isWildcard($this->major) || $this->isWildcard($version['major'])) {
+				return 0;
+			} else if ($this->major > $version['major']) {
 				return 1;
 			} else if ($this->major < $version['major']) {
 				return -1;
