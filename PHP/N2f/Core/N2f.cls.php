@@ -365,7 +365,7 @@
 									$this->_Vh->setVersion($eversion);
 
 									if ($this->_Vh->compare($Ver) <= 0) {
-										
+										$this->LoadExtension($ename);
 									} else {
 										$Ret->SetBad();
 										$Ret->SetMessage("Extension '{$Name}' has a version mismatch on the '{$ename}' dependency.");
