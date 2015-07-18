@@ -370,6 +370,8 @@
 										$Ret->SetBad();
 										$Ret->SetMessage("Extension '{$Name}' has a version mismatch on the '{$ename}' dependency.");
 									}
+
+									$this->_Vh->setVersion("0.0.0");
 								} else {
 									$Ret->SetBad();
 									$Ret->SetMessage("Extension '{$Name}' is missing the '{$ename}' dependency.");
