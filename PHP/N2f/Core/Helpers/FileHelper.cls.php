@@ -89,14 +89,15 @@
 		 * Loads a file from the filesystem.
 		 * 
 		 * @param string $Path String value of path to include.
+		 * @param bool $AllowReload Boolean value to toggle allowing files to be re-loaded.
 		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
 		 */
-		public function Load($Path) {
+		public function Load($Path, $AllowReload = false) {
 			$Ret = new ReturnHelper();
 
 			if (empty($Path)) {
 				$Ret->SetMessage("Invalid path provided.");
-			} else if (isset(FileHelper::$Included[$Path])) {
+			} else if (isset(FileHelper::$Included[$Path]) && !$AllowReload) {
 				$Ret->SetMessage("File has already been included.");
 			} else {
 				FileHelper::$Included[$Path] = true;
