@@ -104,7 +104,7 @@
 				$Path = $this->ProcessRoot($Path);
 
 				if ($this->FileExists($Path)) {
-					require_once($Path);
+					require($Path);
 
 					$Ret->SetGud();
 					$Ret->SetResult($Path);
