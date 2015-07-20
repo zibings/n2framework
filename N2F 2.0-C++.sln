@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N2F 2.0 - C++", "C++\N2F 2.0 - C++.vcxproj", "{5D23AC27-C4EE-4696-ADDB-3CDC1530D38E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N2F 2.0", "C++\N2F 2.0.vcxproj", "{5D23AC27-C4EE-4696-ADDB-3CDC1530D38E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
