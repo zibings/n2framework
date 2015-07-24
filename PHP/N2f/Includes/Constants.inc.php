@@ -32,7 +32,6 @@
 		const DirCoreNodes = "~N2f/Core/Nodes/";
 		const DirCoreTemplates = "~N2f/Core/Templates/";
 		const DirCore = "~N2f/Core/";
-		const DirExtensions = "~N2f/Extensions/";
 		const DirIncludes = "~N2f/Includes/";
 	}
 

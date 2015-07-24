@@ -39,6 +39,7 @@
 
 			/** @var GenerateDispatch $Dispatch */
 
+			$Jh = new JsonHelper();
 			$Fh = $Dispatch->GetFileHelper();
 			$EntityType = $Dispatch->GetEntityType();
 			$Params = $Dispatch->GetAssocParameters();
@@ -47,10 +48,12 @@
 				return;
 			}
 
+			$Cfg = new Config($Jh->DecodeAssoc($Fh->GetContents(N2fStrings::DirIncludes . "N2f.cfg")));
+
 			$ext = $Params['name'];
 			$Dispatch->Consume();
 
-			if ($Fh->FolderExists(N2fStrings::DirExtensions . "{$ext}")) {
+			if ($Fh->FolderExists($Cfg->ExtensionDirectory . "{$ext}")) {
 				$Dispatch->SetResult("Extension folder already exists, could not generate extension.");
 
 				return;
@@ -73,7 +76,7 @@
 				$Name = $Ch->GetLine();
 
 				if (!empty($Name)) {
-					if (!$Fh->FolderExists(N2fStrings::DirExtensions . "{$Name}")) {
+					if (!$Fh->FolderExists($Cfg->ExtensionDirectory . "{$Name}")) {
 						$config['name'] = $this->EscapePhpString($Name);
 
 						break;
@@ -116,12 +119,12 @@
 			$Jh = new JsonHelper();
 			$Ch->PutLine();
 
-			if ($Fh->MakeFolder(N2fStrings::DirExtensions . "{$ext}")) {
-				$Fh->PutContents(N2fStrings::DirExtensions . "{$ext}/{$ext}.cfg", $Jh->EncodePretty($config));
+			if ($Fh->MakeFolder($Cfg->ExtensionDirectory . "{$ext}")) {
+				$Fh->PutContents($Cfg->ExtensionDirectory . "{$ext}/{$ext}.cfg", $Jh->EncodePretty($config));
 
 				$ExtFile = str_replace('%EXTENSION%', $ext, $Fh->GetContents(N2fStrings::DirCoreTemplates . "Extension/Extension.ext.php"));
-				$Fh->PutContents(N2fStrings::DirExtensions . "{$ext}/{$ext}.ext.php", $ExtFile);
-				$Fh->PutContents(N2fStrings::DirExtensions . "{$ext}/index.php", "<?" . "php ?" . ">");
+				$Fh->PutContents($Cfg->ExtensionDirectory . "{$ext}/{$ext}.ext.php", $ExtFile);
+				$Fh->PutContents($Cfg->ExtensionDirectory . "{$ext}/index.php", "<?" . "php ?" . ">");
 
 				$Ch->PutLine("Successfully generated base files for {$ext} extension.");
 
