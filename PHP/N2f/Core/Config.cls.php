@@ -50,6 +50,13 @@
 		 * @var string
 		 */
 		public $Timezone;
+		/**
+		 * The location of the directory where extensions
+		 * are stored.
+		 * 
+		 * @var string
+		 */
+		public $ExtensionDirectory;
 
 		/**
 		 * Creates a new Config instance.
@@ -59,19 +66,21 @@
 		 */
 		public function __construct(array $config = null) {
 			if ($config === null || count($config) < 1) {
-				$this->Charset = 'utf8';
+				$this->Charset = N2fStrings::CfgCharsetDefault;
 				$this->Logger = new LoggerConfig();
 				$this->Extensions = array();
 				$this->Hash = '';
-				$this->Locale = 'en-US';
-				$this->Timezone = 'America/New_York';
+				$this->Locale = N2fStrings::CfgLocaleDefault;
+				$this->Timezone = N2fStrings::CfgTimezoneDefault;
+				$this->ExtensionDirectory = N2fStrings::CfgExtensionDirDefault;
 			} else {
-				$this->Charset = (array_key_exists('charset', $config)) ? $config['charset'] : 'utf8';
+				$this->Charset = (array_key_exists('charset', $config)) ? $config['charset'] : N2fStrings::CfgCharsetDefault;
 				$this->Logger = (array_key_exists('logger', $config) && is_array($config['logger'])) ? new LoggerConfig($config['logger']) : new LoggerConfig();
 				$this->Extensions = (array_key_exists('extensions', $config) && is_array($config['extensions'])) ? $config['extensions'] : array();
 				$this->Hash = (array_key_exists('hash', $config)) ? $config['hash'] : '';
-				$this->Locale = (array_key_exists('locale', $config)) ? $config['locale'] : 'en-US';
-				$this->Timezone = (array_key_exists('timezone', $config)) ? $config['timezone'] : 'America/New_York';
+				$this->Locale = (array_key_exists('locale', $config)) ? $config['locale'] : N2fStrings::CfgLocaleDefault;
+				$this->Timezone = (array_key_exists('timezone', $config)) ? $config['timezone'] : N2fStrings::CfgTimezoneDefault;
+				$this->ExtensionDirectory = (array_key_exists('extension_dir', $config)) ? ((substr($config['extension_dir'], -1) == '/') ? $config['extension_dir'] : $config['extension_dir'] . '/') : N2fStrings::CfgExtensionDirDefault;
 			}
 
 			return;
@@ -99,7 +108,7 @@
 		/**
 		 * The current log level for this instance.
 		 * 
-		 * @var int
+		 * @var mixed
 		 */
 		public $LogLevel;
 

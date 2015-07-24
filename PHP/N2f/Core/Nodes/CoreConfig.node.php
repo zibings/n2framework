@@ -53,12 +53,13 @@
 			$Jh = new JsonHelper();
 			$D = array(
 				'version' => N2F_VERSION,
-				'timezone' => 'America/New_York',
-				'locale' => 'en-US',
-				'charset' => 'utf-8',
+				'timezone' => N2fStrings::CfgTimezoneDefault,
+				'locale' => N2fStrings::CfgLocaleDefault,
+				'charset' => N2fStrings::CfgCharsetDefault,
 				'hash' => $this->GenerateHash(),
+				'extension_dir' => N2fStrings::CfgExtensionDirDefault,
 				'logger' => array(
-					'log_level' => 'N2F_LOG_ERROR',
+					'log_level' => N2fStrings::CfgLogLevelDefault,
 					'dump_logs' => true
 				),
 				'extensions' => array(
@@ -66,8 +67,8 @@
 				)
 			);
 
-			if ($Fh->FileExists("~N2f/Includes/N2f.cfg")) {
-				$Df = $Jh->DecodeAssoc($Fh->GetContents("~N2f/Includes/N2f.cfg"));
+			if ($Fh->FileExists(N2fStrings::DirIncludes . "N2f.cfg")) {
+				$Df = $Jh->DecodeAssoc($Fh->GetContents(N2fStrings::DirIncludes . "N2f.cfg"));
 
 				foreach ($Df as $key => $val) {
 					$D[$key] = $val;
@@ -100,7 +101,7 @@
 						case 'charset':
 							if (!empty($Val)) {
 								$D['charset'] = $Val;
-								$Ch->PutLine("System charset successfuly set.");
+								$Ch->PutLine("System charset successfully set.");
 							} else {
 								$Ch->PutLine("Invalid charset, please try again.");
 							}
@@ -128,6 +129,15 @@
 								$Ch->PutLine("Log dumps successfully set.");
 							} else {
 								$Ch->PutLine("Invalid value for 'dump_logs'!");
+							}
+
+							break;
+						case 'extension_dir':
+							if ($Fh->FolderExists($Val)) {
+								$D['extension_dir'] = (substr($Val, -1) == '/') ? $Val : $Val . '/';
+								$Ch->PutLine("Extension directory successfully set.");
+							} else {
+								$Ch->PutLine("Invalid extension directory provided, does not exist.");
 							}
 
 							break;
@@ -161,6 +171,8 @@
 
 					if (!empty($Syslang)) {
 						if ($this->ValidateLocale($Syslang)) {
+							$D['locale'] = $Syslang;
+
 							break;
 						} else {
 							$Ch->PutLine("Invalid locale!");
@@ -175,6 +187,23 @@
 
 				if (!empty($Charset)) {
 					$D['charset'] = $Charset;
+				}
+
+				while (true) {
+					$Ch->Put("Extension Directory [" . $D['extension_dir'] . "]: ");
+					$ExtDir = $Ch->GetLine();
+
+					if (!empty($ExtDir)) {
+						if ($Fh->FolderExists($ExtDir)) {
+							$D['extension_dir'] = (substr($ExtDir, -1) == '/') ? $ExtDir : $ExtDir . '/';
+
+							break;
+						} else {
+							$Ch->PutLine("Invalid extension directory, does not exist!");
+						}
+					} else {
+						break;
+					}
 				}
 
 				while (true) {
@@ -220,7 +249,7 @@
 				}
 			}
 
-			$Fh->PutContents("~N2f/Includes/N2f.cfg", $Jh->EncodePretty($D));
+			$Fh->PutContents(N2fStrings::DirIncludes . "N2f.cfg", $Jh->EncodePretty($D));
 			$Ch->PutLine();
 			$Ch->PutLine("Configuration file has been successfully saved.");
 

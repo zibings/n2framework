@@ -50,7 +50,7 @@
 			$ext = $Params['name'];
 			$Dispatch->Consume();
 
-			if ($Fh->FolderExists("~N2f/Extensions/{$ext}")) {
+			if ($Fh->FolderExists(N2fStrings::DirExtensions . "{$ext}")) {
 				$Dispatch->SetResult("Extension folder already exists, could not generate extension.");
 
 				return;
@@ -73,7 +73,7 @@
 				$Name = $Ch->GetLine();
 
 				if (!empty($Name)) {
-					if (!$Fh->FolderExists("~N2f/Extensions/{$Name}")) {
+					if (!$Fh->FolderExists(N2fStrings::DirExtensions . "{$Name}")) {
 						$config['name'] = $this->EscapePhpString($Name);
 
 						break;
@@ -116,17 +116,17 @@
 			$Jh = new JsonHelper();
 			$Ch->PutLine();
 
-			if ($Fh->MakeFolder("~N2f/Extensions/{$ext}")) {
-				$Fh->PutContents("~N2f/Extensions/{$ext}/{$ext}.cfg", $Jh->EncodePretty($config));
+			if ($Fh->MakeFolder(N2fStrings::DirExtensions . "{$ext}")) {
+				$Fh->PutContents(N2fStrings::DirExtensions . "{$ext}/{$ext}.cfg", $Jh->EncodePretty($config));
 
-				$ExtFile = str_replace('%EXTENSION%', $ext, $Fh->GetContents("~N2f/Core/Templates/Extension/Extension.ext.php"));
-				$Fh->PutContents("~N2f/Extensions/{$ext}/{$ext}.ext.php", $ExtFile);
-				$Fh->PutContents("~N2f/Extensions/{$ext}/index.php", "<?" . "php ?" . ">");
+				$ExtFile = str_replace('%EXTENSION%', $ext, $Fh->GetContents(N2fStrings::DirCoreTemplates . "Extension/Extension.ext.php"));
+				$Fh->PutContents(N2fStrings::DirExtensions . "{$ext}/{$ext}.ext.php", $ExtFile);
+				$Fh->PutContents(N2fStrings::DirExtensions . "{$ext}/index.php", "<?" . "php ?" . ">");
 
 				$Ch->PutLine("Successfully generated base files for {$ext} extension.");
 
 				if ($Ch->HasArg('enable')) {
-					$Cfg = $Jh->DecodeAssoc($Fh->GetContents("~N2f/Includes/N2f.cfg"));
+					$Cfg = $Jh->DecodeAssoc($Fh->GetContents(N2fStrings::DirIncludes . "N2f.cfg"));
 
 					if (isset($Cfg['extensions'])) {
 						$found = false;
@@ -146,7 +146,7 @@
 						$Cfg['extensions'] = array($ext);
 					}
 
-					$Fh->PutContents("~N2f/Includes/N2f.cfg", $Jh->EncodePretty($Cfg));
+					$Fh->PutContents(N2fStrings::DirIncludes . "N2f.cfg", $Jh->EncodePretty($Cfg));
 					$Ch->PutLine("Extension {$ext} enabled in N2f.cfg.");
 				}
 			} else {

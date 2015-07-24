@@ -82,7 +82,7 @@
 				return;
 			}
 
-			if ($this->_Action != 'create' && !($this->_Fh->FolderExists("~N2f/Extensions/{$this->_Ext}") && $this->_Fh->FileExists("~N2f/Extensions/{$this->_Ext}/{$this->_Ext}.cfg"))) {
+			if ($this->_Action != 'create' && !($this->_Fh->FolderExists(N2fStrings::DirExtensions . "{$this->_Ext}") && $this->_Fh->FileExists(N2fStrings::DirExtensions . "{$this->_Ext}/{$this->_Ext}.cfg"))) {
 				return;
 			}
 

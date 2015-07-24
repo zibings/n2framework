@@ -42,11 +42,11 @@
 			$Fh = $Dispatch->GetFileHelper();
 			$Jh = new JsonHelper();
 
-			if (!$Fh->FileExists("~N2f/Includes/N2f.cfg")) {
+			if (!$Fh->FileExists(N2fStrings::DirIncludes . "N2f.cfg")) {
 				return;
 			}
 
-			$Cfg = $Jh->DecodeAssoc($Fh->GetContents("~N2f/Includes/N2f.cfg"));
+			$Cfg = $Jh->DecodeAssoc($Fh->GetContents(N2fStrings::DirIncludes . "N2f.cfg"));
 			$Extension = $Dispatch->GetExtension();
 
 			switch ($Dispatch->GetAction()) {
@@ -129,7 +129,7 @@
 					return;
 			}
 
-			$Fh->PutContents("~N2f/Includes/N2f.cfg", $Jh->EncodePretty($Cfg));
+			$Fh->PutContents(N2fStrings::DirIncludes . "N2f.cfg", $Jh->EncodePretty($Cfg));
 
 			return;
 		}

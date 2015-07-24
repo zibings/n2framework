@@ -15,44 +15,44 @@
 
 		// Includes
 		$Fh->Load("~N2f/Includes/Constants.inc.php");
-		$Fh->Load("~N2f/Includes/Functions.inc.php");
-		$Fh->Load("~N2f/Includes/Enums.inc.php");
+		$Fh->Load(\N2f\N2fStrings::DirIncludes . "Functions.inc.php");
+		$Fh->Load(\N2f\N2fStrings::DirIncludes . "Enums.inc.php");
 
 		// Base classes
-		$Fh->Load("~N2f/Core/BaseClasses/Extension.base.php");
-		$Fh->Load("~N2f/Core/BaseClasses/Dispatch.base.php");
-		$Fh->Load("~N2f/Core/BaseClasses/Node.base.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreBaseClasses . "Extension.base.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreBaseClasses . "Dispatch.base.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreBaseClasses . "Node.base.php");
 
 		// Helpers
-		$Fh->Load("~N2f/Core/Helpers/ChainHelper.cls.php");
-		$Fh->Load("~N2f/Core/Helpers/ConsoleHelper.cls.php");
-		$Fh->Load("~N2f/Core/Helpers/JsonHelper.cls.php");
-		$Fh->Load("~N2f/Core/Helpers/RequestHelper.cls.php");
-		$Fh->Load("~N2f/Core/Helpers/VersionHelper.cls.php");
-		$Fh->Load("~N2f/Core/Helpers/ParameterHelper.cls.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreHelpers . "ChainHelper.cls.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreHelpers . "ConsoleHelper.cls.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreHelpers . "JsonHelper.cls.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreHelpers . "RequestHelper.cls.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreHelpers . "VersionHelper.cls.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreHelpers . "ParameterHelper.cls.php");
 
 		// Dispatches
-		$Fh->Load("~N2f/Core/Dispatches/Cli.dispatch.php");
-		$Fh->Load("~N2f/Core/Dispatches/Config.dispatch.php");
-		$Fh->Load("~N2f/Core/Dispatches/Extension.dispatch.php");
-		$Fh->Load("~N2f/Core/Dispatches/Generate.dispatch.php");
-		$Fh->Load("~N2f/Core/Dispatches/Json.dispatch.php");
-		$Fh->Load("~N2f/Core/Dispatches/Log.dispatch.php");
-		$Fh->Load("~N2f/Core/Dispatches/LogOutput.dispatch.php");
-		$Fh->Load("~N2f/Core/Dispatches/Shutdown.dispatch.php");
-		$Fh->Load("~N2f/Core/Dispatches/Web.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Cli.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Config.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Extension.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Generate.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Json.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Log.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "LogOutput.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Shutdown.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Web.dispatch.php");
 
 		// Nodes
-		$Fh->Load("~N2f/Core/Nodes/CoreConfig.node.php");
-		$Fh->Load("~N2f/Core/Nodes/CoreGenerate.node.php");
-		$Fh->Load("~N2f/Core/Nodes/ExtensionConfig.node.php");
-		$Fh->Load("~N2f/Core/Nodes/LoggerProcessor.node.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreNodes . "CoreConfig.node.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreNodes . "CoreGenerate.node.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreNodes . "ExtensionConfig.node.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreNodes . "LoggerProcessor.node.php");
 
 		// Core classes
-		$Fh->Load("~N2f/Core/Config.cls.php");
-		$Fh->Load("~N2f/Core/Extension.cls.php");
-		$Fh->Load("~N2f/Core/Logger.cls.php");
-		$Fh->Load("~N2f/Core/N2f.cls.php");
+		$Fh->Load(\N2f\N2fStrings::DirCore . "Config.cls.php");
+		$Fh->Load(\N2f\N2fStrings::DirCore . "Extension.cls.php");
+		$Fh->Load(\N2f\N2fStrings::DirCore . "Logger.cls.php");
+		$Fh->Load(\N2f\N2fStrings::DirCore . "N2f.cls.php");
 	} else {
 		die("System must be loaded with a relative directory set (N2F_REL_DIR).");
 	}

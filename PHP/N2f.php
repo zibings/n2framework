@@ -28,12 +28,12 @@
 	}
 
 	// If we're here, we're not setting up config, so we better have it
-	if (!$Fh->FileExists('~N2f/Includes/N2f.cfg')) {
+	if (!$Fh->FileExists(\N2f\N2fStrings::DirIncludes . 'N2f.cfg')) {
 		die("\nNo configuration file present, please make sure you create one or run automatic setup.\n\n");
 	}
 
 	$Jh = new N2f\JsonHelper();
-	$Cfg = $Jh->DecodeAssoc($Fh->GetContents("~/N2f/Includes/N2f.cfg"));
+	$Cfg = $Jh->DecodeAssoc($Fh->GetContents(\N2f\N2fStrings::DirIncludes . "N2f.cfg"));
 
 	/* Example with all dependencies provided:
 	 * 

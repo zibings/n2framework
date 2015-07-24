@@ -263,8 +263,8 @@
 				return $this->_Extensions[$Name]->GetVersion();
 			}
 
-			if ($this->_Fh->FolderExists("~N2f/Extensions/{$Name}") && $this->_Fh->FileExists("~N2f/Extensions/{$Name}/{$Name}.cfg")) {
-				$Cfg = $this->_Jh->DecodeAssoc($this->_Fh->GetContents("~N2f/Extensions/{$Name}/{$Name}.cfg"));
+			if ($this->_Fh->FolderExists($this->_Config->ExtensionDirectory . "{$Name}") && $this->_Fh->FileExists($this->_Config->ExtensionDirectory . "{$Name}/{$Name}.cfg")) {
+				$Cfg = $this->_Jh->DecodeAssoc($this->_Fh->GetContents($this->_Config->ExtensionDirectory . "{$Name}/{$Name}.cfg"));
 
 				if ($Cfg != null && array_key_exists('name', $Cfg) && array_key_exists('author', $Cfg) && array_key_exists('version', $Cfg)) {
 					return $Cfg['version'];
@@ -359,8 +359,8 @@
 				$Ret->SetMessage("Extension '{$Name}' already loaded, no changes made.");
 				$Ret->SetGud();
 			} else {
-				if ($this->_Fh->FolderExists("~N2f/Extensions/{$Name}") && $this->_Fh->FileExists("~N2f/Extensions/{$Name}/{$Name}.cfg")) {
-					$Cfg = $this->_Jh->DecodeAssoc($this->_Fh->GetContents("~N2f/Extensions/{$Name}/{$Name}.cfg"));
+				if ($this->_Fh->FolderExists($this->_Config->ExtensionDirectory . "{$Name}") && $this->_Fh->FileExists($this->_Config->ExtensionDirectory . "{$Name}/{$Name}.cfg")) {
+					$Cfg = $this->_Jh->DecodeAssoc($this->_Fh->GetContents($this->_Config->ExtensionDirectory . "{$Name}/{$Name}.cfg"));
 
 					if ($Cfg == null || !array_key_exists('name', $Cfg) || !array_key_exists('author', $Cfg) || !array_key_exists('version', $Cfg)) {
 						$Ret->SetMessage("Extension '{$Name}' configuration was not complete, must have at least 'name', 'author', and 'version' set.");
@@ -389,8 +389,8 @@
 						}
 
 						if ($Ret->IsGud()) {
-							if (array_key_exists('base_file', $Cfg) && $this->_Fh->FileExists("~N2f/Extensions/{$Name}/{$Cfg['base_file']}.ext.php")) {
-								$this->_Fh->Load("~N2f/Extensions/{$Name}/{$Cfg['base_file']}.ext.php");
+							if (array_key_exists('base_file', $Cfg) && $this->_Fh->FileExists($this->_Config->ExtensionDirectory . "{$Name}/{$Cfg['base_file']}.ext.php")) {
+								$this->_Fh->Load($this->_Config->ExtensionDirectory . "{$Name}/{$Cfg['base_file']}.ext.php");
 
 								$tmp->SetBaseFile($Cfg['base_file']);
 							} else if (array_key_exists('auto_includes', $Cfg)) {
@@ -399,8 +399,8 @@
 									$Loaded = array();
 
 									foreach (array_values($Cfg['auto_includes']) as $File) {
-										if ($this->_Fh->FileExists("~N2f/Extensions/{$Name}/{$File}.ext.php")) {
-											$this->_Fh->Load("~N2f/Extensions/{$Name}/{$File}.ext.php");
+										if ($this->_Fh->FileExists($this->_Config->ExtensionDirectory . "{$Name}/{$File}.ext.php")) {
+											$this->_Fh->Load($this->_Config->ExtensionDirectory . "{$Name}/{$File}.ext.php");
 
 											$SomethingLoaded = true;
 											$Loaded[] = $File;
@@ -413,14 +413,14 @@
 									} else {
 										$tmp->SetAutoIncludes($Loaded);
 									}
-								} else if ($this->_Fh->FileExists("~N2f/Extensions/{$Name}/{$Cfg['auto_includes']}.ext.php")) {
-									$this->_Fh->Load("~N2f/Extensions/{$Name}/{$Cfg['auto_load']}.ext.php");
+								} else if ($this->_Fh->FileExists($this->_Config->ExtensionDirectory . "{$Name}/{$Cfg['auto_includes']}.ext.php")) {
+									$this->_Fh->Load($this->_Config->ExtensionDirectory . "{$Name}/{$Cfg['auto_load']}.ext.php");
 								} else {
 									$Ret->SetBad();
 									$Ret->SetMessage("Invalid auto_load directive for the extension: {$Name}");
 								}
-							} else if ($this->_Fh->FileExists("~N2f/Extensions/{$Name}/{$Name}.ext.php")) {
-								$this->_Fh->Load("~N2f/Extensions/{$Name}/{$Name}.ext.php");
+							} else if ($this->_Fh->FileExists($this->_Config->ExtensionDirectory . "{$Name}/{$Name}.ext.php")) {
+								$this->_Fh->Load($this->_Config->ExtensionDirectory . "{$Name}/{$Name}.ext.php");
 							} else {
 								$Ret->SetBad();
 								$Ret->SetMessage("Couldn't find a valid entry file for the extension: {$Name}");
