@@ -570,7 +570,7 @@
 		 */
 		protected function PerformExtension() {
 			$Disp = new ExtensionDispatch();
-			$Disp->Initialize(array('ConsoleHelper' => $this->_Ch, 'FileHelper' => $this->_Fh));
+			$Disp->Initialize(array('ConsoleHelper' => $this->_Ch, 'FileHelper' => $this->_Fh, 'Config' => $this->_Config));
 
 			$this->_ExtensionChain->Traverse($Disp, $this);
 			$this->DisplayDispatchResults($Disp);

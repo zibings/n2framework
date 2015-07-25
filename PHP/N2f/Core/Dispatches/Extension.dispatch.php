@@ -50,7 +50,7 @@
 		 * @return void
 		 */
 		public function Initialize($Input) {
-			if ($Input === null || !is_array($Input) || !array_key_exists('ConsoleHelper', $Input)) {
+			if ($Input === null || !is_array($Input) || !array_key_exists('ConsoleHelper', $Input) || !array_key_exists('Config', $Input)) {
 				return;
 			}
 
@@ -63,6 +63,7 @@
 			$this->_IsValid = false;
 
 			$Params = $Input['ConsoleHelper']->Parameters(true);
+			$Cfg = (is_array($Input['Config'])) ? new Config($Input['Config']) : $Input['Config'];
 			$this->_Fh = (array_key_exists('FileHelper', $Input)) ? $Input['FileHelper'] : new FileHelper();
 
 			if (count($Params) < 3) {
@@ -82,7 +83,7 @@
 				return;
 			}
 
-			if ($this->_Action != 'create' && !($this->_Fh->FolderExists(N2fStrings::DirExtensions . "{$this->_Ext}") && $this->_Fh->FileExists(N2fStrings::DirExtensions . "{$this->_Ext}/{$this->_Ext}.cfg"))) {
+			if ($this->_Action != 'create' && !($this->_Fh->FolderExists($Cfg->ExtensionDirectory . "{$this->_Ext}") && $this->_Fh->FileExists($Cfg->ExtensionDirectory . "{$this->_Ext}/{$this->_Ext}.cfg"))) {
 				return;
 			}
 
