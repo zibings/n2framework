@@ -66,18 +66,14 @@
 			$Cfg = (is_array($Input['Config'])) ? new Config($Input['Config']) : $Input['Config'];
 			$this->_Fh = (array_key_exists('FileHelper', $Input)) ? $Input['FileHelper'] : new FileHelper();
 
-			if (count($Params) < 3) {
+			if (count($Params) != 4) {
 				return;
 			}
 
-			$Action = array_slice($Params, 2, 1);
+			$Keys = array_keys($Params);
 
-			foreach ($Action as $Key => $Val) {
-				$this->_Action = $Key;
-				$this->_Ext = $Val;
-
-				break;
-			}
+      $this->_Action = $Keys[2];
+      $this->_Ext = $Keys[3];
 
 			if ($this->_Action != 'add' && $this->_Action != 'remove' && $this->_Action != 'create') {
 				return;
