@@ -57,6 +57,56 @@
 			return;
 		}
 
+    /**
+     * Copies a file to $Dest on the filesystem.
+     * 
+     * @param mixed $Source String value of source file path.
+     * @param mixed $Dest String value of desitation file path.
+     * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
+     */
+    public function CopyFile($Source, $Dest) {
+      $Ret = new ReturnHelper();
+
+      if (empty($Source) || empty($Dest)) {
+        $Ret->SetMessage("Invalid source or destination path provided.");
+      } else if (substr($Source, -1) == "/" || substr($Dest, -1) == "/") {
+        $Ret->SetMessage("Neither source or destination can be directories.");
+      } else if (!$this->FileExists($Source) || $this->FileExists($Dest)) {
+        $Ret->SetMessage("Source file didn't exist or destination file already exists.");
+      } else {
+				if (!copy($this->ProcessRoot($Source), $this->ProcessRoot($Dest))) {
+					$Ret->SetMessage("Failed to copy file, check PHP logs for error.");
+				} else {
+					$Ret->SetGud();
+					$Ret->SetResult($this->ProcessRoot($Dest));
+				}
+			}
+
+      return $Ret;
+    }
+
+    /**
+     * Recursively copies a directory's contents
+     * to $Dest on the filesystem.
+     * 
+     * @param mixed $Source String value of source directory path.
+     * @param mixed $Dest String value of destination directory path.
+     * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
+     */
+    public function CopyFolder($Source, $Dest) {
+      $Ret = new ReturnHelper();
+
+			if (empty($Source) || empty($Dest)) {
+				$Ret->SetMessage("Invalid source or destination path provided.");
+			} else if (!$this->FolderExists($Source) || $this->FolderExists($Dest)) {
+				$Ret->SetMessage("Source directory didn't exist or destination folder already exists.");
+			} else {
+				$Ret = $this->RecursiveCopy($Source, $Dest);
+			}
+
+      return $Ret;
+    }
+
 		/**
 		 * Returns whether or not a file exists.
 		 * 
@@ -282,6 +332,60 @@
 					$Ret->SetMessage("Failed to write to file.");
 				}
 			}
+
+			return $Ret;
+		}
+
+		/**
+		 * Recursively copies directory contents.
+		 * 
+		 * @param mixed $Source String value of source directory path.
+		 * @param mixed $Dest String value of destination directory path.
+		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
+		 */
+		protected function RecursiveCopy($Source, $Dest) {
+			$Ret = new ReturnHelper();
+			$Ret->SetGud();
+
+			if (substr($Source, -1) != '/') {
+				$Source .= '/';
+			}
+
+			if (substr($Dest, -1) != '/') {
+				$Dest .= '/';
+			}
+
+			$Source = $this->ProcessRoot($Source);
+			$Dest = $this->ProcessRoot($Dest);
+
+			$Dir = opendir($Source);
+			@mkdir($Dest);
+
+			while (($File = readdir($Dir)) !== false) {
+				if ($File == '.' || $File == '..') {
+					continue;
+				}
+
+				if (is_dir($Source . $File)) {
+					$Recur = $this->RecursiveCopy($Source . $File, $Dest . $File);
+
+					if ($Recur->IsBad()) {
+						$Ret->SetBad();
+						$Ret->SetMessages($Recur->GetMessages());
+					} else {
+						$Ret->SetResults($Recur->GetResults());
+					}
+				} else {
+					if (!copy($Source . $File, $Dest . $File)) {
+						$Ret->SetBad();
+						$Ret->SetMessage("Failed to copy '" . $Source . $File . "' to '" . $Dest . $File . "'");
+					} else {
+						$Ret->SetResult($Dest . $File);
+					}
+				}
+			}
+
+			closedir($Dir);
 
 			return $Ret;
 		}
