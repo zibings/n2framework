@@ -361,6 +361,8 @@
 			$Dir = opendir($Source);
 			@mkdir($Dest);
 
+      $Ret->SetResult($Dest);
+
 			while (($File = readdir($Dir)) !== false) {
 				if ($File == '.' || $File == '..') {
 					continue;
