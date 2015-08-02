@@ -77,49 +77,61 @@
 			$Ch->PutLine("Answer the following questions to configure your new extension.");
 			$Ch->PutLine();
 
-			while (true) {
-				$Ch->Put("Extension Name [{$Params['name']}]: ");
-				$Name = $Ch->GetLine();
+			$ExtName = $Ch->GetQueriedInput(
+				"Extension Name",
+				$Params['name'],
+				"Bad name or extension already exists, please try another name.",
+				5,
+				function ($Value) use ($Fh, $Cfg) { return !empty($Value) && !$Fh->FolderExists($Cfg->ExtensionDirectory . $Value); },
+				array($this, 'EscapePhpString')
+			);
 
-				if (!empty($Name)) {
-					if (!$Fh->FolderExists($Cfg->ExtensionDirectory . "{$Name}")) {
-						$config['name'] = $this->EscapePhpString($Name);
-
-						break;
-					} else {
-						$Ch->PutLine("Extension already exists, please try another name.");
-					}
-				} else {
-					$config['name'] = $this->EscapePhpString($Params['name']);
-
-					break;
+			if ($ExtName->IsGud()) {
+				$config['name'] = $ExtName->GetResults();
+			} else {
+				foreach (array_values($ExtName->GetMessages()) as $Msg) {
+					$Ch->PutLine($Msg);
 				}
+
+				return;
 			}
 
-			while (true) {
-				$Ch->Put("Extension Author: ");
-				$Author = $Ch->GetLine();
+			$ExtAuthor = $Ch->GetQueriedInput(
+				"Extension Author",
+				null,
+				"Invalid author name.",
+				5,
+				null,
+				array($this, 'EscapePhpString')
+			);
 
-				if (!empty($Author)) {
-					$config['author'] = $this->EscapePhpString($Author);
-
-					break;
-				} else {
-					$Ch->PutLine("Invalid author name!");
+			if ($ExtAuthor->IsGud()) {
+				$config['author'] = $ExtAuthor->GetResults();
+			} else {
+				foreach (array_values($ExtAuthor->GetMessages()) as $Msg) {
+					$Ch->PutLine($Msg);
 				}
+
+				return;
 			}
 
-			while (true) {
-				$Ch->Put("Extension Version: ");
-				$Version = $Ch->GetLine();
+			$ExtVersion = $Ch->GetQueriedInput(
+				"Extension Version",
+				null,
+				"Invalid version number.",
+				5,
+				null,
+				array($this, 'EscapePhpString')
+			);
 
-				if (!empty($Version)) {
-					$config['version'] = $this->EscapePhpString($Version);
-
-					break;
-				} else {
-					$Ch->PutLine("Invalid version number.");
+			if ($ExtVersion->IsGud()) {
+				$config['version'] = $ExtVersion->GetResults();
+			} else {
+				foreach (array_values($ExtVersion->GetMessages()) as $Msg) {
+					$Ch->PutLine($Msg);
 				}
+
+				return;
 			}
 
 			$Jh = new JsonHelper();
@@ -171,7 +183,7 @@
 		 * @param string $Str String value to escape quotes within.
 		 * @return string Escaped string.
 		 */
-		protected function EscapePhpString($Str) {
+		public function EscapePhpString($Str) {
 			return str_replace(array('"', "'"), array('\"', "\'"), $Str);
 		}
 	}

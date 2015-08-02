@@ -148,105 +148,91 @@
 				$Ch->PutLine("Answer the following prompts to create/update your instance configuration.");
 				$Ch->PutLine();
 
-				while (true) {
-					$Ch->Put("System Timezone [" . $D['timezone'] . "]: ");
-					$Timezone = $Ch->GetLine();
+				$CfgTimezone = $Ch->GetQueriedInput(
+					"System Timezone",
+					$D['timezone'],
+					"Invalid timezone.",
+					5,
+					array($this, 'ValidateTimezone')
+				);
 
-					if (!empty($Timezone)) {
-						if ($this->ValidateTimezone($Timezone)) {
-							$D['timezone'] = $Timezone;
-
-							break;
-						} else {
-							$Ch->PutLine("Invalid timezone!");
-						}
-					} else {
-						break;
-					}
+				if ($CfgTimezone->IsBad()) {
+					return;
 				}
 
-				while (true) {
-					$Ch->Put("System Locale [" . $D['locale'] . "]: ");
-					$Syslang = $Ch->GetLine();
+				$D['timezone'] = $CfgTimezone->GetResults();
 
-					if (!empty($Syslang)) {
-						if ($this->ValidateLocale($Syslang)) {
-							$D['locale'] = $Syslang;
+				$CfgLang = $Ch->GetQueriedInput(
+					"System Locale",
+					$D['locale'],
+					"Invalid locale.",
+					5,
+					array($this, 'ValidateLocale')
+				);
 
-							break;
-						} else {
-							$Ch->PutLine("Invalid locale!");
-						}
-					} else {
-						break;
-					}
+				if ($CfgLang->IsBad()) {
+					return;
+				}
+				
+				$D['locale'] = $CfgLang->GetResults();
+
+				$CfgCharset = $Ch->GetQueriedInput(
+					"System Charset",
+					$D['charset'],
+					"Invalid charset.",
+					5
+				);
+
+				if ($CfgCharset->IsBad()) {
+					return;
 				}
 
-				$Ch->Put("System Charset [" . $D['charset'] . "]: ");
-				$Charset = $Ch->GetLine();
+				$D['charset'] = $CfgCharset->GetResults();
 
-				if (!empty($Charset)) {
-					$D['charset'] = $Charset;
+				$CfgExtDir = $Ch->GetQueriedInput(
+					"Extension Directory",
+					$D['extension_dir'],
+					"Invalid extension directory, does not exist.",
+					5,
+					function ($Value) use ($Fh) { return !empty($Value) && $Fh->FolderExists($Value); },
+					function ($Value) { return (substr($Value, -1) == '/') ? $Value : $Value . '/'; }
+				);
+
+				if ($CfgExtDir->IsBad()) {
+					return;
 				}
 
-				while (true) {
-					$Ch->Put("Extension Directory [" . $D['extension_dir'] . "]: ");
-					$ExtDir = $Ch->GetLine();
+				$D['extension_dir'] = $CfgExtDir->GetResults();
 
-					if (!empty($ExtDir)) {
-						if ($Fh->FolderExists($ExtDir)) {
-							$D['extension_dir'] = (substr($ExtDir, -1) == '/') ? $ExtDir : $ExtDir . '/';
+				$CfgReportingLevel = $Ch->GetQueriedInput(
+					"Logging Level",
+					$D['logger']['log_level'],
+					"Invalid log level.",
+					5,
+					function ($Value) { return !empty($Value) && Logger::ValidLevel(strtoupper($Value)); },
+					function ($Value) { return strtoupper($Value); }
+				);
 
-							break;
-						} else {
-							$Ch->PutLine("Invalid extension directory, does not exist!");
-						}
-					} else {
-						break;
-					}
+				if ($CfgReportingLevel->IsBad()) {
+					return;
 				}
 
-				while (true) {
-					$Ch->Put("Logging Level [" . $D['logger']['log_level'] . "]: ");
-					$ReportingLevel = $Ch->GetLine();
+				$D['logger']['log_level'] = $CfgReportingLevel->GetResults();
 
-					if (!empty($ReportingLevel)) {
-						$ReportingLevel = strtoupper($ReportingLevel);
+				$CfgDumpLogs = $Ch->GetQueriedInput(
+					"Dump Logs",
+					($D['logger']['dump_logs']) ? 'Y/n' : 'y/N',
+					"Invalid option for dump logs.",
+					5,
+					function ($Value) { return !empty($Value) && (strtolower($Value) == 'y' || strtolower($Value) == 'n'); },
+					function ($Value) { return (strtolower($Value) == 'y') ? true : false; }
+				);
 
-						if (Logger::ValidLevel($ReportingLevel)) {
-							$D['logger']['log_level'] = $ReportingLevel;
-
-							break;
-						} else {
-							$Ch->PutLine("Invalid log level!");
-						}
-					} else {
-						break;
-					}
+				if ($CfgDumpLogs->IsBad()) {
+					return;
 				}
 
-				while (true) {
-					$Ch->Put("Dump Logs [" . (($D['logger']['dump_logs']) ? 'Y/n' : 'y/N') . "]: ");
-					$DumpDebug = $Ch->GetLine();
-
-					if (!empty($DumpDebug)) {
-						$DumpDebug = strtolower($DumpDebug);
-
-						if ($DumpDebug == 'y') {
-							$D['logger']['dump_logs'] = true;
-						} else if ($DumpDebug == 'n') {
-							$D['logger']['dump_logs'] = false;
-						} else {
-							$Ch->PutLine("Invalid value for 'dump_logs'!");
-
-							continue;
-						}
-
-						break;
-					} else {
-						break;
-					}
-				}
+				$D['logger']['dump_logs'] = $CfgDumpLogs->GetResults();
 			}
 
 			$Fh->PutContents(N2fStrings::DirIncludes . "N2f.cfg", $Jh->EncodePretty($D));
@@ -275,7 +261,7 @@
 		 * @param string $Timezone Timezone to validate.
 		 * @return bool True if included in system list, false otherwise.
 		 */
-		protected function ValidateTimezone($Timezone) {
+		public function ValidateTimezone($Timezone) {
 			$zones = \DateTimeZone::listAbbreviations();
 
 			foreach (array_values($zones) as $zone) {
@@ -295,7 +281,7 @@
 		 * @param string $Locale String value of locale abbreviation to validate.
 		 * @return bool True if included in locale list, false otherwise.
 		 */
-		protected function ValidateLocale($Locale) {
+		public function ValidateLocale($Locale) {
 			foreach (array_values(\env_get_locales()) as $loc) {
 				if (strtolower($loc) == strtolower($Locale)) {					
 					return true;

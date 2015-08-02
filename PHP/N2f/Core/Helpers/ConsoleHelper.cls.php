@@ -117,6 +117,74 @@
 		}
 
 		/**
+		 * Queries a user repeatedly for input.
+		 * 
+		 * @param string $Query Base prompt, sans-colon.
+		 * @param mixed $DefaultValue Default value for input, provide null if not present.
+		 * @param string $ErrorMessage Message to display when input not provided correctly.
+		 * @param int $MaxTries Maximum number of attempts a user can make before the process bails out.
+		 * @param callable $Validation An optional method or function to provide boolean validation of input.
+		 * @param callable $Sanitation An optional method or function to provide sanitation of the validated input.
+		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
+		 */
+		public function GetQueriedInput($Query, $DefaultValue, $ErrorMessage, $MaxTries = 5, $Validation = null, $Sanitation = null) {
+			$Ret = new ReturnHelper();
+			$Prompt = $Query;
+
+			if ($DefaultValue !== null) {
+				$Prompt .= " [{$DefaultValue}]";
+			}
+
+			$Prompt .= ": ";
+
+			if ($Validation === null) {
+				$Validation = function ($Value) { return !empty(trim($Value)); };
+			}
+
+			if ($Sanitation === null) {
+				$Sanitation = function ($Value) { return trim($Value); };
+			}
+
+			$Attempts = 0;
+
+			while (true) {
+				$this->Put($Prompt);
+				$Val = $this->GetLine();
+
+				if (empty($Val) && $DefaultValue !== null) {
+					$Ret->SetGud();
+					$Ret->SetResult($DefaultValue);
+
+					break;
+				}
+
+				if ($Validation($Val)) {
+					$Sanitized = $Sanitation($Val);
+					$Ret->SetGud();
+
+					if ($Sanitized instanceof ReturnHelper) {
+						$Ret = $Sanitized;
+					} else {
+						$Ret->SetResult($Sanitized);
+					}
+
+					break;
+				} else {
+					$this->PutLine($ErrorMessage);
+					$Attempts++;
+
+					if ($Attempts == $MaxTries) {
+						$Ret->SetMessage("Exceeded maximum number of attempts.");
+
+						break;
+					}
+				}
+			}
+
+			return $Ret;
+		}
+
+		/**
 		 * Checks if the given key exists in the argument list,
 		 * optionally without case sensitivity.
 		 * 
