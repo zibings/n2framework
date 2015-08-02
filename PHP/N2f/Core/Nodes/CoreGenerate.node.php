@@ -44,7 +44,13 @@
 			$EntityType = $Dispatch->GetEntityType();
 			$Params = $Dispatch->GetAssocParameters();
 
-			if (($EntityType != "ext" && $EntityType != "extension") || !array_key_exists('name', $Params)) {
+			if (stripos($EntityType, 'n2f:') === false || !array_key_exists('name', $Params)) {
+				return;
+			}
+
+			$EntityType = substr($EntityType, 4);
+
+			if ($EntityType != 'ext' && $EntityType != 'extension') {
 				return;
 			}
 
