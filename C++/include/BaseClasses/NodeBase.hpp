@@ -5,88 +5,72 @@
 
 namespace N2f
 {
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>
-	///		Abstract base class for nodes used to process information
-	///		sent along chains.
+	///	Abstract base class for nodes used to process information
+	///	sent along chains.
 	/// </summary>
-	///
-	/// <remarks>	Andrew, 4/1/2015. </remarks>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	class NodeBase
 	{
 	protected:
 		char *_key, *_version;
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Sets the node's key value provided it hasn't already been set. </summary>
-		///
-		/// <remarks>	Andrew, 4/1/2015. </remarks>
-		///
+		/// <summary>
+		/// Sets the node's key value provided it hasn't already been set.
+		/// </summary>
 		/// <param name="Key">
-		/// 	 The value to use for the node's key, must be not null and have characters.
+		/// The value to use for the node's key, must be not null and have characters.
 		/// </param>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		void SetKey(const char *Key);
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Sets the node's version value provided it hasn't already been set. </summary>
-		///
-		/// <remarks>	Andrew, 4/1/2015. </remarks>
-		///
+		/// <summary>
+		/// Sets the node's version value provided it hasn't already been set.
+		/// </summary>
 		/// <param name="Version">
-		/// 	 The value to use for the node's version, must be not null and have characters.
+		/// The value to use for the node's version, must be not null and have characters.
 		/// </param>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		void SetVersion(const char *Version);
 
 	public:
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Virtual destructor for cleanup. </summary>
-		///
-		/// <remarks>	Andrew, 4/1/2015. </remarks>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Virtual destructor for cleanup.
+		/// </summary>
 		virtual ~NodeBase() { }
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Virtual method to receive a dispatch from a chain and process it. </summary>
-		///
-		/// <remarks>	Andrew, 4/1/2015. </remarks>
-		///
-		/// <param name="Sender"> [in,out] If non-null, the sender. </param>
-		/// <param name="Dispatch">	The dispatch to process. </param>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Virtual method to receive a dispatch from a chain and process it.
+		/// </summary>
+		/// <param name="Sender">
+		/// [in,out] If non-null, the sender.
+		/// </param>
+		/// <param name="Dispatch">
+		/// The dispatch to process.
+		/// </param>
 		virtual void Process(void *Sender, std::shared_ptr<DispatchBase> Dispatch) = 0;
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Returns the value of the node's key. </summary>
-		///
-		/// <remarks>	Andrew, 4/1/2015. </remarks>
-		///
-		/// <returns>	null if it fails, else the key. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Returns the value of the node's key.
+		/// </summary>
+		/// <returns>
+		/// null if it fails, else the key.
+		/// </returns>
 		const char *GetKey();
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Returns the value of the node's version. </summary>
-		///
-		/// <remarks>	Andrew, 4/1/2015. </remarks>
-		///
-		/// <returns>	null if it fails, else the version. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>
+		/// Returns the value of the node's version.
+		/// </summary>
+		/// <returns>
+		/// null if it fails, else the version.
+		/// </returns>
 		const char *GetVersion();
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>
-		///		Whether or not the node is valid for processing.  Valid nodes have both their key and
-		///		version values set.
+		///	Whether or not the node is valid for processing.  Valid nodes have both their key and
+		///	version values set.
 		///	</summary>
-		///
-		/// <remarks>	Andrew, 4/1/2015. </remarks>
-		///
-		/// <returns>	true if valid, false if not. </returns>
-		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <returns>
+		/// true if valid, false if not.
+		/// </returns>
 		bool IsValid();
 	};
 }
