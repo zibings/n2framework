@@ -51,7 +51,7 @@
 				$this->argInfo['argv'] = $argv;
 
 				if ($argc > 0) {
-					$this->argInfo['arga'] = \env_parse_params($argv, true);
+					$this->argInfo['arga'] = \env_parse_params($argv);
 				}
 			}
 
