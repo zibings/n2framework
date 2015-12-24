@@ -56,5 +56,3 @@
 			return $this->_EndDateTime;
 		}
 	}
-
-?>

@@ -221,5 +221,3 @@
 			return in_array($segment, $this->wildcards);
 		}
 	}
-
-?>

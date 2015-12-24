@@ -193,5 +193,3 @@
 			return $this->_Files;
 		}
 	}
-
-?>

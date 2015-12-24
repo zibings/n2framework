@@ -56,5 +56,3 @@
 	} else {
 		die("System must be loaded with a relative directory set (N2F_REL_DIR).");
 	}
-
-?>

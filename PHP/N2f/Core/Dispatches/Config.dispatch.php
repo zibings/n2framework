@@ -89,5 +89,3 @@
 			return $this->_IsInteractive;
 		}
 	}
-
-?>

@@ -187,5 +187,3 @@
 			return str_replace(array('"', "'"), array('\"', "\'"), $Str);
 		}
 	}
-
-?>

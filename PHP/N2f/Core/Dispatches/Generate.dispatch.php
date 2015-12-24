@@ -82,5 +82,3 @@
 			return $this->_Fh;
 		}
 	}
-
-?>

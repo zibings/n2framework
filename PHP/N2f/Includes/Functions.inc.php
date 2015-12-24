@@ -102,5 +102,3 @@
 
 		return $assoc;
 	}
-
-?>

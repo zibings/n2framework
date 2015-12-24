@@ -166,5 +166,3 @@
 			return $this->_Dump;
 		}
 	}
-
-?>

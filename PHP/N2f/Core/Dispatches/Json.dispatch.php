@@ -135,5 +135,3 @@
 			return $this->_RequestHelper->GetEnv($EnvInfo);
 		}
 	}
-
-?>

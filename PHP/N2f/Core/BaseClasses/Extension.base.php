@@ -22,5 +22,3 @@
 		 */
 		abstract public function Initialize(N2f &$N2f);
 	}
-
-?>

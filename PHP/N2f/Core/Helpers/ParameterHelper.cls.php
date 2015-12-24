@@ -174,5 +174,3 @@
 			return $this->parameters[$Key];
 		}
 	}
-
-?>

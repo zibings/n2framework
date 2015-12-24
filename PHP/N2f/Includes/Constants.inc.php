@@ -34,5 +34,3 @@
 		const DirCore = "~N2f/Core/";
 		const DirIncludes = "~N2f/Includes/";
 	}
-
-?>

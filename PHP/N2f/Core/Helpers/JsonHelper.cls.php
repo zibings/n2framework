@@ -123,5 +123,3 @@
 			return $this->Encode($Data, true);
 		}
 	}
-
-?>

@@ -56,5 +56,3 @@
 		const ENV = 3;
 		const FILES = 4;
 	}
-
-?>

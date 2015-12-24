@@ -4,10 +4,10 @@
 
 	/**
 	 * Main class for the N2 Framework.
-	 * 
+	 *
 	 * The main class for N2F, handles loading of extensions and manages
 	 * several event chains that define the base system.
-	 * 
+	 *
 	 * @version 1.0
 	 * @author Andrew Male
 	 * @copyright 2014-2015 Zibings.com
@@ -18,91 +18,91 @@
 		/**
 		 * Local instance of a N2f\ChainHelper for building
 		 * the generation event chain.
-		 * 
+		 *
 		 * @var \N2f\ChainHelper
 		 */
 		protected $_GenerationChain;
 		/**
 		 * Local instance of a N2f\ChainHelper for building
 		 * the extension event chain.
-		 * 
+		 *
 		 * @var \N2f\ChainHelper
 		 */
 		protected $_ExtensionChain;
 		/**
 		 * Local instance of a N2f\ChainHelper for building
 		 * the shutdown event chain.
-		 * 
+		 *
 		 * @var \N2f\ChainHelper
 		 */
 		protected $_ShutdownChain;
 		/**
 		 * Local instance of a N2f\ChainHelper for building
 		 * the execute event chain.
-		 * 
+		 *
 		 * @var \N2f\ChainHelper
 		 */
 		protected $_ExecuteChain;
 		/**
 		 * Local instance of a N2f\ChainHelper for building
 		 * the config event chain.
-		 * 
+		 *
 		 * @var \N2f\ChainHelper
 		 */
 		protected $_ConfigChain;
 		/**
 		 * Local instance of a N2f\Config for holding system
 		 * settings.
-		 * 
+		 *
 		 * @var \N2f\Config
 		 */
 		protected $_Config;
 		/**
 		 * Local instance of a N2f\Logger for performing
 		 * log actions.
-		 * 
+		 *
 		 * @var \N2f\Logger
 		 */
 		protected $_Log;
 		/**
 		 * Local instance of a N2f\ConsoleHelper for interacting
 		 * with the console.
-		 * 
+		 *
 		 * @var \N2f\ConsoleHelper
 		 */
 		protected $_Ch;
 		/**
 		 * Local instance of a N2f\FileHelper for interacting
 		 * with the filesystem.
-		 * 
+		 *
 		 * @var \N2f\FileHelper
 		 */
 		protected $_Fh;
 		/**
 		 * Local instance of a N2f\JsonHelper for interacting
 		 * with JSON information.
-		 * 
+		 *
 		 * @var \N2f\JsonHelper
 		 */
 		protected $_Jh;
 		/**
 		 * Local instance of a N2f\ReqestHelper for interacting
 		 * with web requests.
-		 * 
+		 *
 		 * @var \N2f\RequestHelper
 		 */
 		protected $_Rh;
 		/**
 		 * Local instance of a N2f\VersionHelper for comparing
 		 * version numbers.
-		 * 
+		 *
 		 * @var \N2f\VersionHelper
 		 */
 		protected $_Vh;
 
 		/**
 		 * Singleton instance of N2f class.
-		 * 
+		 *
 		 * @var \N2f\N2f
 		 */
 		protected static $_Instance = null;
@@ -111,7 +111,7 @@
 		 * Retrieves a reference to the current singleton, creates
 		 * a new instance with null values if one hasn't already
 		 * been created.
-		 * 
+		 *
 		 * @return \N2f\N2f
 		 */
 		public static function &getInstance() {
@@ -126,9 +126,9 @@
 
 		/**
 		 * Recreates the singleton instance.
-		 * 
+		 *
 		 * @param mixed $Config Optional array of configuration options, including dependencies.
-		 * 
+		 *
 		 * @return \N2f\N2f
 		 */
 		public static function &setInstance($Config = null) {
@@ -140,9 +140,9 @@
 
 		/**
 		 * Creates a one-off instance for use outside the singleton.
-		 * 
+		 *
 		 * @param mixed $Config Optional array of configuration options, including dependencies.
-		 * 
+		 *
 		 * @return \N2f\N2f
 		 */
 		public static function &createInstance($Config = null) {
@@ -153,7 +153,7 @@
 
 		/**
 		 * Creates a new N2f instance.
-		 * 
+		 *
 		 * @param array $Config Optional configuration value in the form of an array.
 		 * @return void
 		 */
@@ -202,7 +202,7 @@
 
 		/**
 		 * Method to show results from dipatches being processed.
-		 * 
+		 *
 		 * @param \N2f\DispatchBase $Dispatch DispatchBase to pull results out of.
 		 * @return void
 		 */
@@ -222,7 +222,7 @@
 
 		/**
 		 * Returns the current Config object for the instance.
-		 * 
+		 *
 		 * @return \N2f\Config
 		 */
 		public function GetConfig() {
@@ -231,7 +231,7 @@
 
 		/**
 		 * Returns the current ConsoleHelper object for the instance.
-		 * 
+		 *
 		 * @return \N2f\ConsoleHelper
 		 */
 		public function GetConsoleHelper() {
@@ -240,7 +240,7 @@
 
 		/**
 		 * Returns the current stack of loaded extensions.
-		 * 
+		 *
 		 * @return array
 		 */
 		public function GetExtensions() {
@@ -250,7 +250,7 @@
 		/**
 		 * Retrieve the version of an extension that is available
 		 * to the system (but not necessarily loaded).
-		 * 
+		 *
 		 * @param string $Name Name of the extension to lookup.
 		 * @return string Version number of extension, if available.
 		 */
@@ -276,7 +276,7 @@
 
 		/**
 		 * Returns the current FileHelper object for the instance.
-		 * 
+		 *
 		 * @return \N2f\FileHelper
 		 */
 		public function GetFileHelper() {
@@ -285,7 +285,7 @@
 
 		/**
 		 * Returns the current JsonHelper object for the instance.
-		 * 
+		 *
 		 * @return \N2f\JsonHelper
 		 */
 		public function GetJsonHelper() {
@@ -294,7 +294,7 @@
 
 		/**
 		 * Returns the current Logger object for the instance.
-		 * 
+		 *
 		 * @return \N2f\Logger
 		 */
 		public function GetLogger() {
@@ -303,7 +303,7 @@
 
 		/**
 		 * Returns the current RequestHelper object for the instance.
-		 * 
+		 *
 		 * @return \N2f\RequestHelper
 		 */
 		public function GetRequestHelper() {
@@ -312,7 +312,7 @@
 
 		/**
 		 * Method to create an instance of a receiver class.
-		 * 
+		 *
 		 * @param string $Name Name of class to instantiate.
 		 * @return void
 		 */
@@ -337,7 +337,7 @@
 
 		/**
 		 * Returns the current VersionHelper object for the instance.
-		 * 
+		 *
 		 * @return \N2f\VersionHelper
 		 */
 		public function GetVersionHelper() {
@@ -346,7 +346,7 @@
 
 		/**
 		 * Attempts to load an extension into the system.
-		 * 
+		 *
 		 * @param string $Name Name of the extension to attempt loading.
 		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
 		 */
@@ -444,7 +444,7 @@
 
 		/**
 		 * Attempts to load a group of extensions into the system.
-		 * 
+		 *
 		 * @param array $List Group of extensions to attempt loading.
 		 * @return \N2f\ReturnHelper A ReturnHelper instance with extra state information.
 		 */
@@ -474,7 +474,7 @@
 
 		/**
 		 * Links a node into the Configure chain for the system.
-		 * 
+		 *
 		 * @param \N2f\NodeBase $Node Node to add to Configure chain.
 		 * @return \N2f\N2f The current N2f instance.
 		 */
@@ -486,7 +486,7 @@
 
 		/**
 		 * Links a node into the Execute chain for the system.
-		 * 
+		 *
 		 * @param \N2f\NodeBase $Node Node to add to Execute chain.
 		 * @return \N2f\N2f The current N2f instance.
 		 */
@@ -498,7 +498,7 @@
 
 		/**
 		 * Links a node into the Generation chain for the system.
-		 * 
+		 *
 		 * @param \N2f\NodeBase $Node Node to add to Generation chain.
 		 * @return \N2f\N2f The current N2f instance.
 		 */
@@ -510,7 +510,7 @@
 
 		/**
 		 * Links a node into the Shutdown chain for the system.
-		 * 
+		 *
 		 * @param \N2f\NodeBase $Node Node to add to Shutdown chain.
 		 * @return \N2f\N2f The current N2f instance.
 		 */
@@ -522,7 +522,7 @@
 
 		/**
 		 * Triggers the traversal of the ConfigChain.
-		 * 
+		 *
 		 * @return void
 		 */
 		protected function PerformConfigure() {
@@ -537,7 +537,7 @@
 
 		/**
 		 * Triggers the traversal of the ExecuteChain.
-		 * 
+		 *
 		 * @return void
 		 */
 		protected function PerformExecute() {
@@ -565,7 +565,7 @@
 		
 		/**
 		 * Triggers the traversal of the ExtensionChain.
-		 * 
+		 *
 		 * @return void
 		 */
 		protected function PerformExtension() {
@@ -580,7 +580,7 @@
 
 		/**
 		 * Triggers the traversal of the GenerationChain.
-		 * 
+		 *
 		 * @return void
 		 */
 		protected function PerformGeneration() {
@@ -595,7 +595,7 @@
 
 		/**
 		 * Triggers traversal of the ShutdownChain.
-		 * 
+		 *
 		 * @return void
 		 */
 		public function PerformShutdown() {
@@ -609,7 +609,7 @@
 
 		/**
 		 * Processes the current request, firing off either the Configure, Generation, or Execute chains as appropriate.
-		 * 
+		 *
 		 * @return \N2f\N2f The current N2f instance.
 		 */
 		public function Process() {
@@ -632,7 +632,7 @@
 
 		/**
 		 * Overwrites the current Config object for the instance.
-		 * 
+		 *
 		 * @param \N2f\Config $Config Optional Config object to use for the instance (default created if not specified).
 		 * @return \N2f\N2f The current N2f instance.
 		 */
@@ -652,7 +652,7 @@
 
 		/**
 		 * Overwrites the current ConsoleHelper object for the instance.
-		 * 
+		 *
 		 * @param \N2f\ConsoleHelper $ConsoleHelper ConsoleHelper object to use for the instance.
 		 * @return \N2f\N2f The current N2f instance.
 		 */
@@ -664,7 +664,7 @@
 
 		/**
 		 * Overwrites the current FileHelper object for the instance.
-		 * 
+		 *
 		 * @param \N2f\FileHelper $FileHelper FileHelper object to use for the instance.
 		 * @return \N2f\N2f The current N2f instance.
 		 */
@@ -676,7 +676,7 @@
 
 		/**
 		 * Overwrites the current JsonHelper object for the instance.
-		 * 
+		 *
 		 * @param \N2f\JsonHelper $JsonHelper JsonHelper object to use for the instance.
 		 * @return \N2f\N2f The current N2f instance.
 		 */
@@ -688,7 +688,7 @@
 
 		/**
 		 * Overwrites the current Logger object for the instance.
-		 * 
+		 *
 		 * @param \N2f\Logger $Logger Logger object to use for the instance.
 		 * @return \N2f\N2f
 		 */
@@ -700,7 +700,7 @@
 
 		/**
 		 * Overwrites the current RequestHelper object for the instance.
-		 * 
+		 *
 		 * @param \N2f\RequestHelper $RequestHelper RequestHelper object to use for the instance.
 		 * @return \N2f\N2f The current N2f instance.
 		 */
@@ -712,7 +712,7 @@
 
 		/**
 		 * Method to validate the name of an extension.
-		 * 
+		 *
 		 * @param string $Name String value to validate as an extension name. 
 		 * @return bool True or false depending on the name's validity.
 		 */
@@ -721,5 +721,3 @@
 			return !empty($Name);
 		}
 	}
-
-?>

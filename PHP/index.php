@@ -4,5 +4,3 @@
 	define('N2F_URL_PATH', '/');
 
 	require('N2f.php');
-
-?>

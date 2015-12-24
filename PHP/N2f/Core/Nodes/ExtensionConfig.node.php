@@ -117,5 +117,3 @@
 			return false;
 		}
 	}
-
-?>

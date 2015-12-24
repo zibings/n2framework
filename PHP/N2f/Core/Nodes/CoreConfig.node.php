@@ -291,5 +291,3 @@
 			return false;
 		}
 	}
-
-?>

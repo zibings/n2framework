@@ -20,7 +20,7 @@
 		 *
 		 * @var array
 		 */
-		protected static $_namespaces = array();
+		protected static $namespaces = array();
 
 		/**
 		 * An associative array where the key is the fully qualified class name, and the value
@@ -28,7 +28,7 @@
 		 *
 		 * @var array
 		 */
-		protected static $_mapped = array();
+		protected static $mapped = array();
 
 		/**
 		 * Register the SPL autoload method.
@@ -65,7 +65,7 @@
 				return $this;
 			}
 
-			self::$_mapped[$class] = $file;
+			self::$mapped[$class] = $file;
 
 			return $this;
 		}
@@ -85,17 +85,17 @@
 				return $this;
 			}
 
-			if (!array_key_exists($namespace, self::$_namespaces)) {
-				self::$_namespaces[$namespace] = array();
+			if (!array_key_exists($namespace, self::$namespaces)) {
+				self::$namespaces[$namespace] = array();
 			}
 
 			$namespace = trim($namespace, '\\');
 			$folder = trim($folder, '.'.DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $namespace);
 
 			if ($prepend) {
-				array_unshift(self::$_namespaces[$namespace], $folder);
+				array_unshift(self::$namespaces[$namespace], $folder);
 			} else {
-				array_push(self::$_namespaces[$namespace], $folder);
+				array_push(self::$namespaces[$namespace], $folder);
 			}
 
 			return $this;
@@ -148,11 +148,11 @@
 		 * @return bool
 		 */
 		public function LoadMappedClass($class) {
-			if (!array_key_exists($class, self::$_mapped)) {
+			if (!array_key_exists($class, self::$mapped)) {
 				return false;
 			}
 
-			return self::$_mapped[$class];
+			return self::$mapped[$class];
 		}
 
 		/**
@@ -192,14 +192,14 @@
 		 * @return bool|string
 		 */
 		public function FindFileByPsr4($namespace, $filename) {
-			if (!array_key_exists($namespace, self::$_namespaces)) {
+			if (!array_key_exists($namespace, self::$namespaces)) {
 				return false;
 			}
 
 			$return = false;
 
-			for ($i = 0; $i < count(self::$_namespaces[$namespace]); $i++) {
-				$folder = self::$_namespaces[$namespace][$i];
+			for ($i = 0; $i < count(self::$namespaces[$namespace]); $i++) {
+				$folder = self::$namespaces[$namespace][$i];
 				$file = $folder . DIRECTORY_SEPARATOR . $filename.'.php';
 
 				if (file_exists($file)) {
@@ -228,5 +228,3 @@
 			return true;
 		}
 	}
-
-?>
