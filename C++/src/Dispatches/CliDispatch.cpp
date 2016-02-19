@@ -92,6 +92,8 @@ CliDispatch &CliDispatch::Initialize(int argc, char *argv[])
 		}
 	}
 
+	this->MakeValid();
+
 	return *this;
 }
 
