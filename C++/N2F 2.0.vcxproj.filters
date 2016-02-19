@@ -57,6 +57,9 @@
     <ClInclude Include="include\Config.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Dispatches\CliDispatch.hpp">
+      <Filter>Header Files\Dispatches</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseClasses\DispatchBase.cpp">
@@ -73,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="src\Logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Dispatches\CliDispatch.cpp">
+      <Filter>Source Files\Dispatches</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
