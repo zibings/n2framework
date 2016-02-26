@@ -3,6 +3,9 @@
 #include <BaseClasses/DispatchBase.hpp>
 #include <memory>
 
+#define MAX_NODE_KEY_LENGTH 256
+#define MAX_NODE_VER_LENGTH 12
+
 namespace N2f
 {
 	/// <summary>
