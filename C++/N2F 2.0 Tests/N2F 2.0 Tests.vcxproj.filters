@@ -13,10 +13,16 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Bases">
+      <UniqueIdentifier>{371cdcbe-2f63-4bff-a48f-444d06a97b6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\N2F Tests.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Bases\DispatchBaseTest.h">
+      <Filter>Header Files\Bases</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

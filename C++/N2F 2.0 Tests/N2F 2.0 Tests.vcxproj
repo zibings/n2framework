@@ -148,10 +148,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Bases\DispatchBaseTest.h" />
     <ClInclude Include="include\N2F Tests.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\N2F Tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\N2F 2.0.vcxproj">
+      <Project>{5d23ac27-c4ee-4696-addb-3cdc1530d38e}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
