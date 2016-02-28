@@ -17,5 +17,8 @@
 		"cache-vcs-dir": "N2fCache/vcs",
 		"cache-files-ttl": 15552000,
 		"cache-files-maxsize": "20MiB"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^5.2"
 	}
 }
