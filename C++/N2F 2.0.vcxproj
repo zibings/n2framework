@@ -75,6 +75,7 @@
     <ClInclude Include="include\BaseClasses\DispatchBase.hpp" />
     <ClInclude Include="include\BaseClasses\NodeBase.hpp" />
     <ClInclude Include="include\Config.hpp" />
+    <ClInclude Include="include\Dispatches\CliDispatch.hpp" />
     <ClInclude Include="include\Helpers\ChainHelper.hpp" />
     <ClInclude Include="include\Logger.hpp" />
     <ClInclude Include="include\N2f.hpp" />
@@ -83,6 +84,7 @@
     <ClCompile Include="src\BaseClasses\DispatchBase.cpp" />
     <ClCompile Include="src\BaseClasses\NodeBase.cpp" />
     <ClCompile Include="src\Config.cpp" />
+    <ClCompile Include="src\Dispatches\CliDispatch.cpp" />
     <ClCompile Include="src\Helpers\ChainHelper.cpp" />
     <ClCompile Include="src\Logger.cpp" />
   </ItemGroup>
