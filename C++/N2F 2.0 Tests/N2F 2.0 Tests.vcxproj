@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Bases\DispatchBaseTest.h" />
+    <ClInclude Include="include\Bases\NodeBaseTest.h" />
     <ClInclude Include="include\N2F Tests.h" />
   </ItemGroup>
   <ItemGroup>

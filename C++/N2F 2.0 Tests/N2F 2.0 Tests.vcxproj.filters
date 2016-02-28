@@ -24,6 +24,9 @@
     <ClInclude Include="include\Bases\DispatchBaseTest.h">
       <Filter>Header Files\Bases</Filter>
     </ClInclude>
+    <ClInclude Include="include\Bases\NodeBaseTest.h">
+      <Filter>Header Files\Bases</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\N2F Tests.cpp">

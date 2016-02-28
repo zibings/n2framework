@@ -1,4 +1,5 @@
 #include <BaseClasses/NodeBase.hpp>
+#include <iostream>
 
 namespace N2f
 {
@@ -12,9 +13,9 @@ namespace N2f
 		// TODO: Add logging here in the future, for now we're just looking at basic usage
 		if (!this->_key || strlen(this->_key) < 1)
 		{
-#if defined(FW_WINDOWS)
+#if defined(_MSC_VER)
 			strcpy_s(this->_key, sizeof(this->_key), Key);
-#elif defined(FW_UNIX)
+#else
 			strcpy(this->_key, Key);
 #endif
 		}
@@ -27,20 +28,28 @@ namespace N2f
 		if (!Version || strlen(Version) > MAX_NODE_VER_LENGTH || strlen(Version) < 1)
 		{
 			return;
-	}
+		}
 
 		// TODO: Add logging here in the future, for now we're just looking at basic usage
 		if (!this->_version || strlen(this->_version) < 1)
 		{
-#if defined(FW_WINDOWS)
+#if defined(_MSC_VER)
 			strcpy_s(this->_version, sizeof(this->_version), Version);
-#elif defined(FW_UNIX)
+#else
 			strcpy(this->_version, Version);
 #endif
 		}
 
 		return;
-}
+	}
+
+	NodeBase::NodeBase(const char *Key, const char *Version)
+	{
+		this->_key[0] = this->_version[0] = 0;
+
+		this->SetKey(Key);
+		this->SetVersion(Version);
+	}
 
 	const char *NodeBase::GetKey()
 	{
@@ -54,6 +63,6 @@ namespace N2f
 
 	bool NodeBase::IsValid()
 	{
-		return this->_key != NULL && strlen(this->_key) > 0 && this->_version != NULL && strlen(this->_version) > 0;
+		return strlen(this->_key) > 0 && strlen(this->_version) > 0;
 	}
 }

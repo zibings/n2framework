@@ -15,8 +15,9 @@ namespace N2f
 	class NodeBase
 	{
 	protected:
-		char *_key, *_version;
+		char _key[MAX_NODE_KEY_LENGTH], _version[MAX_NODE_VER_LENGTH];
 
+	private:
 		/// <summary>
 		/// Sets the node's key value provided it hasn't already been set.
 		/// </summary>
@@ -34,6 +35,14 @@ namespace N2f
 		void SetVersion(const char *Version);
 
 	public:
+		/// <summary>
+		/// Initializes the node with its most basic information.
+		/// </summary>
+		/// <param name="Key">
+		/// The value to use for the node's key. Must not be null and have characters.
+		/// </param>
+		/// <param name="Version">
+		NodeBase(const char *Key, const char *Version);
 
 		/// <summary>
 		/// Virtual destructor for cleanup.
