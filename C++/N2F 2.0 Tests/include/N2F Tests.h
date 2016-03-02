@@ -2,5 +2,9 @@
 
 #include <UnitTest++/UnitTest++.h>
 
-#include <Bases/DispatchBaseTest.h>
-#include <Bases/NodeBaseTest.h>
+#include <BaseTests/DispatchBaseTest.h>
+#include <BaseTests/NodeBaseTest.h>
+
+#include <DispatchTests/CliDispatchTest.h>
+
+#include <HelperTests/ChainHelperTest.h>

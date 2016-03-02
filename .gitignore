@@ -29,6 +29,8 @@ README.html
 *.sdf
 *.opensdf
 *.unsuccessfulbuild
+*.opendb
+.vs/
 ipch/
 [Oo]bj/
 [Bb]in
@@ -69,5 +71,10 @@ packages/
 # visual studio database projects
 *.dbmdl
 
-#Test files
+# Test files
 *.testsettings
+
+# N2f2 stuff
+PHP/N2f/ThirdParty/*
+PHP/N2fCache/
+PHP/composer.*
