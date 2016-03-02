@@ -68,13 +68,12 @@ private:
 	int _result;
 };
 
-class IntegerNode : public N2f::NodeBase
+class IntegerNode : public N2f::NodeBase<IntegerDispatch>
 {
 public:
-	IntegerNode(const char *Key, const char *Version) : N2f::NodeBase(Key, Version) { }
+	IntegerNode(const char *Key, const char *Version) : N2f::NodeBase<IntegerDispatch>(Key, Version) { }
 
-	void Process(void *Sender, std::shared_ptr<N2f::DispatchBase> Dispatch) { this->Process(std::make_shared<IntegerDispatch>(Dispatch)); }
-	virtual void Process(std::shared_ptr<IntegerDispatch> Dispatch) = 0;
+	virtual void Process(void *Sender, std::shared_ptr<IntegerDispatch> Dispatch) = 0;
 };
 
 class NonConsumerNode : public IntegerNode
@@ -82,7 +81,7 @@ class NonConsumerNode : public IntegerNode
 public:
 	NonConsumerNode() : IntegerNode("NonConsumerNode", "1") { }
 
-	void Process(std::shared_ptr<IntegerDispatch> Dispatch)
+	void Process(void *Sender, std::shared_ptr<IntegerDispatch> Dispatch)
 	{
 		int newResult = 0;
 
@@ -106,7 +105,7 @@ class ConsumerNode : public IntegerNode
 public:
 	ConsumerNode() : IntegerNode("ConsumerNode", "1") { }
 
-	void Process(std::shared_ptr<IntegerDispatch> Dispatch)
+	void Process(void *Sender, std::shared_ptr<IntegerDispatch> Dispatch)
 	{
 		int newResult = 0;
 
@@ -129,7 +128,7 @@ SUITE(ChainHelperTest)
 {
 	TEST(NonConsumableStatefulChainGetsCorrectCount)
 	{
-		N2f::ChainHelper chain(false, true);
+		N2f::ChainHelper<IntegerDispatch> chain(false, true);
 
 		chain.LinkNode(std::make_shared<NonConsumerNode>());
 		chain.LinkNode(std::make_shared<NonConsumerNode>());

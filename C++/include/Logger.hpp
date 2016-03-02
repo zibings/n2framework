@@ -12,7 +12,7 @@ namespace N2f
 	class Logger
 	{
 	protected:
-		ChainHelper _logChain, _outputChain;
+		//ChainHelper _logChain, _outputChain;
 		LoggerConfig _config;
 	};
 }

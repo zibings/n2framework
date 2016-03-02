@@ -65,12 +65,6 @@
     <ClCompile Include="src\BaseClasses\DispatchBase.cpp">
       <Filter>Source Files\BaseClasses</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseClasses\NodeBase.cpp">
-      <Filter>Source Files\BaseClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Helpers\ChainHelper.cpp">
-      <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="src\Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

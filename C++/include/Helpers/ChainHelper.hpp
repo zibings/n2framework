@@ -6,11 +6,11 @@
 
 namespace N2f
 {
+	template<class T>
 	class ChainHelper
 	{
 	public:
-		typedef std::vector<std::shared_ptr<NodeBase>> NodeList;
-		typedef std::vector<std::shared_ptr<NodeBase>>::iterator NodeListIter;
+		typedef std::vector<std::shared_ptr<NodeBase<T>>> NodeList;
 
 	protected:
 		bool _doDebug = false, _isEvent = false;
@@ -21,7 +21,7 @@ namespace N2f
 		/// <summary>
 		/// Default constructor, chain will not be an event and will not debug.
 		/// </summary>
-		ChainHelper();
+		ChainHelper() : this(false, false) { }
 
 		/// <summary>
 		/// Main constructor, allows specification of event and debug statuses.
@@ -32,12 +32,26 @@ namespace N2f
 		/// <param name="DoDebug">
 		/// true if ChainHelper instance should show debug information.
 		/// </param>
-		ChainHelper(bool IsEvent, bool DoDebug);
+		ChainHelper(bool IsEvent, bool DoDebug)
+		{
+			this->_doDebug = DoDebug;
+			this->_isEvent = IsEvent;
+
+			return;
+		}
 
 		/// <summary>
 		/// Virtual destructor for cleanup.
 		/// </summary>
-		virtual ~ChainHelper();
+		virtual ~ChainHelper()
+		{
+			if (this->_nodes.size() > 0)
+			{
+				this->_nodes.clear();
+			}
+
+			return;
+		}
 
 		/// <summary>
 		/// Returns the current list of nodes.
@@ -45,7 +59,10 @@ namespace N2f
 		/// <returns>
 		/// Vector of NodeBase nodes linked into chain.
 		/// </returns>
-		const NodeList GetNodes();
+		const NodeList GetNodes()
+		{
+			return this->_nodes;
+		}
 
 		/// <summary>
 		/// Whether or not this ChainHelper instance is producing debug information.
@@ -53,7 +70,10 @@ namespace N2f
 		/// <returns>
 		/// true if producing debug information, false if not.
 		/// </returns>
-		bool IsDebug();
+		bool IsDebug()
+		{
+			return this->_doDebug;
+		}
 
 		/// <summary>
 		///	Whether or not this ChainHelper instance is an event, meaning it will only allow one NodeBase
@@ -62,7 +82,10 @@ namespace N2f
 		/// <returns>
 		/// true if event, false if not.
 		/// </returns>
-		bool IsEvent();
+		bool IsEvent()
+		{
+			return this->_isEvent;
+		}
 
 		/// <summary>
 		/// Links a node into the ChainHelper instance.
@@ -73,7 +96,22 @@ namespace N2f
 		/// <returns>
 		/// A reference to the ChainHelper instance.
 		/// </returns>
-		ChainHelper &LinkNode(std::shared_ptr<NodeBase> Node);
+		ChainHelper &LinkNode(std::shared_ptr<NodeBase<T>> Node)
+		{
+			if (!Node->IsValid())
+			{
+				return *this;
+			}
+
+			if (this->_isEvent && this->_nodes.size() == 1)
+			{
+				this->_nodes.pop_back();
+			}
+
+			this->_nodes.push_back(Node);
+
+			return *this;
+		}
 
 		/// <summary>
 		/// Triggers the traversal of the chain.
@@ -87,6 +125,54 @@ namespace N2f
 		/// <returns>
 		/// true if traversal happens, false if it fails.
 		/// </returns>
-		bool Traverse(void *Sender, std::shared_ptr<DispatchBase> Dispatch);
+		bool Traverse(void *Sender, std::shared_ptr<T> Dispatch)
+		{
+			if (!this->instanceof<DispatchBase>(Dispatch))
+			{
+				return false;
+			}
+
+			if (this->_nodes.size() < 1)
+			{
+				return false;
+			}
+			else if (!Dispatch->IsValid())
+			{
+				return false;
+			}
+			else if (Dispatch->IsConsumable() && Dispatch->IsConsumed())
+			{
+				return false;
+			}
+			else
+			{
+				bool isConsumable = Dispatch->IsConsumable();
+
+				if (this->_isEvent)
+				{
+					this->_nodes.back()->Process(Sender, Dispatch);
+				}
+				else
+				{
+					for (auto n : this->_nodes)
+					{
+						n->Process(Sender, Dispatch);
+
+						if (isConsumable && Dispatch->IsConsumed())
+						{
+							break;
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+	private:
+		template<typename Base, typename T>
+		inline bool instanceof(const std::shared_ptr<T> ptr) {
+			return std::is_base_of<Base, T>::value;
+		}
 	};
 }

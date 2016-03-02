@@ -3,21 +3,21 @@
 #include <UnitTest++/UnitTest++.h>
 #include <N2f.hpp>
 
-class ValidBaseNode : public N2f::NodeBase
+class ValidBaseNode : public N2f::NodeBase<N2f::DispatchBase>
 {
 public:
 	ValidBaseNode()
-		: N2f::NodeBase("ValidBaseNode", "0.0.1")
+		: N2f::NodeBase<N2f::DispatchBase>("ValidBaseNode", "0.0.1")
 	{ }
 
 	void Process(void *Sender, std::shared_ptr<N2f::DispatchBase> Dispatch) { }
 };
 
-class InvalidBaseNode : public N2f::NodeBase
+class InvalidBaseNode : public N2f::NodeBase<N2f::DispatchBase>
 {
 public:
 	InvalidBaseNode()
-		: N2f::NodeBase("", "")
+		: N2f::NodeBase<N2f::DispatchBase>("", "")
 	{ }
 
 	void Process(void *Sender, std::shared_ptr<N2f::DispatchBase> Dispatch) { }

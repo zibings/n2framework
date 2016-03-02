@@ -82,10 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseClasses\DispatchBase.cpp" />
-    <ClCompile Include="src\BaseClasses\NodeBase.cpp" />
     <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\Dispatches\CliDispatch.cpp" />
-    <ClCompile Include="src\Helpers\ChainHelper.cpp" />
     <ClCompile Include="src\Logger.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
