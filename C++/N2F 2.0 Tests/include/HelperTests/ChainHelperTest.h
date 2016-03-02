@@ -125,6 +125,32 @@ public:
 	}
 };
 
+class OneEventNode : public IntegerNode
+{
+public:
+	OneEventNode() : IntegerNode("OneEventNode", "1") { }
+
+	void Process(void *Sender, std::shared_ptr<IntegerDispatch> Dispatch)
+	{
+		Dispatch->SetResult(5);
+
+		return;
+	}
+};
+
+class TwoEventNode : public IntegerNode
+{
+public:
+	TwoEventNode() : IntegerNode("TwoEventNode", "1") { }
+
+	void Process(void *Sender, std::shared_ptr<IntegerDispatch> Dispatch)
+	{
+		Dispatch->SetResult(10);
+
+		return;
+	}
+};
+
 /* Tests */
 
 SUITE(ChainHelperTest)
@@ -260,5 +286,35 @@ SUITE(ChainHelperTest)
 		chain.Traverse(nullptr, disp);
 
 		CHECK_EQUAL(2, disp->GetResults()[0]);
+	}
+
+	TEST(EventChainReturnsCorrectCount)
+	{
+		N2f::ChainHelper<IntegerDispatch> chain(true, false);
+
+		chain.LinkNode(std::make_shared<OneEventNode>());
+		chain.LinkNode(std::make_shared<TwoEventNode>());
+
+		auto disp = std::make_shared<ConsumableStatefulDispatch>();
+		disp->Initialize();
+
+		chain.Traverse(nullptr, disp);
+
+		CHECK_EQUAL(1, disp->GetResults().size());
+	}
+
+	TEST(EventChainReturnsCorrectValue)
+	{
+		N2f::ChainHelper<IntegerDispatch> chain(true, false);
+
+		chain.LinkNode(std::make_shared<OneEventNode>());
+		chain.LinkNode(std::make_shared<TwoEventNode>());
+
+		auto disp = std::make_shared<ConsumableStatefulDispatch>();
+		disp->Initialize();
+
+		chain.Traverse(nullptr, disp);
+
+		CHECK_EQUAL(10, disp->GetResults()[0]);
 	}
 }
