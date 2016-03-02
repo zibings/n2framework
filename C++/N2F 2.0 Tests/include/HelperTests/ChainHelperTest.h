@@ -3,8 +3,9 @@
 #include <UnitTest++/UnitTest++.h>
 #include <N2f.hpp>
 
-#include <iostream>
 #include <vector>
+
+/* Dispatches */
 
 class IntegerDispatch : public N2f::DispatchBase
 {
@@ -60,13 +61,14 @@ public:
 	ConsumableNonStatefulDispatch() { this->_result = -1; }
 	void Initialize() { this->MakeConsumable(); this->MakeValid(); }
 	int NumResults() { return this->_result == -1 ? 0 : 1; }
-	void SetResult() { }
-	void SetResults(int Result) { this->_result = Result; }
+	void SetResult(int Result) { this->_result = Result; }
 	const std::vector<int> GetResults() { return std::vector<int>(1, this->_result); }
 
 private:
 	int _result;
 };
+
+/* Nodes */
 
 class IntegerNode : public N2f::NodeBase<IntegerDispatch>
 {
@@ -123,6 +125,8 @@ public:
 	}
 };
 
+/* Tests */
+
 SUITE(ChainHelperTest)
 {
 	TEST(NonConsumableStatefulChainGetsCorrectCount)
@@ -142,7 +146,7 @@ SUITE(ChainHelperTest)
 		CHECK_EQUAL(4, disp->GetResults().size());
 	}
 
-	TEST(ConsumableStatefulDispatchGetsCorrectCount)
+	TEST(ConsumableStatefulChainGetsCorrectCount)
 	{
 		N2f::ChainHelper<IntegerDispatch> chain;
 
@@ -157,5 +161,104 @@ SUITE(ChainHelperTest)
 		chain.Traverse(nullptr, disp);
 
 		CHECK_EQUAL(3, disp->GetResults().size());
+	}
+
+	TEST(NonConsumableNonStatefulChainGetsCorrectCount)
+	{
+		N2f::ChainHelper<IntegerDispatch> chain;
+
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+
+		auto disp = std::make_shared<NonConsumableNonStatefulDispatch>();
+		disp->Initialize();
+
+		chain.Traverse(nullptr, disp);
+
+		CHECK_EQUAL(1, disp->GetResults().size());
+	}
+
+	TEST(ConsumableNonStatefulChainGetsCorrectCount)
+	{
+		N2f::ChainHelper<IntegerDispatch> chain;
+
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<ConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+
+		auto disp = std::make_shared<ConsumableNonStatefulDispatch>();
+		disp->Initialize();
+
+		chain.Traverse(nullptr, disp);
+
+		CHECK_EQUAL(1, disp->GetResults().size());
+	}
+
+	TEST(NonConsumableStatefulChainGetsCorrectValue)
+	{
+		N2f::ChainHelper<IntegerDispatch> chain;
+
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<ConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+
+		auto disp = std::make_shared<NonConsumableStatefulDispatch>();
+		disp->Initialize();
+
+		chain.Traverse(nullptr, disp);
+
+		CHECK_EQUAL(3, disp->GetResults()[3]);
+	}
+
+	TEST(ConsumableStatefulChainGetsCorrectValue)
+	{
+		N2f::ChainHelper<IntegerDispatch> chain;
+
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<ConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+
+		auto disp = std::make_shared<ConsumableStatefulDispatch>();
+		disp->Initialize();
+
+		chain.Traverse(nullptr, disp);
+
+		CHECK_EQUAL(2, disp->GetResults()[2]);
+	}
+
+	TEST(NonConsumableNonStatefulChainGetsCorrectValue)
+	{
+		N2f::ChainHelper<IntegerDispatch> chain;
+
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<ConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+
+		auto disp = std::make_shared<NonConsumableNonStatefulDispatch>();
+		disp->Initialize();
+
+		chain.Traverse(nullptr, disp);
+
+		CHECK_EQUAL(3, disp->GetResults()[0]);
+	}
+
+	TEST(ConsumableNonStatefulChainGetsCorrectValue)
+	{
+		N2f::ChainHelper<IntegerDispatch> chain;
+
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<ConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+
+		auto disp = std::make_shared<ConsumableNonStatefulDispatch>();
+		disp->Initialize();
+
+		chain.Traverse(nullptr, disp);
+
+		CHECK_EQUAL(2, disp->GetResults()[0]);
 	}
 }
