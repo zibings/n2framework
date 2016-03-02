@@ -21,7 +21,7 @@ namespace N2f
 		/// <summary>
 		/// Default constructor, chain will not be an event and will not debug.
 		/// </summary>
-		ChainHelper() : this(false, false) { }
+		ChainHelper() : ChainHelper<T>(false, false) { }
 
 		/// <summary>
 		/// Main constructor, allows specification of event and debug statuses.

@@ -127,7 +127,7 @@ SUITE(ChainHelperTest)
 {
 	TEST(NonConsumableStatefulChainGetsCorrectCount)
 	{
-		N2f::ChainHelper<IntegerDispatch> chain(false, true);
+		N2f::ChainHelper<IntegerDispatch> chain;
 
 		chain.LinkNode(std::make_shared<NonConsumerNode>());
 		chain.LinkNode(std::make_shared<NonConsumerNode>());
@@ -140,5 +140,22 @@ SUITE(ChainHelperTest)
 		chain.Traverse(nullptr, disp);
 
 		CHECK_EQUAL(4, disp->GetResults().size());
+	}
+
+	TEST(ConsumableStatefulDispatchGetsCorrectCount)
+	{
+		N2f::ChainHelper<IntegerDispatch> chain;
+
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+		chain.LinkNode(std::make_shared<ConsumerNode>());
+		chain.LinkNode(std::make_shared<NonConsumerNode>());
+
+		auto disp = std::make_shared<ConsumableStatefulDispatch>();
+		disp->Initialize();
+
+		chain.Traverse(nullptr, disp);
+
+		CHECK_EQUAL(3, disp->GetResults().size());
 	}
 }
