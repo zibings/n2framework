@@ -94,7 +94,6 @@ public:
 		}
 
 		Dispatch->SetResult(newResult);
-		std::cout << "Just gave the dispatch the following result: " << newResult << std::endl;
 		
 		return;
 	}
