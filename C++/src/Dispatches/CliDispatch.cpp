@@ -1,4 +1,4 @@
-#include <Dispatches/CliDispatch.hpp>
+#include "Dispatches/CliDispatch.hpp"
 
 CliDispatch::CliDispatch()
 {
@@ -25,7 +25,7 @@ void CliDispatch::Initialize()
 
 int CliDispatch::NumResults()
 {
-	return this->rawParams.size();
+	return (int)this->rawParams.size();
 }
 
 void CliDispatch::SetResult()

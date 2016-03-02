@@ -1,6 +1,6 @@
 #pragma once
 
-#include <BaseClasses/DispatchBase.hpp>
+#include "DispatchBase.hpp"
 #include <memory>
 
 #define MAX_NODE_KEY_LENGTH 256

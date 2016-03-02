@@ -22,7 +22,7 @@ class NonConsumableStatefulDispatch : public IntegerDispatch
 {
 public:
 	void Initialize() { this->MakeStateful(); this->MakeValid(); }
-	int NumResults() { return this->_results.size(); }
+	int NumResults() { return (int)this->_results.size(); }
 	void SetResult(int Result) { this->_results.push_back(Result); }
 	const std::vector<int> GetResults() { return this->_results; }
 
@@ -34,7 +34,7 @@ class ConsumableStatefulDispatch : public IntegerDispatch
 {
 public:
 	void Initialize() { this->MakeConsumable(); this->MakeStateful(); this->MakeValid(); }
-	int NumResults() { return this->_results.size(); }
+	int NumResults() { return (int)this->_results.size(); }
 	void SetResult(int Result) { this->_results.push_back(Result); }
 	const std::vector<int> GetResults() { return this->_results; }
 

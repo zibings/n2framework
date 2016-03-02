@@ -1,6 +1,7 @@
 #pragma once
 
-#include <BaseClasses/NodeBase.hpp>
+#include "../BaseClasses/NodeBase.hpp"
+
 #include <memory>
 #include <vector>
 

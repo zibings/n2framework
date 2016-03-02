@@ -1,6 +1,6 @@
 #pragma once
 
-#include <BaseClasses/DispatchBase.hpp>
+#include "../BaseClasses/DispatchBase.hpp"
 
 #include <algorithm>
 #include <map>
