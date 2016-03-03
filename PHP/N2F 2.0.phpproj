@@ -62,6 +62,7 @@
     <Compile Include="N2f\Includes\Core.inc.php" />
     <Compile Include="N2f\Includes\Functions.inc.php" />
     <Compile Include="N2f\Includes\index.php" />
+    <Compile Include="Tests\BaseTest.php" />
     <Compile Include="Tests\FunctionTest.php" />
     <Compile Include="Tests\TestSetup.php" />
   </ItemGroup>
