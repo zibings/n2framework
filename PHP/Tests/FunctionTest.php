@@ -11,12 +11,15 @@
 			$arguments = array(
 				'test',
 				'test2',
-				'test3'
+				'test3',
+				'test4=test',
+				'-test5',
+				'value5'
 			);
 
 			$args = env_parse_params($arguments);
 
-			$this->assertEquals(3, count($args));
+			$this->assertEquals(5, count($args));
 
 			return;
 		}
@@ -62,7 +65,7 @@
 		public function testParamsAssignedValues() {
 			$arguments = array(
 				'test=value',
-				'test2="howdy mom!"',
+				'test2=howdy mom!',
 				'-test3',
 				'value3'
 			);
@@ -73,7 +76,7 @@
 
 			$this->assertEquals('value', $args['test']);
 			$this->assertEquals('howdy mom!', $args['test2']);
-			$this->assertEquals('test3', $args['test3']);
+			$this->assertEquals('value3', $args['test3']);
 
 			return;
 		}
