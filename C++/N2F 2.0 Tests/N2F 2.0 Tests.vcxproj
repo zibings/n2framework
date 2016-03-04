@@ -168,7 +168,7 @@
     <ClCompile Include="src\N2F Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\N2F 2.0\N2F 2.0.vcxproj">
+    <ProjectReference Include="..\N2F 2.0.vcxproj">
       <Project>{5e0607e6-5397-45a7-82b2-5bb4364e8437}</Project>
     </ProjectReference>
   </ItemGroup>

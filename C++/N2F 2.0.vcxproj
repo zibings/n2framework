@@ -70,23 +70,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.lib</TargetExt>
-    <IncludePath>$(SolutionDir)C++\include;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)C++\$(Configuration)\$(Platform)\</OutDir>
+    <IncludePath>$(ProjectDir)include\;$(IncludePath)</IncludePath>
+    <OutDir>$(ProjectDir)$(Configuration)\$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetExt>.lib</TargetExt>
-    <IncludePath>$(SolutionDir)C++\include;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)C++\$(Configuration)\$(Platform)\</OutDir>
+    <IncludePath>$(ProjectDir)include\;$(IncludePath)</IncludePath>
+    <OutDir>$(ProjectDir)$(Configuration)\$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.lib</TargetExt>
-    <IncludePath>$(SolutionDir)C++\include;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)C++\$(Configuration)\$(Platform)\</OutDir>
+    <IncludePath>$(ProjectDir)include\;$(IncludePath)</IncludePath>
+    <OutDir>$(ProjectDir)$(Configuration)\$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetExt>.lib</TargetExt>
-    <IncludePath>$(SolutionDir)C++\include;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)C++\$(Configuration)\$(Platform)\</OutDir>
+    <IncludePath>$(ProjectDir)include\;$(IncludePath)</IncludePath>
+    <OutDir>$(ProjectDir)$(Configuration)\$(Platform)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -129,19 +129,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\BaseClasses\DispatchBase.hpp" />
-    <ClInclude Include="..\include\BaseClasses\NodeBase.hpp" />
-    <ClInclude Include="..\include\Config.hpp" />
-    <ClInclude Include="..\include\Dispatches\CliDispatch.hpp" />
-    <ClInclude Include="..\include\Helpers\ChainHelper.hpp" />
-    <ClInclude Include="..\include\Logger.hpp" />
-    <ClInclude Include="..\include\N2f.hpp" />
+    <ClInclude Include="include\BaseClasses\DispatchBase.hpp" />
+    <ClInclude Include="include\BaseClasses\NodeBase.hpp" />
+    <ClInclude Include="include\Config.hpp" />
+    <ClInclude Include="include\Dispatches\CliDispatch.hpp" />
+    <ClInclude Include="include\Helpers\ChainHelper.hpp" />
+    <ClInclude Include="include\Logger.hpp" />
+    <ClInclude Include="include\N2f.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\BaseClasses\DispatchBase.cpp" />
-    <ClCompile Include="..\src\Config.cpp" />
-    <ClCompile Include="..\src\Dispatches\CliDispatch.cpp" />
-    <ClCompile Include="..\src\Logger.cpp" />
+    <ClCompile Include="src\BaseClasses\DispatchBase.cpp" />
+    <ClCompile Include="src\Config.cpp" />
+    <ClCompile Include="src\Dispatches\CliDispatch.cpp" />
+    <ClCompile Include="src\Logger.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
