@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N2F 2.0 Tests", "C++\N2F 2.0 Tests\N2F 2.0 Tests.vcxproj", "{27F092CD-B652-46A8-9615-C575F6B63727}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N2F 2.0", "C++\N2F 2.0\N2F 2.0.vcxproj", "{5E0607E6-5397-45A7-82B2-5BB4364E8437}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N2F 2.0", "C++\N2F 2.0.vcxproj", "{5E0607E6-5397-45A7-82B2-5BB4364E8437}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
