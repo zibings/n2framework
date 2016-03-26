@@ -62,6 +62,10 @@
 		public function Initialize($Input) {
 			parent::Initialize($Input);
 
+			if (!$this->IsValid()) {
+				return;
+			}
+
 			if ($this->_Ch->NumArgs() > 3) {
 				$this->_IsInteractive = false;
 			}

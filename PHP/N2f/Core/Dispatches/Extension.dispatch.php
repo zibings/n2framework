@@ -50,10 +50,6 @@
 		 * @return void
 		 */
 		public function Initialize($Input) {
-			if ($Input === null || !is_array($Input) || !array_key_exists('ConsoleHelper', $Input) || !array_key_exists('Config', $Input)) {
-				return;
-			}
-
 			parent::Initialize($Input);
 
 			if (!$this->IsValid()) {
@@ -71,8 +67,8 @@
 
 			$Keys = array_keys($Params);
 
-            $this->_Action = $Keys[2];
-            $this->_Ext = $Keys[3];
+			$this->_Action = $Keys[2];
+			$this->_Ext = $Keys[3];
 
 			if ($this->_Action != 'add' && $this->_Action != 'remove') {
 				return;
