@@ -100,5 +100,36 @@
 
 		#endregion
 
+		#region GenerateDispatch
+
+		public function testGenerateDispatch_setsAsInvalidWithoutCliInitializers() {
+			$disp = new N2f\GenerateDispatch();
+			$disp->Initialize('test');
+
+			$this->assertEquals(false, $disp->IsValid());
+		}
+
+		public function testGenerateDispatch_setsTypeCorrectly() {
+			$ch = new N2f\ConsoleHelper(3, array('n2f-cli', 'generate', '-type', 'extension'));
+
+			$disp = new N2f\GenerateDispatch();
+			$disp->Initialize(array('ConsoleHelper' => $ch));
+
+			$this->assertEquals(true, $disp->IsValid());
+			$this->assertEquals('extension', $disp->GetEntityType());
+		}
+
+		public function testGenerateDispatch_setsFileHelperCorrectly() {
+			$ch = new N2f\ConsoleHelper(3, array('n2f-cli', 'generate', '-type', 'extension'));
+			$fh = new N2f\FileHelper('..\my_rel_dir');
+
+			$disp = new N2f\GenerateDispatch();
+			$disp->Initialize(array('ConsoleHelper' => $ch, 'FileHelper' => $fh));
+
+			$this->assertEquals('..\my_rel_dir', $disp->GetFileHelper()->GetRelDir());
+		}
+
+		#endregion
+
 		// test*_setsAsInvalidWithoutCliInitializers
 	}
