@@ -19,14 +19,14 @@
 		 * 
 		 * @var string
 		 */
-		private static $_InputString = '';
+		protected static $_InputString = '';
 		/**
 		 * Static instance of whether or not request
 		 * is JSON.
 		 * 
 		 * @var bool
 		 */
-		private static $_IsJson = null;
+		protected static $_IsJson = null;
 
 		/**
 		 * Retrieves and checks certain pieces of

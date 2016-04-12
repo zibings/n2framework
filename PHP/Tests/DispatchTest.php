@@ -1,5 +1,26 @@
 <?php
 
+	class JsonRequestHelperMock extends N2f\RequestHelper {
+		public function __construct($JsonData) {
+			self::$_InputString = $JsonData;
+
+			return;
+		}
+
+		protected static function ReadInput() {
+			$Ret = new N2f\ReturnHelper();
+			$Ret->SetGud();
+
+			return $Ret;
+		}
+	}
+
+	class NonJsonRequestHelperMock extends N2f\RequestHelper {
+		public function IsJson() {
+			return false;
+		}
+	}
+
 	class DispatchTest extends PHPUnit_Framework_TestCase {
 		#region CliDispatch
 
@@ -131,5 +152,48 @@
 
 		#endregion
 
-		// test*_setsAsInvalidWithoutCliInitializers
+		#region JsonDispatch
+
+		public function testJsonDispatch_setsAsInvalidWithoutRequestHelperInitializeInput() {
+			$disp = new N2f\JsonDispatch();
+
+			$disp->Initialize(array());
+			$this->assertEquals(false, $disp->IsValid());
+
+			$disp->Initialize('test');
+			$this->assertEquals(false, $disp->IsValid());
+
+			$disp->Initialize(new N2f\ConsoleHelper());
+			$this->assertEquals(false, $disp->IsValid());
+		}
+
+		public function testJsonDispatch_setsAsValidWithRequestHelperInitializeInput() {
+			// Mock this for CLI invocations
+			$_SERVER['REQUEST_METHOD'] = 'GET';
+
+			$disp = new N2f\JsonDispatch();
+			$disp->Initialize(new JsonRequestHelperMock("{\"test\": true}"));
+
+			$this->assertEquals(true, $disp->IsValid());
+		}
+
+		public function testJsonDispatch_setsAsInvalidForNonJsonRequestInitializeInput() {
+			// Mock this for CLI invocations
+			$_SERVER['REQUEST_METHOD'] = 'GET';
+
+			$rh = new NonJsonRequestHelperMock();
+
+			if ($rh->IsJson()) {
+				$this->assertEquals(false, true);
+
+				return;
+			}
+
+			$disp = new N2f\JsonDispatch();
+			$disp->Initialize($rh);
+
+			$this->assertEquals(false, $disp->IsValid());
+		}
+
+		#endregion
 	}

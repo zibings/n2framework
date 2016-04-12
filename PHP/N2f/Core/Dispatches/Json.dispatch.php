@@ -58,6 +58,10 @@
 				return;
 			}
 
+			if (!$Input->IsJson()) {
+				return;
+			}
+
 			$this->_Data = $Input->GetInput();
 			$this->_RequestHelper = $Input;
 
