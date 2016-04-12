@@ -71,6 +71,8 @@
     <Content Include="composer.json" />
     <Content Include="n2f-cli" />
     <Content Include="n2f-cli.bat" />
+    <Content Include="n2f-test" />
+    <Content Include="n2f-test.bat" />
     <Content Include="N2f\Core\Templates\SampleConfig.cfg" />
     <Content Include="N2f\Extensions\SampleExtension\SampleExtension.cfg" />
     <Content Include="N2f\Includes\N2f.cfg" />
