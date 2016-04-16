@@ -11,20 +11,27 @@
 	$Fh = new N2f\FileHelper(N2F_REL_DIR);
 	$Ch = new N2f\ConsoleHelper((isset($argc)) ? $argc : 0, (isset($argv)) ? $argv : array());
 
-	// This is the one exception to running without config....to set up (or change) config
-	if ($Ch->IsCLI() && $Ch->CompareArgAt(1, 'config') && ($Ch->NumArgs() == 2 || !$Ch->HasArg('ext'))) {
-		$Ch->PutLine();
-		$Ch->PutLine("You are requesting to configure your installation.  Bully for you!");
+	// These are thew two exceptions to running without config....to set up (or change) config OR ask our version
+	if ($Ch->IsCLI()) {
+		if ($Ch->CompareArgAt(1, 'config') && ($Ch->NumArgs() == 2 || !$Ch->HasArg('ext'))) {
+			$Ch->PutLine();
+			$Ch->PutLine("You are requesting to configure your installation.  Bully for you!");
 
-		$Disp = new N2f\CliDispatch();
-		$Disp->Initialize(array('relDir' => $Fh->GetRelDir(), 'ConsoleHelper' => $Ch));
+			$Disp = new N2f\CliDispatch();
+			$Disp->Initialize(array('relDir' => $Fh->GetRelDir(), 'ConsoleHelper' => $Ch));
 
-		$Chain = new N2f\ChainHelper(true);
-		$Chain->LinkNode(new N2f\CoreConfig);
-		$Chain->Traverse($Disp);
+			$Chain = new N2f\ChainHelper(true);
+			$Chain->LinkNode(new N2f\CoreConfig);
+			$Chain->Traverse($Disp);
 
-		$Ch->PutLine();
-		exit;
+			$Ch->PutLine();
+			exit;
+		} else if ($Ch->HasArg('version') || $Ch->HasArg('v')) {
+			$Ch->PutLine();
+			$Ch->PutLine("Running N2Framework v" . N2F_VERSION);
+
+			exit;
+		}
 	}
 
 	// If we're here, we're not setting up config, so we better have it
