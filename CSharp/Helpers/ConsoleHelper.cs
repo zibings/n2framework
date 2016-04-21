@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace N2f
 {
@@ -52,24 +53,12 @@ namespace N2f
 				Console.Title = "Testing";
 				this._IsCLI = true;
 			}
-			catch (Exception e)
+			catch
 			{
 				this._IsCLI = false;
 			}
 
-			switch (Environment.OSVersion.Platform)
-			{
-				case PlatformID.MacOSX:
-				case PlatformID.Unix:
-					this._IsWindows = false;
-
-					break;
-				default:
-					this._IsWindows = true;
-
-					break;
-			}
-
+			this._IsWindows = (Path.DirectorySeparatorChar == '\\') ? true : false;
 			this._Arguments = (Arguments != null) ? Arguments : new string[0];
 			this._ParsedArguments = this.ParseArguments(this._Arguments);
 			this._ForceCLI = ForceCLI;
