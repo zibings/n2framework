@@ -26,13 +26,14 @@
     <Compile Include="N2f\Core\Dispatches\Extension.dispatch.php" />
     <Compile Include="N2f\Core\Dispatches\Generate.dispatch.php" />
     <Compile Include="N2f\Core\Dispatches\index.php" />
+    <Compile Include="N2f\Core\Dispatches\JsonRaw.dispatch.php" />
+    <Compile Include="N2f\Core\Dispatches\JsonWeb.dispatch.php" />
     <Compile Include="N2f\Core\Dispatches\Log.dispatch.php" />
     <Compile Include="N2f\Core\Dispatches\LogOutput.dispatch.php" />
     <Compile Include="N2f\Core\Dispatches\Shutdown.dispatch.php" />
     <Compile Include="N2f\Core\Dispatches\Web.dispatch.php" />
     <Compile Include="N2f\Core\Helpers\ChainHelper.cls.php" />
     <Compile Include="N2f\Core\Helpers\ConsoleHelper.cls.php" />
-    <Compile Include="N2f\Core\Dispatches\Json.dispatch.php" />
     <Compile Include="N2f\Core\Extension.cls.php" />
     <Compile Include="N2f\Core\Helpers\FileHelper.cls.php" />
     <Compile Include="N2f\Core\BaseClasses\Dispatch.base.php" />

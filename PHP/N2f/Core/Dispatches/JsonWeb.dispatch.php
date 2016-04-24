@@ -10,10 +10,10 @@
 	 *
 	 * @version 1.0
 	 * @author Andrew Male
-	 * @copyright 2014-2015 Zibings.com
+	 * @copyright 2014-2016 Zibings.com
 	 * @package N2F
 	 */
-	class JsonDispatch extends DispatchBase {
+	class JsonWebDispatch extends JsonRawDispatch {
 		/**
 		 * Instance of RequestHelper.
 		 * 
@@ -26,23 +26,16 @@
 		 * @var \N2f\RequestType
 		 */
 		protected $_RequestType;
-		/**
-		 * Request data container.
-		 * 
-		 * @var \N2f\ParameterHelper
-		 */
-		protected $_Data;
 
 		/**
-		 * Create an instance of JsonDispatch.
+		 * Create an instance of JsonWebDispatch.
 		 * 
 		 * @return void
 		 */
 		public function __construct() {
-			$this->MakeConsumable();
+			parent::__construct();
 
 			$this->_RequestHelper = null;
-			$this->_Data = new ParameterHelper();
 
 			return;
 		}
@@ -62,10 +55,14 @@
 				return;
 			}
 
-			$this->_Data = $Input->GetInput();
 			$this->_RequestHelper = $Input;
+			$server = $Input->GetEnv(new EnvironmentInfo(EnvironmentInfo::SERVER));
 
-			switch ($_SERVER['REQUEST_METHOD']) {
+			if (!$server->HasValue('REQUEST_METHOD')) {
+				return;
+			}
+
+			switch (strtoupper($server->GetString('REQUEST_METHOD'))) {
 				case 'PUT':
 					$this->_RequestType = new RequestType(RequestType::PUT);
 					
@@ -96,19 +93,9 @@
 					break;
 			}
 
-			$this->MakeValid();
+			parent::Initialize($Input->GetInput());
 
 			return;
-		}
-
-		/**
-		 * Returns true or false based on the presence of the parameter value.
-		 * 
-		 * @param mixed $Key String or integer representing the value's key.
-		 * @return bool True if key exists in data container.
-		 */
-		public function ParamExists($Key) {
-			return $this->_Data->HasValue($Key);
 		}
 
 		/**
@@ -118,24 +105,5 @@
 		 */
 		public function GetRequestType() {
 			return $this->_RequestType;
-		}
-
-		/**
-		 * Returns all parameters from the request.
-		 * 
-		 * @return \N2f\ParameterHelper The data container for the dispatch.
-		 */
-		public function GetParams() {
-			return $this->_Data;
-		}
-
-		/**
-		 * Returns the requested environment information.
-		 * 
-		 * @param \N2f\EnvironmentInfo $EnvInfo Optional environment info specifier (returns SERVER when not specified).
-		 * @return \N2f\ParameterHelper A new data container for the specified environment info.
-		 */
-		public function GetEnv($EnvInfo = null) {
-			return $this->_RequestHelper->GetEnv($EnvInfo);
 		}
 	}
