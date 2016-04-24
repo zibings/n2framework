@@ -10,7 +10,7 @@
 	 *
 	 * @version 1.0
 	 * @author Chris Butcher
-	 * @copyright 2014-2015 Zibings.com
+	 * @copyright 2014-2016 Zibings.com
 	 * @package N2F
 	 */
 	class AutoLoader {

@@ -10,7 +10,7 @@
 	 *
 	 * @version 1.0
 	 * @author Andrew Male
-	 * @copyright 2014-2015 Zibings.com
+	 * @copyright 2014-2016 Zibings.com
 	 * @package N2F
 	 */
 	abstract class NodeBase {
