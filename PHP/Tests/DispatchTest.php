@@ -1,5 +1,7 @@
 <?php
 
+	#region Mocks
+
 	class JsonRequestHelperMock extends N2f\RequestHelper {
 		public function __construct($JsonData) {
 			self::$_InputString = $JsonData;
@@ -20,6 +22,14 @@
 			return false;
 		}
 	}
+
+	class MockJsonHelper extends N2f\JsonHelper {
+		public function __construct() {
+			parent::__construct();
+		}
+	}
+
+	#endregion
 
 	class DispatchTest extends PHPUnit_Framework_TestCase {
 		#region CliDispatch
@@ -152,47 +162,40 @@
 
 		#endregion
 
-		#region JsonDispatch
+		#region JsonRawDispatch
 
-		public function testJsonDispatch_setsAsInvalidWithoutRequestHelperInitializeInput() {
-			$disp = new N2f\JsonDispatch();
+		public function testJsonRawDispatch_setsAsInvalidWithNoInput() {
+			$disp = new N2f\JsonRawDispatch();
+			$disp->Initialize(null);
 
-			$disp->Initialize(array());
-			$this->assertEquals(false, $disp->IsValid());
-
-			$disp->Initialize('test');
-			$this->assertEquals(false, $disp->IsValid());
-
-			$disp->Initialize(new N2f\ConsoleHelper());
 			$this->assertEquals(false, $disp->IsValid());
 		}
 
-		public function testJsonDispatch_setsAsValidWithRequestHelperInitializeInput() {
-			// Mock this for CLI invocations
-			$_SERVER['REQUEST_METHOD'] = 'GET';
-
-			$disp = new N2f\JsonDispatch();
-			$disp->Initialize(new JsonRequestHelperMock("{\"test\": true}"));
+		public function testJsonRawDispatch_setsAsValidWithSimpleJson() {
+			$disp = new N2f\JsonRawDispatch();
+			$disp->Initialize('5');
 
 			$this->assertEquals(true, $disp->IsValid());
+			$this->assertEquals('5', $disp->GetRaw());
+			$this->assertEquals('5', $disp->GetDecoded());
+			$this->assertEquals('5', $disp->GetDecodedAssoc());
 		}
 
-		public function testJsonDispatch_setsAsInvalidForNonJsonRequestInitializeInput() {
-			// Mock this for CLI invocations
-			$_SERVER['REQUEST_METHOD'] = 'GET';
+		public function testJsonRawDispatch_setsAsValidWithSimpleArrayJson() {
+			$disp = new N2f\JsonRawDispatch();
+			$disp->Initialize(array('Json' => '5'));
 
-			$rh = new NonJsonRequestHelperMock();
+			$this->assertEquals(true, $disp->IsValid());
+			$this->assertEquals('5', $disp->GetRaw());
+			$this->assertEquals('5', $disp->GetDecoded());
+			$this->assertEquals('5', $disp->GetDecodedAssoc());
+		}
 
-			if ($rh->IsJson()) {
-				$this->assertEquals(false, true);
+		public function testJsonRawDispatch_setsSameJsonHelperInstance() {
+			$disp = new N2f\JsonRawDispatch();
+			$disp->Initialize(array('Json' => '5', 'JsonHelper' => new MockJsonHelper()));
 
-				return;
-			}
-
-			$disp = new N2f\JsonDispatch();
-			$disp->Initialize($rh);
-
-			$this->assertEquals(false, $disp->IsValid());
+			$this->assertEquals(true, $disp->GetJsonHelper() instanceof MockJsonHelper);
 		}
 
 		#endregion

@@ -64,7 +64,7 @@
 				return;
 			}
 
-			if (is_array($Input) && (count($Input) < 1 || !array_key_exists('json', $Input))) {
+			if (is_array($Input) && (count($Input) < 1 || !array_key_exists('Json', $Input))) {
 				return;
 			}
 

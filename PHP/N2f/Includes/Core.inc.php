@@ -36,7 +36,8 @@
 		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Config.dispatch.php");
 		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Extension.dispatch.php");
 		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Generate.dispatch.php");
-		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Json.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "JsonRaw.dispatch.php");
+		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "JsonWeb.dispatch.php");
 		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Log.dispatch.php");
 		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "LogOutput.dispatch.php");
 		$Fh->Load(\N2f\N2fStrings::DirCoreDispatches . "Shutdown.dispatch.php");
