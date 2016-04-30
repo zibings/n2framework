@@ -547,7 +547,7 @@
 				$Disp = new CliDispatch();
 				$Disp->Initialize(array('relDir' => $this->_Fh->GetRelDir(), 'ConsoleHelper' => $this->_Ch));
 			} else if ($this->_Rh->IsJson()) {
-				$Disp = new JsonDispatch();
+				$Disp = new JsonWebDispatch();
 				$Disp->Initialize($this->_Rh);
 			} else {
 				$Disp = new WebDispatch();
