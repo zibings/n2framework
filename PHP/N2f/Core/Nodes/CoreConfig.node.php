@@ -219,9 +219,10 @@
 
 				$D['logger']['log_level'] = $CfgReportingLevel->GetResults();
 
+				$dlDef = ($D['logger']['dump_logs']) ? 'Y/n' : 'y/N';
 				$CfgDumpLogs = $Ch->GetQueriedInput(
 					"Dump Logs",
-					($D['logger']['dump_logs']) ? 'Y/n' : 'y/N',
+					$dlDef,
 					"Invalid option for dump logs.",
 					5,
 					function ($Value) { return !empty($Value) && (strtolower($Value) == 'y' || strtolower($Value) == 'n'); },
@@ -232,7 +233,11 @@
 					return;
 				}
 
-				$D['logger']['dump_logs'] = $CfgDumpLogs->GetResults();
+				$dlTmp = $CfgDumpLogs->GetResults();
+
+				if ($dlTmp != $dlDef) {
+					$D['logger']['dump_logs'] = $dlTmp;
+				}
 			}
 
 			$Fh->PutContents(N2fStrings::DirIncludes . "N2f.cfg", $Jh->EncodePretty($D));
