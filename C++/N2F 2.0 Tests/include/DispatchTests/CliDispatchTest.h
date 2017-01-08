@@ -36,11 +36,19 @@ SUITE(CliDispatchTest)
 	TEST(CliDispatchProducesCorrectVariantMapCount)
 	{
 		N2f::CliDispatch disp;
-		disp.Initialize(5, new char*[5] { "teSt", "-test2", "value", "test3=hey dude", "tEst" });
+		disp.Initialize(9, new char*[9] {
+			"teSt",
+			"-test2", "value",
+			"test3=hey dude",
+			"tEst",
+			"--alt1", "alt1val",
+			"-alt2",
+			"-alt2val"
+		});
 
 		auto paramMap = disp.GetParameterMap(false);
 
-		CHECK_EQUAL(4, paramMap.size());
+		CHECK_EQUAL(7, paramMap.size());
 	}
 
 	TEST(CliDispatchProduceCorreVariantMapValues)

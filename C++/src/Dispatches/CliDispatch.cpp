@@ -60,19 +60,21 @@ namespace N2f
 			{
 				auto param = tmp.substr((tmp.substr(1, 1) == "-") ? 2 : 1);
 				auto eq = param.find('=');
-				auto ds = param.find('-');
 
 				if (eq != std::string::npos && eq != (param.length() - 1))
 				{
 					this->insertMappedPair(param.substr(0, eq), param.substr(eq + 1));
 				}
-				else if (ds != std::string::npos && ds != (param.length() - 1))
-				{
-					this->insertMappedPair(param.substr(0, ds), param.substr(ds + 1));
-				}
 				else if ((i + 1) < argc)
 				{
-					this->insertMappedPair(param, argv[++i]);
+					if (argv[i + 1][0] == '-')
+					{
+						this->insertMappedPair(param, "true");
+					}
+					else
+					{
+						this->insertMappedPair(param, argv[++i]);
+					}
 				}
 				else
 				{
